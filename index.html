@@ -5413,13 +5413,13 @@ function runLocalSearch() {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const supabase = window.supabase.createClient(
+window.jpAuth = window.supabase.createClient(
   "https://svjctjqckfiehillebxx.supabase.co",
-  "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R"
+  "..."
 );
 
 window.loginGoogle = async function () {
-  const { error } = await supabase.auth.signInWithOAuth({
+  const { error } = await window.jpAuth.auth.signInWithOAuth({
     provider: "google",
     options: {
       redirectTo: window.location.origin
@@ -5433,14 +5433,14 @@ window.loginGoogle = async function () {
 };
 
 window.logout = async function () {
-  await supabase.auth.signOut();
+  await window.jpAuth.auth.signOut();
   location.reload();
 };
 
 window.checkUser = async function () {
   const {
     data: { user }
-  } = await supabase.auth.getUser();
+  } = await window.jpAuth.auth.getUser();
 
   const userInfo = document.getElementById("userInfo");
 
