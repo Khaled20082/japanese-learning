@@ -4965,18 +4965,6 @@ function renderKanji(level) {
 
         grid.appendChild(card);
     });
-
-const favBtn = card.querySelector(".favorite-btn");
-
-favBtn.addEventListener("click", (e) => {
-
-    e.stopPropagation();
-
-    word.difficult = !word.difficult;
-
-    favBtn.textContent =
-        word.difficult ? "⭐" : "☆";
-});
     }
 
 function renderVocabulary() {
