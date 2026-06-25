@@ -1,0 +1,5511 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アラビア語で日本🇯🇵 اليابان بالعربي</title>
+    <style>
+        :root {
+            --bg-color: #0d0d11;
+            --text-color: #f0f0f5;
+            --card-bg: #16161f;
+            --btn-bg: #ff4da6;
+            --btn-shadow: 0 0 15px #ff4da6;
+            --nav-bg: #16161f;
+            --accent-pink: #ffb3d9;
+            --cyan-color: #58bfbc;
+        }
+
+ body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-results {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.search-result-item {
+    background: #222;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+    background: #333;
+}
+
+        .navbar {
+            width: 100%;
+            background-color: var(--nav-bg);
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid rgba(255, 77, 166, 0.2);
+        }
+
+        .logo {
+            font-size: 34px; margin: 25px 0 15px 0; color: var(--btn-bg); text-shadow: var(--btn-shadow);
+        }
+
+        .page {
+            display: none;
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 950px;
+            box-sizing: border-box;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page.active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-section { text-align: center; width: 100%; }
+        .hero-title { font-size: 34px; margin: 25px 0 15px 0; color: var(--btn-bg); text-shadow: var(--btn-shadow); }
+
+        .info-card {
+            background-color: var(--card-bg);
+            border: 2px solid rgba(255, 77, 166, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .info-card h2 {
+            color: var(--btn-bg);
+            margin-top: 0;
+            font-size: 24px;
+            border-bottom: 2px solid rgba(255, 77, 166, 0.2);
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card p { line-height: 1.8; font-size: 18px; color: #e2e2e9; margin: 0; }
+
+        .main-nav{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:15px 0 25px;
+}
+
+        @media (max-width: 600px) { .main-nav { grid-template-columns: 1fr; } }
+
+      .nav-tab{
+    background:#16161f;
+    border:2px solid rgba(255,77,166,.35);
+    color:white;
+    padding:8px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.nav-tab:hover{
+    border-color:#ff4da6;
+}
+
+.nav-tab.active{
+    background:#ff4da6;
+    color:white;
+    box-shadow:0 0 15px #ff4da6;
+}
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: #1a1a24;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            color: white;
+        }
+
+        .social-btn svg { width: 28px; height: 28px; fill: currentColor; }
+        .social-btn:hover { transform: scale(1.15); box-shadow: 0 0 18px rgba(255, 77, 166, 0.4); border-color: var(--btn-bg); color: var(--btn-bg); }
+
+        /* القوائم والمجموعات */
+        .sub-menu { display: flex; gap: 12px; margin-bottom: 25px; justify-content: center; width: 100%; flex-wrap: wrap; }
+        .sub-btn { padding: 10px 20px; background-color: #222233; border: 2px solid rgba(255, 77, 166, 0.2); color: var(--text-color); border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 15px; transition: all 0.2s; }
+        .sub-btn.active, .sub-btn:hover { border-color: var(--btn-bg); box-shadow: var(--btn-shadow); color: #fff; background-color: var(--btn-bg); }
+
+        .sub-content { width: 100%; background-color: var(--card-bg); padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: none; text-align: center; box-sizing: border-box; }
+        .sub-content.active { display: block; }
+
+        .stages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .stage-box {
+            background-color: #1e1e2a;
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 15px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .stage-box.unlocked { border-color: var(--cyan-color); box-shadow: 0 4px 10px rgba(88, 191, 188, 0.15); }
+        .stage-box.active-running { border-color: var(--btn-bg); box-shadow: var(--btn-shadow); transform: scale(1.03); }
+        .stage-box.locked { opacity: 0.4; cursor: not-allowed; background-color: #111; border-color: #222; }
+        .stage-box .status-text { font-size: 12px; margin-top: 6px; color: #aaa; }
+
+        /* منطقة التدريب الكانا */
+        .practice-zone {
+            background: linear-gradient(145deg, #16161f, #1e1e2a);
+            padding: 35px 20px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 77, 166, 0.4);
+            box-shadow: 0 0 25px rgba(255, 77, 166, 0.15);
+            margin-top: 25px;
+            display: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .pz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .pz-title { font-size: 15px; background: rgba(255, 77, 166, 0.1); padding: 6px 14px; border-radius: 20px; color: var(--accent-pink); font-weight: bold; }
+        .pz-char {
+    font-size: 90px;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: "MS Mincho", serif;
+
+    width: 100%;
+    display: block;
+    text-align: center !important;
+    direction: ltr !important;
+}
+        .pz-hint { font-size: 18px; color: var(--accent-pink); min-height: 25px; margin-bottom: 15px; }
+        
+        .pz-input-wrapper { max-width: 280px; margin: 0 auto; }
+        .pz-input {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 30px;
+            border: 2px solid #333;
+            background: #0d0d11;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        .pz-input:focus { border-color: var(--btn-bg); box-shadow: 0 0 15px rgba(255, 77, 166, 0.4); }
+
+        .progress-track { width: 100%; height: 6px; background: #222; border-radius: 3px; margin-top: 20px; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--btn-bg), #ff99cc); width: 0%; transition: width 0.3s ease; }
+
+        /* مستودع الكانجي المتكامل للـ 5 مستويات */
+        .kanji-counter-badge {
+            background-color: rgba(88, 191, 188, 0.15);
+            color: var(--cyan-color);
+            padding: 7px 20px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .kanji-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .kanji-card {
+            background-color: var(--card-bg);
+            border: 2px solid rgba(88, 191, 188, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .kanji-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--cyan-color);
+            box-shadow: 0 5px 20px rgba(88, 191, 188, 0.3);
+        }
+
+        .kanji-main { font-size: 55px; color: #fff; font-weight: bold; margin-bottom: 10px; font-family: "MS Mincho", serif; }
+        .kanji-meaning { font-size: 18px; color: var(--btn-bg); font-weight: bold; margin-bottom: 5px; }
+        .kanji-reading { font-size: 13px; color: #aaa; line-height: 1.4; }
+.flip-card{
+    width:100%;
+    height:220px;
+    perspective:1000px;
+    cursor:pointer;
+}
+
+.flip-card-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform .6s;
+    transform-style:preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner{
+    transform:rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back{
+    position:absolute;
+    width:100%;
+    height:100%;
+    backface-visibility:hidden;
+    border-radius:15px;
+}
+
+.flip-card-front{
+    background-color:var(--card-bg);
+    border:2px solid rgba(88,191,188,.2);
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:15px;
+}
+
+.flip-card-back{
+    background:#1e1e2a;
+    border:2px solid var(--cyan-color);
+    transform:rotateY(180deg);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    padding:15px;
+    box-sizing:border-box;
+}
+
+.meaning{
+    color:#fff;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.onyomi{
+    color:#58bfbc;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.kunyomi{
+    color:#ff4da6;
+    font-size:16px;
+    font-weight:bold;
+}
+
+/* آخر شيء في CSS حقك */
+.search-box{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    width:100%;
+}
+
+.search-box input{
+    width:70%;
+    padding:12px 15px;
+    border-radius:30px;
+    border:2px solid #333;
+    background:#111;
+    color:#fff;
+    outline:none;
+}
+
+.search-results{
+    margin-top:25px;
+    width:100%;
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap:10px;
+}
+
+.result-card{
+    background:#1a1a24;
+    padding:12px;
+    border-radius:12px;
+    text-align:center;
+    border:1px solid #333;
+}
+
+.result-char{
+    font-size:28px;
+    color:#fff;
+}
+
+.result-text{
+    font-size:14px;
+    color:#aaa;
+}
+
+.logo{
+    display:inline-block;
+    background:#16161f;
+    border:2px solid #ff4da6;
+    border-radius:25px;
+    padding:15px 30px;
+    color:#fff;
+    font-weight:bold;
+    box-shadow:0 0 20px rgba(255,77,166,.4);
+}
+
+.navbar{
+    text-align:center;
+    margin:20px 0;
+}
+
+.hero-circle {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #ff4da6;
+    border-radius:25px;
+    padding:15px 30px;
+    max-width: 850px;
+    margin: 20px auto;
+    text-align: center;
+
+    backdrop-filter: blur(8px);
+
+    box-shadow:
+        0 0 20px rgba(255, 105, 180, 0.2);
+}
+
+.hero-circle h2 {
+    margin: 0 0 12px;
+}
+
+.hero-circle p {
+    margin: 0;
+    line-height: 1.8;
+}
+.favorite-btn{
+    width:100%;
+    margin-top:8px;
+    border:none;
+    border-radius:10px;
+    padding:8px;
+    font-size:20px;
+    cursor:pointer;
+}
+.sub-menu{
+    background:rgba(255,255,255,0.04);
+    border:2px solid rgba(255, 77, 166, 0.2);
+    border-radius:30px;
+    padding:10px;
+    margin-top:10px;
+}
+.review-buttons{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+    width:100%;
+}
+
+.review-buttons .sub-btn{
+    flex:1;
+    padding:10px;
+    font-size:20px;
+    font-weight:bold;
+}
+#flashcardPage .review-buttons{
+    display:flex;
+    gap:15px;
+    width:320px;
+    margin-top:40px;
+}
+}
+.flash-card{
+
+    width:320px;
+    height:420px;
+
+    margin:30px auto;
+
+    background:linear-gradient(
+        145deg,
+        #16161f,
+        #1e1e2a
+    );
+
+    border:2px solid rgba(255,77,166,.3);
+
+    border-radius:25px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:90px;
+    color:white;
+
+    cursor:pointer;
+
+    box-shadow:0 0 20px rgba(255,77,166,.15);
+
+    transition:.3s;
+}
+
+.flash-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 0 30px rgba(255,77,166,.25);
+
+}
+.flash-card {
+    width: 320px;
+    height: 420px;
+    margin: 30px auto;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flash-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flash-card.flipped .flash-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flash-front,
+.flash-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+
+    background: #1e1e2a;
+    border: 2px solid rgba(255,77,166,.3);
+    border-radius: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    color: white;
+}
+
+.flash-back {
+    transform: rotateY(180deg);
+}
+#savedWordsContainer{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+    width:100%;
+    margin-top:20px;
+}
+
+.saved-card{
+    background:#1e1e2a;
+    border:2px solid rgba(255,77,166,.3);
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+}
+
+.saved-card .j{
+    font-size:40px;
+    color:white;
+}
+
+.saved-card .h{
+    color:#58bfbc;
+    margin-top:8px;
+}
+
+.saved-card .a{
+    color:#ff4da6;
+    margin-top:5px;
+}
+.saved-card .sub-btn{
+    margin-top:12px;
+    width:100%;
+}
+</style>
+</head>
+<script>
+function runLocalSearch() {
+    const search = document
+        .getElementById("localSearchInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const results = document.getElementById("searchResults");
+    results.innerHTML = "";
+
+    if (!search) return;
+
+    let found = [];
+
+    const allKanji = [
+        ...kanjiN5,
+        ...kanjiN4,
+        ...kanjiN3,
+        ...kanjiN2,
+        ...kanjiN1
+    ];
+
+    allKanji.forEach(item => {
+        const text =
+            `${item.k} ${item.m} ${item.r}`.toLowerCase();
+
+        if (text.includes(search)) {
+            found.push(item);
+        }
+    });
+
+    if (found.length === 0) {
+        results.innerHTML = "<div>لا توجد نتائج</div>";
+        return;
+    }
+
+    found.forEach(item => {
+        const div = document.createElement("div");
+
+        div.className = "search-result-item";
+
+        div.innerHTML = `
+            <b style="font-size:30px">${item.k}</b><br>
+            ${item.m}<br>
+            ${item.r}
+        `;
+
+        results.appendChild(div);
+    });
+}
+
+</script>
+<div id="userInfo"></div>
+
+<button onclick="loginGoogle()">
+🔵 تسجيل الدخول عبر Google
+</button>
+
+<button onclick="logout()">
+🚪 تسجيل الخروج
+</button>
+    <div class="navbar">
+        <div class="logo">アラビア語で日本🇯🇵 اليابان بالعربي</div>
+    </div>
+           
+ <div class="main-nav">
+    <button class="nav-tab active" onclick="switchMainPage('homePage')">🏠 الرئيسية</button>
+    <button class="nav-tab" onclick="switchMainPage('kanaPage')">🎏 الكانا</button>
+    <button class="nav-tab" onclick="switchMainPage('kanjiPage')">⛩️ الكانجي</button>
+    <button class="nav-tab" onclick="switchMainPage('vocabularyPage')">
+    📖 المفردات
+</button>
+    <button class="nav-tab" onclick="alert('قريباً')">📌 القواعد</button>
+</div>
+
+<div class="page active" id="homePage">
+<div class="hero-section">       
+           <h1 class="hero-title">مرحباً بك في منصتك التعليمية</h1>
+
+            <!-- 🔍 البحث الداخلي -->
+<div class="search-box">
+    <input type="text"
+           id="localSearchInput"
+           oninput="runLocalSearch()"
+placeholder=" (البحث) اكتب الكانجي أو المعنى العربي أو القراءة اليابانية (مثال: 水 ، ماء ، みず) ">
+</div>
+
+<div id="searchResults" class="search-results"></div>
+
+<div class="hero-circle">
+    
+    <h2>دليلك لتعلم الاحرف و الكلمات</h2>
+    <p>
+        تعلم وإتقان حروف اللغة اليابانية والرموز الصينية (الكانجي) والكلمات اليابانية بواجهة عربية متكاملة.
+        <br><br>
+        ولزيادة حصيلتك في اللغة اليابانية، فإن جميع حقوق الموقع وطرق التعلم تعود إلى فريق
+        <br>
+        <strong>アラビア語で日本🇯🇵 اليابان بالعربي</strong>
+        <br><br>
+        نسأل الله التوفيق والنجاح.
+        <br><br>
+        مؤدي ومبرمج الموقع: <strong>Nuil_1</strong>
+    </p>
+</div>
+            <div class="social-container">
+                <a href="https://www.tiktok.com/@learn_japanese_with_arab" target="_blank" class="social-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <path fill="#fff" d="M12.53.02c1.31.01 2.61-.01 3.91.02.08 1.53.63 3.03 1.63 4.14.99 1.12 2.37 1.83 3.84 2.05v3.86c-1.63-.04-3.23-.55-4.57-1.49-.14-.1-.27-.21-.41-.32v5.69c-.06 2.12-.87 4.19-2.34 5.71-1.67 1.73-4.04 2.69-6.47 2.65-2.61-.04-5.11-1.24-6.69-3.32-1.64-2.14-2.16-5.01-1.39-7.61.73-2.52 2.72-4.59 5.27-5.32v3.74c-1.32.41-2.42 1.39-2.97 2.65-.62 1.38-.53 3.06.24 4.37.81 1.38 2.34 2.25 3.95 2.23 1.59-.01 3.09-.91 3.73-2.37.31-.7.42-1.47.41-2.24V0h.24z"/>
+</svg>
+
+                </a>
+                <a href="https://www.youtube.com/@learn_japanese_with_arab" target="_blank" class="social-btn">
+                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93 $.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+                <a href="https://discord.gg/d9PyytzEcq" target="_blank" class="social-btn">
+                    <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.075.075 0 0 1-.006.127 12.298 12.298 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084 $.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="kanaPage">
+        <h2>قسم الحروف اليابانية (الكانا) الكاملة</h2>
+        
+        <div class="sub-menu">
+            <button class="sub-btn active" id="tabHiraBtn" onclick="switchSubSection('hira')">حروف الهيراغانا 🌸</button>
+            <button class="sub-btn" id="tabKataBtn" onclick="switchSubSection('kata')">حروف الكاتاكانا ⚡</button>
+        </div>
+
+        <div class="sub-content active" id="hiraContentSection">
+            <h3>مجموعات الهيراغانا الكاملة (46 حرفاً)</h3>
+            <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">اجتز الصفوف بالترتيب لتفتح المجموعات التالية تلقائياً</p>
+            <div class="stages-grid" id="hiraStagesGrid"></div>
+        </div>
+
+        <div class="sub-content" id="kataContentSection">
+            <h3>مجموعات الكاتاكانا الكاملة (46 حرفاً)</h3>
+            <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">اجتز الصفوف بالترتيب لتفتح المجموعات التالية تلقائياً</p>
+            <div class="stages-grid" id="kataStagesGrid"></div>
+        </div>
+
+        <div class="practice-zone" id="universalPracticeZone">
+            <div class="pz-header">
+                <div class="pz-title" id="uStageLabel">المجموعة الحالية</div>
+                <div style="font-size: 16px; color: var(--cyan-color);" id="uCounter">الحرف: 1 / 5</div>
+            </div>
+            <div class="pz-char" id="uTargetChar">あ</div>
+            <div class="pz-hint" id="uTargetHint">النطق بالعربي: أَ</div>
+            <div class="pz-input-wrapper">
+                <input type="text" class="pz-input" id="uInput" autocomplete="off" placeholder="اكتب النطق هنا بالروماجي..." oninput="checkUniversalInput()">
+            </div>
+            <div class="progress-track">
+                <div class="progress-bar" id="uProgressBar"></div>
+            </div>
+        </div>
+</div>
+    <div class="page" id="kanjiPage">
+        <h2>⛩️ مستودع الكانجي الياباني الشامل (N5 - N1)</h2>
+        <p style="color: #aaa; font-size: 15px; margin-bottom: 25px;">تصفح الكانجيات الرسمية المقسمة والمترتبة بدقة متناهية</p>
+        
+        <div class="sub-menu">
+            <button class="sub-btn active" id="levelN5Btn" onclick="switchKanjiLevel('N5')">المستوى N5 (100 كانجي)</button>
+            <button class="sub-btn" id="levelN4Btn" onclick="switchKanjiLevel('N4')">المستوى N4 (300 كانجي)</button>
+            <button class="sub-btn" id="levelN3Btn" onclick="switchKanjiLevel('N3')">المستوى N3 (370 كانجي)</button>
+            <button class="sub-btn" id="levelN2Btn" onclick="switchKanjiLevel('N2')">المستوى N2 (430 كانجي)</button>
+            <button class="sub-btn" id="levelN1Btn" onclick="switchKanjiLevel('N1')">المستوى N1 (800 كانجي)</button>
+        </div>
+
+        <div class="kanji-counter-badge" id="kanjiCountLabel">المعروض حالياً: قائمة الـ 100 كانجي للمستوى N5</div>
+
+        <div class="kanji-grid" id="kanjiGridSection"></div>
+</div>
+
+<div class="page" id="vocabularyPage">
+
+    <h2 style="text-align:center">📖 المفردات اليابانية</h2>
+
+      <div class="review-buttons">
+
+        <button class="sub-btn" onclick="showDifficultWords()">
+            ❌ ما عرفتها
+        </button>
+
+        <button class="sub-btn" onclick="showKnownWords()">
+            ✅ عرفتها
+        </button>
+
+    </div>
+
+    <div class="sub-menu">
+
+        <button class="sub-btn" onclick="openCategory('school')">🏫 المدرسة</button>
+
+        <button class="sub-btn" onclick="openCategory('transport')">🚆 المواصلات</button>
+
+        <button class="sub-btn" onclick="openCategory('food')">🍜 الطعام</button>
+
+        <button class="sub-btn" onclick="openCategory('home')">🏠 المنزل</button>
+
+        <button class="sub-btn" onclick="openCategory('family')">👨‍👩‍👧‍👦 العائلة</button>
+
+        <button class="sub-btn" onclick="openCategory('work')">💼 العمل</button>
+
+        <button class="sub-btn" onclick="openCategory('shopping')">🛒 التسوق</button>
+
+        <button class="sub-btn" onclick="openCategory('time')">⏰ الوقت والتاريخ</button>
+
+        <button class="sub-btn" onclick="openCategory('weather')">☀️ الطقس</button>
+
+        <button class="sub-btn" onclick="openCategory('body')">🧍 الجسم</button>
+
+        <button class="sub-btn" onclick="openCategory('health')">🏥 الصحة</button>
+
+        <button class="sub-btn" onclick="openCategory('nature')">🌳 الطبيعة</button>
+
+        <button class="sub-btn" onclick="openCategory('animals')">🐶 الحيوانات</button>
+
+        <button class="sub-btn" onclick="openCategory('colors')">🎨 الألوان</button>
+
+        <button class="sub-btn" onclick="openCategory('numbers')">🔢 الأرقام</button>
+
+        <button class="sub-btn" onclick="openCategory('verbs')">🏃 الأفعال</button>
+
+        <button class="sub-btn" onclick="openCategory('adjectives')">✨ الصفات</button>
+
+        <button class="sub-btn" onclick="openCategory('daily')">📅 الحياة اليومية</button>
+
+    </div>
+
+</div>
+
+<div class="page" id="flashcardPage">
+
+    <h2>🃏 فلاش كارد</h2>
+<div id="categoryStats"
+     style="
+        text-align:center;
+        margin-bottom:15px;
+        font-size:18px;
+        color:#aaa;
+     ">
+</div>
+
+    <div id="flashCardBox"></div>
+
+    <div class="review-buttons" id="reviewButtons">
+
+        <button class="sub-btn" onclick="markKnown()">
+            ✅ عرفتها
+        </button>
+
+        <button class="sub-btn" onclick="markUnknown()">
+            ❌ ما عرفتها
+        </button>
+</div>
+<div id="flashCardBox"></div>
+
+<div id="savedWordsContainer"></div>
+
+    </div>
+
+</div>
+
+<script>
+        // الكانا والهيراغانا بالكامل
+        const hiraData = [
+            { name: "صف الحركات (A)", letters: [{ch:"あ", ro:"a", ar:"أَ"}, {ch:"い", ro:"i", ar:"إي"}, {ch:"う", ro:"u", ar:"أوُ"}, {ch:"え", ro:"e", ar:"إيه"}, {ch:"お", ro:"o", ar:"أوْ"}] },
+            { name: "صف الكا (K)", letters: [{ch:"か", ro:"ka", ar:"كا"}, {ch:"き", ro:"ki", ar:"كي"}, {ch:"く", ro:"ku", ar:"كو"}, {ch:"け", ro:"ke", ar:"كيه"}, {ch:"こ", ro:"ko", ar:"كو"}] },
+            { name: "صف السا (S)", letters: [{ch:"さ", ro:"sa", ar:"سا"}, {ch:"し", ro:"shi", ar:"شي"}, {ch:"す", ro:"su", ar:"سو"}, {ch:"せ", ro:"se", ar:"سيه"}, {ch:"そ", ro:"so", ar:"سو"}] },
+            { name: "صف التا (T)", letters: [{ch:"た", ro:"ta", ar:"تا"}, {ch:"ち", ro:"chi", ar:"تشي"}, {ch:"つ", ro:"tsu", ar:"تسو"}, {ch:"て", ro:"te", ar:"تيه"}, {ch:"と", ro:"to", ar:"تو"}] },
+            { name: "صف النا (N)", letters: [{ch:"な", ro:"na", ar:"نا"}, {ch:"に", ro:"ni", ar:"ني"}, {ch:"ぬ", ro:"nu", ar:"نو"}, {ch:"ね", ro:"ne", ar:"نيه"}, {ch:"の", ro:"no", ar:"نو"}] },
+            { name: "صف الهـا (H)", letters: [{ch:"は", ro:"ha", ar:"ها"}, {ch:"ひ", ro:"hi", ar:"هي"}, {ch:"ふ", ro:"fu", ar:"فو"}, {ch:"へ", ro:"he", ar:"هيه"}, {ch:"ほ", ro:"ho", ar:"هو"}] },
+            { name: "صف الما (M)", letters: [{ch:"ま", ro:"ma", ar:"ما"}, {ch:"み", ro:"mi", ar:"مي"}, {ch:"む", ro:"mu", ar:"مو"}, {ch:"め", ro:"me", ar:"ميه"}, {ch:"も", ro:"mo", ar:"مو"}] },
+            { name: "صف اليا (Y)", letters: [{ch:"や", ro:"ya", ar:"يا"}, {ch:"ゆ", ro:"yu", ar:"يو"}, {ch:"よ", ro:"yo", ar:"يو"}] },
+            { name: "صف الرا (R)", letters: [{ch:"ら", ro:"ra", ar:"را"}, {ch:"り", ro:"ri", ar:"ري"}, {ch:"る", ro:"ru", ar:"رو"}, {ch:"れ", ro:"re", ar:"ريه"}, {ch:"ろ", ro:"ro", ar:"رو"}] },
+            { name: "صف الوا والنون (W/N)", letters: [{ch:"わ", ro:"wa", ar:"وا"}, {ch:"を", ro:"wo", ar:"وو"}, {ch:"ん", ro:"n", ar:"نْ"}] }
+        ];
+
+        const kataData = [
+            { name: "صف الحركات (A)", letters: [{ch:"ア", ro:"a", ar:"أَ"}, {ch:"イ", ro:"i", ar:"إي"}, {ch:"ウ", ro:"u", ar:"أوُ"}, {ch:"エ", ro:"e", ar:"إيه"}, {ch:"オ", ro:"o", ar:"أوْ"}] },
+            { name: "صف الكا (K)", letters: [{ch:"カ", ro:"ka", ar:"كا"}, {ch:"キ", ro:"ki", ar:"كي"}, {ch:"ク", ro:"ku", ar:"كو"}, {ch:"ケ", ro:"ke", ar:"كيه"}, {ch:"コ", ro:"ko", ar:"كو"}] },
+            { name: "صف السا (S)", letters: [{ch:"サ", ro:"sa", ar:"سا"}, {ch:"シ", ro:"shi", ar:"شي"}, {ch:"ス", ro:"su", ar:"سو"}, {ch:"セ", ro:"se", ar:"سيه"}, {ch:"ソ", ro:"so", ar:"سو"}] },
+            { name: "صف التا (T)", letters: [{ch:"タ", ro:"ta", ar:"تا"}, {ch:"チ", ro:"chi", ar:"تشي"}, {ch:"ツ", ro:"tsu", ar:"تسو"}, {ch:"テ", ro:"te", ar:"تيه"}, {ch:"ト", ro:"to", ar:"تو"}] },
+            { name: "صف النا (N)", letters: [{ch:"ナ", ro:"na", ar:"نا"}, {ch:"ニ", ro:"ni", ar:"ني"}, {ch:"ヌ", ro:"nu", ar:"نو"}, {ch:"ネ", ro:"ne", ar:"نيه"}, {ch:"ノ", ro:"no", ar:"نو"}] },
+            { name: "صف الهـا (H)", letters: [{ch:"ハ", ro:"ha", ar:"ها"}, {ch:"ヒ", ro:"hi", ar:"هي"}, {ch:"フ", ro:"fu", ar:"فو"}, {ch:"ヘ", ro:"he", ar:"هيه"}, {ch:"ホ", ro:"ho", ar:"هو"}] },
+            { name: "صف الما (M)", letters: [{ch:"マ", ro:"ma", ar:"ما"}, {ch:"ミ", ro:"mi", ar:"مي"}, {ch:"ム", ro:"mu", ar:"مو"}, {ch:"メ", ro:"me", ar:"ميه"}, {ch:"モ", ro:"mo", ar:"مو"}] },
+            { name: "صف اليا (Y)", letters: [{ch:"ヤ", ro:"ya", ar:"يا"}, {ch:"ユ", ro:"yu", ar:"يو"}, {ch:"ヨ", ro:"yo", ar:"يو"}] },
+            { name: "صف الرا (R)", letters: [{ch:"ラ", ro:"ra", ar:"را"}, {ch:"リ", ro:"ri", ar:"ري"}, {ch:"ル", ro:"ru", ar:"رو"}, {ch:"レ", ro:"re", ar:"ريه"}, {ch:"ロ", ro:"ro", ar:"رو"}] },
+            { name: "صف الوا والنون (W/N)", letters: [{ch:"ワ", ro:"wa", ar:"وا"}, {ch:"ヲ", ro:"wo", ar:"وو"}, {ch:"ン", ro:"n", ar:"نْ"}] }
+        ];
+        // مصفوفة الـ 100 كانجي كاملة للمستوى N5 بالترتيب والتفصيل
+        const kanjiN5 = [
+            { k: "田", m: "حقل أرز", r: "でん / た" }, { k: "天", m: "سماء", r: "てん / あま" },
+            { k: "気", m: "روح / طاقة", r: "き" }, { k: "雨", m: "مطر", r: "う / あめ" },
+            { k: "空", m: "سماء / فارغ", r: "くう / そら" }, { k: "風", m: "رياح", r: "ふう / かぜ" },
+            { k: "花", m: "زهرة", r: "か / はな" }, { k: "草", m: "عشب", r: "そう / くさ" },
+            { k: "林", m: "غابة صغيرة", r: "りん / はやし" }, { k: "森", m: "غابة كثيفة", r: "しん / もり" },
+            { k: "石", m: "حجر", r: "せき / いし" }, { k: "見", m: "يرى", r: "けん / みる" },
+            { k: "行", m: "يذهب", r: "こう / いく" }, { k: "来", m: "يأتي", r: "らい / くる" },
+            { k: "出", m: "يخرج", r: "しゅつ / でる" }, { k: "入", m: "يدخل", r: "にゅう / いる" },
+            { k: "生", m: "حياة / يولد", r: "せい / いきる" }, { k: "学", m: "يتعلم", r: "がく / まなぶ" },
+            { k: "校", m: "مدرسة", r: "こう" }, { k: "先", m: "سابق / أولاً", r: "せん / さき" },
+            { k: "年", m: "سنة", r: "ねん / とし" }, { k: "今", m: "الآن", r: "こん / いま" },
+            { k: "朝", m: "الصباح", r: "ちょう / あさ" }, { k: "昼", m: "الظهر", r: "ちゅう / ひる" },
+            { k: "夜", m: "الليل", r: "や / よる" }, { k: "夕", m: "المساء", r: "せき / ゆう" },
+            { k: "方", m: "اتجاه / شخص", r: "ほう / かた" }, { k: "晩", m: "مساء", r: "ばん" },
+            { k: "週", m: "أسبوع", r: "しゅう" }, { k: "毎", m: "كل", r: "まい" },
+            { k: "時", m: "وقت / ساعة", r: "じ / とき" }, { k: "分", m: "دقيقة / يفهم", r: "ふん / わける" },
+            { k: "半", m: "نصف", r: "はん" }, { k: "午", m: "الظهر", r: "ご" },
+            { k: "前", m: "أمام / قبل", r: "ぜん / まえ" }, { k: "後", m: "خلف / بعد", r: "ご / あと" },
+            { k: "上", m: "فوق", r: "じょう / うえ" }, { k: "下", m: "تحت", r: "か / した" },
+            { k: "左", m: "يسار", r: "さ / ひだり" }, { k: "右", m: "يمين", r: "う / みぎ" },
+            { k: "中", m: "داخل / وسط", r: "ちゅう / なか" }, { k: "外", m: "خارج", r: "がい / そと" },
+            { k: "間", m: "بين / مسافة", r: "かん / あいだ" }, { k: "大", m: "كبير", r: "だい / おおきい" },
+            { k: "小", m: "صغير", r: "しょう / ちいさい" }, { k: "高", m: "مرتفع / غالي", r: "こう / たかい" },
+            { k: "安", m: "رخيص / آمن", r: "あん / やすい" }, { k: "新", m: "جديد", r: "しん / あたらしい" },
+            { k: "古", m: "قديم", r: "こ / ふるい" }, { k: "長", m: "طويل / رئيس", r: "ちょう / ながい" },
+            { k: "多", m: "كثير", r: "た / おおい" }, { k: "少", m: "قليل", r: "しょう / すくない" },
+            { k: "正", m: "صحيح", r: "せい / ただしい" }, { k: "広", m: "واسع", r: "こう / ひろい" },
+            { k: "本", m: "كتاب / أصل", r: "ほん / もと" }, { k: "東", m: "الشرق", r: "とう / ひがし" },
+            { k: "西", m: "الغرب", r: "せい / にし" }, { k: "南", m: "الجنوب", r: "なん / みなみ" },
+            { k: "北", m: "الشمال", r: "ほく / きた" }, { k: "物", m: "شيء مادي", r: "ぶつ / もの" },
+            { k: "事", m: "شيء معنوي", r: "じ / こと" }, { k: "名", m: "اسم", r: "めい / な" },
+            { k: "白", m: "أبيض", r: "はく / しろ" }, { k: "赤", m: "أحمر", r: "せき / あか" },
+            { k: "青", m: "أزرق", r: "せい / あお" }, { k: "黒", m: "أسود", r: "こく / くろ" },
+            { k: "何", m: "ماذا", r: "か / なに" }, { k: "友", m: "صديق", r: "ゆう / とも" }
+        ];
+
+        // مصفوفة الـ 180 كانجي للمستوى N4 (البداية التأسيسية لتكملها بالصق)
+        const kanjiN4 = [
+  { k: "会", m: "يجتمع", r: "カイ / あ.う" }, { k: "社", m: "شركة", r: "シャ / やしろ" }, { k: "店", m: "متجر", r: "テン / みせ" }, { k: "駅", m: "محطة", r: "エキ" }, { k: "車", m: "سيارة", r: "シャ / くるま" },
+  { k: "道", m: "طريق", r: "ドウ / みち" }, { k: "近", m: "قريب", r: "キン / ちか.い" }, { k: "遠", m: "بعيد", r: "エン / とお.い" }, { k: "聞", m: "يسمع", r: "ブン / き.く" }, { k: "読", m: "يقرأ", r: "ドク / よ.む" },
+  { k: "買", m: "يشتري", r: "バイ / か.う" }, { k: "飲", m: "يشرب", r: "イン / の.む" }, { k: "食", m: "يأكل", r: "ショク / た.べる" }, { k: "事", m: "أمر/شيء", r: "ジ / こと" }, { k: "仕", m: "خدمة/عمل", r: "シ / つか.える" },
+  { k: "物", m: "شيء", r: "ブツ / もの" }, { k: "言", m: "يقول", r: "ゲン / い.う" }, { k: "話", m: "يتحدث", r: "ワ / はな.す" }, { k: "語", m: "لغة", r: "ゴ / かた.る" }, { k: "作", m: "يصنع", r: "サク / つく.る" },
+  { k: "使", m: "يستخدم", r: "シ / つか.う" }, { k: "長", m: "طويل/رئيس", r: "チョウ / なが.い" }, { k: "高", m: "مرتفع/غالٍ", r: "コウ / たか.い" }, { k: "安", m: "رخيص", r: "アン / やす.い" }, { k: "新", m: "جديد", r: "シン / あたら.しい" },
+  { k: "古", m: "قديم", r: "コ / ふる.い" }, { k: "多", m: "كثير", r: "タ / おお.い" }, { k: "少", m: "قليل", r: "ショウ / すく.ない" }, { k: "友", m: "صديق", r: "ユウ / とも" }, { k: "名", m: "اسم", r: "メイ / な" },
+  { k: "白", m: "أبيض", r: "ハク / しろ" }, { k: "黒", m: "أسود", r: "コク / くろ" }, { k: "赤", m: "أحمر", r: "セキ / あか" }, { k: "青", m: "أزرق", r: "セイ / あお" }, { k: "何", m: "ماذا", r: "カ / なに" },
+  { k: "時", m: "وقت", r: "ジ / とき" }, { k: "間", m: "مدة/فترة", r: "カン / あいだ" }, { k: "分", m: "دقيقة/جزء", r: "フン / わ.ける" }, { k: "半", m: "نصف", r: "ハン" }, { k: "毎", m: "كل", r: "マイ" },
+  { k: "年", m: "سنة", r: "ネン / とし" }, { k: "月", m: "شهر/قمر", r: "ゲツ / つき" }, { k: "日", m: "يوم/شمس", r: "ニチ / ひ" }, { k: "今", m: "الآن", r: "コン / いま" }, { k: "先", m: "سابق/أمام", r: "セン / さき" },
+  { k: "来", m: "يأتي", r: "ライ / く.る" }, { k: "行", m: "يذهب", r: "コウ / い.く" }, { k: "帰", m: "يعود", r: "キ / かえ.る" }, { k: "見", m: "يرى", r: "ケン / み.る" }, { k: "出", m: "يخرج", r: "シュツ / で.る" },
+  { k: "入", m: "يدخل", r: "ニュウ / はい.る" }, { k: "上", m: "فوق", r: "ジョウ / うえ" }, { k: "下", m: "تحت", r: "カ / した" }, { k: "左", m: "يسار", r: "サ / ひだり" }, { k: "右", m: "يمين", r: "ウ / みぎ" },
+  { k: "外", m: "خارج", r: "ガイ / そと" }, { k: "中", m: "داخل", r: "チュウ / なか" }, { k: "大", m: "كبير", r: "ダイ / おお.きい" }, { k: "小", m: "صغير", r: "ショウ / ちい.さい" }, { k: "生", m: "حياة/طالب", r: "セイ / い.きる" },
+  { k: "学", m: "يتعلم", r: "ガク / まな.ぶ" }, { k: "校", m: "مدرسة", r: "コウ" }, { k: "人", m: "شخص", r: "ジン / ひと" }, { k: "子", m: "طفل", r: "シ / こ" }, { k: "女", m: "امرأة", r: "ジョ / おんな" },
+  { k: "男", m: "رجل", r: "ダン / おとこ" }, { k: "父", m: "أب", r: "フ / ちち" }, { k: "母", m: "أم", r: "ボ / はは" }, { k: "方", m: "اتجاه/شخص", r: "ホウ / かた" }, { k: "万", m: "عشرة آلاف", r: "マン" },
+  { k: "千", m: "ألف", r: "セン / ち" }, { k: "百", m: "مئة", r: "ヒャク" }, { k: "円", m: "ين", r: "エン" }, { k: "天", m: "سماء", r: "テン / あま" }, { k: "気", m: "روح/طاقة", r: "キ" },
+  { k: "晴", m: "جو صافٍ", r: "セイ / は.れる" }, { k: "雨", m: "مطر", r: "ウ / あめ" }, { k: "雪", m: "ثلج", r: "セツ / ゆき" }, { k: "雲", m: "سحاب", r: "ウン / くも" }, { k: "風", m: "رياح", r: "フウ / かぜ" },
+  { k: "空", m: "سماء/فارغ", r: "クウ / そら" }, { k: "山", m: "جبل", r: "サン / やま" }, { k: "川", m: "نهر", r: "セン / かわ" }, { k: "海", m: "بحر", r: "カイ / うみ" }, { k: "田", m: "حقل", r: "デン / た" },
+  { k: "春", m: "ربيع", r: "シュン / はる" }, { k: "夏", m: "صيف", r: "カ / なつ" }, { k: "秋", m: "خريف", r: "シュウ / あき" }, { k: "冬", m: "شتاء", r: "トウ / ふゆ" }, { k: "朝", m: "صباح", r: "チョウ / あさ" },
+  { k: "昼", m: "ظهر", r: "チュウ / ひる" }, { k: "夕", m: "مساء", r: "セキ / ゆう" }, { k: "夜", m: "ليل", r: "ヤ / よる" }, { k: "曜", m: "يوم الأسبوع", r: "ヨウ" }, { k: "手", m: "يد", r: "シュ / て" },
+  { k: "足", m: "قدم/رجل", r: "ソク / あし" }, { k: "目", m: "عين", r: "モク / め" }, { k: "口", m: "فم", r: "コウ / くち" }, { k: "耳", m: "أذن", r: "ジ / みみ" }, { k: "体", m: "جسم", r: "タイ / からだ" },
+  { k: "心", m: "قلب", r: "シン / こころ" }, { k: "思", m: "يفكر", r: "シ / おも.う" }, { k: "考", m: "يتأمل", r: "コウ / かんが.える" }, { k: "知", m: "يعرف", r: "チ / し.る" }, { k: "動", m: "يتحرك", r: "ドウ / うご.く" },
+  { k: "働", m: "يعمل", r: "ドウ / はたら.く" }, { k: "運", m: "ينقل/حظ", r: "ウン / はこ.ぶ" }, { k: "転", m: "يدور", r: "テン / ころ.ぶ" }, { k: "急", m: "يستعجل", r: "キュウ / いそ.ぐ" }, { k: "止", m: "يتوقف", r: "シ / と.まる" },
+  { k: "歩", m: "يمشي", r: "ホ / ある.く" }, { k: "走", m: "يجري", r: "ソウ / はし.る" }, { k: "送", m: "يرسل", r: "ソウ / おく.る" }, { k: "切", m: "يقص", r: "セツ / き.る" }, { k: "代", m: "بديل/عصر", r: "ダイ / か.わる" },
+  { k: "売", m: "يبيع", r: "バイ / う.る" }, { k: "持", m: "يمسك", r: "ジ / も.つ" }, { k: "待", m: "ينتظر", r: "タイ / ま.つ" }, { k: "立", m: "يقف", r: "リツ / た.つ" }, { k: "座", m: "يجلس", r: "ザ / すわ.る" },
+  { k: "住", m: "يسكن", r: "ジュウ / す.む" }, { k: "開", m: "يفتح", r: "カイ / あ.ける" }, { k: "閉", m: "يغلق", r: "ヘイ / し.める" }, { k: "洗", m: "يغسل", r: "セン / あら.う" }, { k: "建", m: "يبني", r: "ケン / た.てる" },
+  { k: "品", m: "بضاعة", r: "ヒン / しな" }, { k: "旅", m: "سفر", r: "リョ / たび" }, { k: "通", m: "يمر", r: "ツウ / とお.る" }, { k: "進", m: "يتقدم", r: "シン / すす.む" }, { k: "発", m: "ينطلق", r: "ハツ" },
+  { k: "着", m: "يصل/يلبس", r: "チャク / つ.く" }, { k: "終", m: "ينتهي", r: "シュウ / おわ.る" }, { k: "始", m: "يبدأ", r: "シ / はじ.まる" }, { k: "借", m: "يستعير", r: "シャク / か.りる" }, { k: "貸", m: "يُعير", r: "タイ / か.す" },
+  { k: "教", m: "يعلم", r: "キョウ / おし.える" }, { k: "習", m: "يتعلم", r: "シュウ / なら.う" }, { k: "勉", m: "يجتهد", r: "ベン" }, { k: "強", m: "قوي", r: "キョウ / つよ.い" }, { k: "花", m: "زهرة", r: "カ / はな" },
+  { k: "茶", m: "شاي", r: "チャ" }, { k: "肉", m: "لحم", r: "ニク" }, { k: "文", m: "جملة/نص", r: "ブン / ふみ" }, { k: "字", m: "حرف", r: "ジ / あざ" }, { k: "牛", m: "بقرة", r: "ギュウ / うし" },
+  { k: "馬", m: "حصان", r: "バ / うま" }, { k: "鳥", m: "طائر", r: "チョウ / とり" }, { k: "魚", m: "سمك", r: "ギョ / さかな" }, { k: "飯", m: "أرز/وجبة", r: "ハン / めし" }, { k: "味", m: "طعم", r: "ミ / あじ" },
+  { k: "油", m: "زيت", r: "ユ / あぶら" }, { k: "太", m: "سمين", r: "タイ / ふと.い" }, { k: "細", m: "نحيف", r: "サイ / ほそ.い" }, { k: "重", m: "ثقيل", r: "ジュウ / おも.い" }, { k: "軽", m: "خفيف", r: "ケイ / かる.い" },
+  { k: "狭", m: "ضيق", r: "キョウ / せま.い" }, { k: "弱", m: "ضعيف", r: "ジャク / よわ.い" }, { k: "暗", m: "مظلم", r: "アン / くら.い" }, { k: "明", m: "مضيء/واضح", r: "メイ / あか.るい" }, { k: "悪", m: "سيء", r: "アク / わる.い" },
+  { k: "正", m: "صحيح", r: "セイ / ただ.しい" }, { k: "違", m: "يختلف", r: "イ / ちが.う" }, { k: "適", m: "مناسب", r: "テキ" }, { k: "当", m: "يصيب/صحيح", r: "トウ / あ.たる" }, { k: "難", m: "صعب", r: "ナン / むずか.しい" },
+  { k: "易", m: "سهل", r: "エキ / やさ.しい" }, { k: "次", m: "التالي", r: "ジ / つぎ" }, { k: "形", m: "شكل", r: "ケイ / かたち" }, { k: "試", m: "يجرب", r: "シ / ため.す" }, { k: "験", m: "اختبار", r: "ケン" },
+  { k: "度", m: "درجة/مرة", r: "ド / たび" }, { k: "音", m: "صوت", r: "オン / おと" }, { k: "楽", m: "ممتع", r: "ガク / たの.しい" }, { k: "歌", m: "يغني", r: "カ / うた.う" }, { k: "画", m: "رسمة", r: "ガ / え" },
+  { k: "映", m: "يعرض", r: "エイ / うつ.る" }, { k: "写", m: "يصور/ينسخ", r: "シャ / うつ.す" }, { k: "真", m: "حقيقة", r: "シン / ま" }, { k: "親", m: "والد/قريب", r: "シン / おや" }, { k: "英", m: "إنجليزي", r: "エイ" },
+  { k: "医", m: "طب", r: "イ" }, { k: "者", m: "خبير", r: "シャ / もの" }, { k: "師", m: "معلم", r: "シ" }, { k: "員", m: "موظف", r: "イン" }, { k: "院", m: "مؤسسة", r: "イン" },
+  { k: "病", m: "مرض", r: "ビョウ / やまい" }, { k: "館", m: "مبنى", r: "カン / やかた" }, { k: "屋", m: "محل", r: "オク / や" }, { k: "堂", m: "قاعة", r: "ドウ" }, { k: "所", m: "مكان", r: "ショ / ところ" },
+  { k: "場", m: "ساحة", r: "ジョウ / ば" }, { k: "都", m: "مدينة", r: "ト / みやこ" }, { k: "県", m: "محافظة", r: "ケン" }, { k: "区", m: "حي", r: "ク" }, { k: "町", m: "بلدة", r: "チョウ / まち" },
+  { k: "村", m: "قرية", r: "ソン / むら" }, { k: "国", m: "دولة", r: "コク / くに" }, { k: "州", m: "ولاية", r: "シュウ" }, { k: "市", m: "مدينة", r: "シ / いち" }, { k: "界", m: "عالم", r: "カイ" },
+  { k: "世", m: "جيل", r: "セイ / よ" }, { k: "地", m: "أرض", r: "チ / じ" }, { k: "図", m: "خريطة", r: "ズ / はか.る" }, { k: "官", m: "مسؤول", r: "カン" }, { k: "委", m: "لجنة", r: "イ / ゆだ.ねる" },
+  { k: "党", m: "حزب", r: "トウ" }, { k: "民", m: "شعب", r: "ミン / たみ" }, { k: "主", m: "سيد", r: "シュ / ぬし" }, { k: "企", m: "يخطط", r: "キ / くわだて.る" }, { k: "業", m: "صناعة", r: "ギョウ / わざ" },
+  { k: "資", m: "موارد", r: "シ" }, { k: "金", m: "مال", r: "キン / かね" }, { k: "工", m: "هندسة", r: "コウ / く" }, { k: "用", m: "استخدام", r: "ヨウ / もち.いる" }, { k: "表", m: "جدول", r: "ヒョウ / おもて" },
+  { k: "現", m: "يظهر", r: "ゲン / あらわ.れる" }, { k: "調", m: "يبحث", r: "チョウ / しら.べる" }, { k: "査", m: "تحقيق", r: "サ" }, { k: "結", m: "يربط", r: "ケツ / むす.ぶ" }, { k: "婚", m: "زواج", r: "コン" },
+  { k: "不", m: "غير", r: "フ" }, { k: "的", m: "هدف", r: "テキ / まと" }, { k: "性", m: "طبيعة", r: "セイ / さが" }, { k: "法", m: "قانون", r: "ホウ / のり" }, { k: "制", m: "نظام", r: "セイ" },
+  { k: "選", m: "يختار", r: "セン / えら.ぶ" }, { k: "挙", m: "يرفع", r: "キョ / あ.げる" }, { k: "改", m: "يجدد", r: "カイ / あらた.める" }, { k: "政", m: "سياسة", r: "セイ / まつりごと" }, { k: "治", m: "يحكم", r: "ジ / おさ.める" },
+  { k: "経", m: "إدارة", r: "ケイ / へ.る" }, { k: "済", m: "يخلص", r: "サイ / す.む" }, { k: "戦", m: "معركة", r: "セン / たたか.う" }, { k: "争", m: "نزاع", r: "ソウ / あらそ.う" }, { k: "配", m: "يوزع", r: "ハイ / くば.る" },
+  { k: "達", m: "بارع", r: "タツ" }, { k: "信", m: "يثق", r: "シン" }, { k: "頼", m: "يعتمد", r: "ライ / たの.む" }, { k: "覚", m: "يتذكر", r: "カク / おぼ.える" }, { k: "忘", m: "ينسى", r: "ボウ / わす.れる" },
+  { k: "存", m: "يتواجد", r: "ソン" }, { k: "在", m: "يوجد", r: "ザイ / あ.る" }, { k: "米", m: "أرز", r: "ベイ / こめ" }, { k: "料", m: "رسوم", r: "リョウ" }, { k: "理", m: "منطق", r: "リ" },
+  { k: "科", m: "فرع", r: "カ" }, { k: "数", m: "رقم", r: "スウ / かず" }, { k: "量", m: "كمية", r: "リョウ / はか.る" }, { k: "頭", m: "رأس", r: "トウ / あたま" }, { k: "顔", m: "وجه", r: "ガン / かお" },
+  { k: "声", m: "صوت", r: "セイ / こえ" }, { k: "特", m: "مميز", r: "トク" }, { k: "別", m: "آخر", r: "ベツ / わか.れる" }, { k: "竹", m: "خيزران", r: "チク / たけ" }, { k: "客", m: "ضيف", r: "キャク" },
+  { k: "留", m: "يثبت", r: "リュウ / とま.る" }, { k: "質", m: "جودة", r: "シツ" }, { k: "問", m: "سؤال", r: "モン / と.う" }, { k: "題", m: "عنوان", r: "ダイ" }, { k: "答", m: "إجابة", r: "トウ / こた.え" },
+  { k: "宿", m: "نزل", r: "シュク / やど" }, { k: "線", m: "خط", r: "セン" }, { k: "最", m: "الأكثر", r: "サイ / もっとも" }, { k: "初", m: "بداية", r: "ショ / はじ.め" }, { k: "回", m: "يدور", r: "カイ / まわ.る" },
+  { k: "様", m: "سيد", r: "ヨウ / さま" }, { k: "守", m: "يحمي", r: "シュ / まも.る" }, { k: "練", m: "يتدرب", r: "レン / ね.る" }, { k: "引", m: "يسحب", r: "イン / ひ.く" }, { k: "泳", m: "يسبح", r: "エイ / およ.ぐ" }
+];
+
+        // مصفوفة الـ 370 كانجي للمستوى N3
+        const kanjiN3 = [
+{ k: "悪", m: "سيئ", r: "あく / わるい" },
+{ k: "安", m: "آمن / رخيص", r: "あん / やすい" },
+{ k: "暗", m: "مظلم", r: "あん / くらい" },
+{ k: "医", m: "طب", r: "い" },
+{ k: "委", m: "تفويض / لجنة", r: "い" },
+{ k: "意", m: "نية / معنى", r: "い" },
+{ k: "育", m: "تربية / نمو", r: "いく / そだてる" },
+{ k: "員", m: "عضو", r: "いん" },
+{ k: "院", m: "معهد / مستشفى", r: "いん" },
+{ k: "飲", m: "يشرب", r: "いん / のむ" },
+
+{ k: "運", m: "حظ / نقل", r: "うん / はこぶ" },
+{ k: "泳", m: "يسبح", r: "えい / およぐ" },
+{ k: "駅", m: "محطة", r: "えき" },
+{ k: "園", m: "حديقة", r: "えん / その" },
+{ k: "遠", m: "بعيد", r: "えん / とおい" },
+{ k: "塩", m: "ملح", r: "えん / しお" },
+{ k: "横", m: "جانبي / أفقي", r: "おう / よこ" },
+{ k: "屋", m: "متجر / سقف", r: "おく / や" },
+{ k: "温", m: "دافئ", r: "おん / あたたかい" },
+{ k: "化", m: "تغيير", r: "か / ばける" },
+
+{ k: "荷", m: "حمولة", r: "か / に" },
+{ k: "課", m: "قسم / واجب", r: "か" },
+{ k: "回", m: "مرة / دوران", r: "かい / まわる" },
+{ k: "界", m: "عالم", r: "かい" },
+{ k: "開", m: "يفتح", r: "かい / ひらく" },
+{ k: "階", m: "طابق", r: "かい" },
+{ k: "寒", m: "بارد", r: "かん / さむい" },
+{ k: "感", m: "شعور", r: "かん" },
+{ k: "漢", m: "صيني", r: "かん" },
+{ k: "館", m: "مبنى / قاعة", r: "かん" },
+
+{ k: "岸", m: "شاطئ", r: "がん / きし" },
+{ k: "期", m: "فترة", r: "き" },
+{ k: "起", m: "ينهض", r: "き / おきる" },
+{ k: "客", m: "ضيف / زبون", r: "きゃく" },
+{ k: "究", m: "بحث", r: "きゅう / きわめる" },
+{ k: "急", m: "عاجل", r: "きゅう / いそぐ" },
+{ k: "級", m: "مستوى", r: "きゅう" },
+{ k: "宮", m: "قصر / ضريح", r: "きゅう / みや" },
+{ k: "球", m: "كرة", r: "きゅう / たま" },
+{ k: "去", m: "يغادر", r: "きょ / さる" },
+
+{ k: "橋", m: "جسر", r: "きょう / はし" },
+{ k: "業", m: "عمل / صناعة", r: "ぎょう / ごう" },
+{ k: "局", m: "مكتب / إدارة", r: "きょく" },
+{ k: "曲", m: "لحن / منحنى", r: "きょく / まがる" },
+{ k: "銀", m: "فضة", r: "ぎん" },
+{ k: "区", m: "منطقة", r: "く" },
+{ k: "苦", m: "معاناة / مر", r: "く / くるしい" },
+{ k: "具", m: "أداة", r: "ぐ" },
+{ k: "君", m: "سيد / أنت", r: "くん / きみ" },
+{ k: "係", m: "علاقة / مسؤول", r: "けい / かかる" },{ k: "軽", m: "خفيف", r: "けい / かるい" },
+{ k: "血", m: "دم", r: "けつ / ち" },
+{ k: "決", m: "يقرر", r: "けつ / きめる" },
+{ k: "研", m: "دراسة / بحث", r: "けん / とぐ" },
+{ k: "県", m: "محافظة", r: "けん" },
+{ k: "庫", m: "مخزن", r: "こ" },
+{ k: "湖", m: "بحيرة", r: "こ / みずうみ" },
+{ k: "向", m: "اتجاه", r: "こう / むく" },
+{ k: "幸", m: "سعادة", r: "こう / しあわせ" },
+{ k: "港", m: "ميناء", r: "こう / みなと" },
+
+{ k: "号", m: "رقم / لقب", r: "ごう" },
+{ k: "根", m: "جذر", r: "こん / ね" },
+{ k: "祭", m: "مهرجان", r: "さい / まつり" },
+{ k: "皿", m: "طبق", r: "さら" },
+{ k: "仕", m: "خدمة / عمل", r: "し / つかえる" },
+{ k: "使", m: "يستخدم", r: "し / つかう" },
+{ k: "始", m: "يبدأ", r: "し / はじめる" },
+{ k: "指", m: "إصبع", r: "し / ゆび" },
+{ k: "歯", m: "سن", r: "し / は" },
+{ k: "詩", m: "قصيدة", r: "し" },
+
+{ k: "次", m: "التالي", r: "じ / つぎ" },
+{ k: "事", m: "أمر / شيء", r: "じ / こと" },
+{ k: "持", m: "يحمل", r: "じ / もつ" },
+{ k: "式", m: "صيغة / مراسم", r: "しき" },
+{ k: "実", m: "حقيقة / ثمرة", r: "じつ / み" },
+{ k: "写", m: "نسخ / تصوير", r: "しゃ / うつす" },
+{ k: "者", m: "شخص", r: "しゃ / もの" },
+{ k: "主", m: "رئيسي / سيد", r: "しゅ / ぬし" },
+{ k: "守", m: "يحمي", r: "しゅ / まもる" },
+{ k: "取", m: "يأخذ", r: "しゅ / とる" },
+
+{ k: "酒", m: "شراب / كحول", r: "しゅ / さけ" },
+{ k: "受", m: "يستقبل", r: "じゅ / うける" },
+{ k: "州", m: "ولاية", r: "しゅう / す" },
+{ k: "拾", m: "يلتقط", r: "しゅう / ひろう" },
+{ k: "終", m: "ينتهي", r: "しゅう / おわる" },
+{ k: "習", m: "يتعلم", r: "しゅう / ならう" },
+{ k: "集", m: "يجمع", r: "しゅう / あつめる" },
+{ k: "住", m: "يسكن", r: "じゅう / すむ" },
+{ k: "重", m: "ثقيل / مهم", r: "じゅう / おもい" },
+{ k: "宿", m: "نُزل / مبيت", r: "しゅく / やど" },
+
+{ k: "所", m: "مكان", r: "しょ / ところ" },
+{ k: "暑", m: "حار", r: "しょ / あつい" },
+{ k: "助", m: "يساعد", r: "じょ / たすける" },
+{ k: "昭", m: "مشرق", r: "しょう" },
+{ k: "消", m: "يمحو / يطفئ", r: "しょう / けす" },
+{ k: "商", m: "تجارة", r: "しょう / あきなう" },
+{ k: "章", m: "فصل / شارة", r: "しょう" },
+{ k: "勝", m: "فوز / ينتصر", r: "しょう / かつ" },
+{ k: "乗", m: "يركب", r: "じょう / のる" },
+{ k: "植", m: "يزرع", r: "しょく / うえる" } , { k: "申", m: "يصرح / يقدم طلبًا", r: "しん / もうす" },
+{ k: "身", m: "جسم / شخص", r: "しん / み" },
+{ k: "神", m: "إله / روح", r: "しん / かみ" },
+{ k: "深", m: "عميق", r: "しん / ふかい" },
+{ k: "進", m: "يتقدم", r: "しん / すすむ" },
+{ k: "世", m: "عالم / جيل", r: "せ / よ" },
+{ k: "整", m: "ينظم", r: "せい / ととのえる" },
+{ k: "昔", m: "الماضي", r: "せき / むかし" },
+{ k: "全", m: "كامل", r: "ぜん / すべて" },
+{ k: "相", m: "متبادل / شكل", r: "そう / あい" },
+
+{ k: "送", m: "يرسل", r: "そう / おくる" },
+{ k: "想", m: "تفكير / تصور", r: "そう / おもう" },
+{ k: "息", m: "نفس", r: "そく / いき" },
+{ k: "速", m: "سريع", r: "そく / はやい" },
+{ k: "族", m: "عائلة / قبيلة", r: "ぞく" },
+{ k: "他", m: "آخر", r: "た / ほか" },
+{ k: "打", m: "يضرب", r: "だ / うつ" },
+{ k: "対", m: "مقابل / ضد", r: "たい" },
+{ k: "待", m: "ينتظر", r: "たい / まつ" },
+{ k: "代", m: "عصر / بدل", r: "だい / かわる" },
+
+{ k: "第", m: "ترتيب", r: "だい" },
+{ k: "題", m: "موضوع / عنوان", r: "だい" },
+{ k: "炭", m: "فحم", r: "たん / すみ" },
+{ k: "短", m: "قصير", r: "たん / みじかい" },
+{ k: "談", m: "حديث / نقاش", r: "だん" },
+{ k: "着", m: "يرتدي / يصل", r: "ちゃく / きる" },
+{ k: "注", m: "يصُب / يركز", r: "ちゅう / そそぐ" },
+{ k: "丁", m: "وحدة عد / مهذب", r: "ちょう / てい" },
+{ k: "帳", m: "دفتر", r: "ちょう" },
+{ k: "調", m: "يفحص / نغمة", r: "ちょう / しらべる" },
+
+{ k: "追", m: "يطارد", r: "つい / おう" },
+{ k: "定", m: "يحدد", r: "てい / さだめる" },
+{ k: "庭", m: "حديقة منزل", r: "てい / にわ" },
+{ k: "停", m: "يتوقف", r: "てい" },
+{ k: "的", m: "هدف / ـي", r: "てき / まと" },
+{ k: "鉄", m: "حديد", r: "てつ" },
+{ k: "転", m: "يدور / ينتقل", r: "てん / ころぶ" },
+{ k: "都", m: "عاصمة", r: "と / みやこ" },
+{ k: "投", m: "يرمي", r: "とう / なげる" },
+{ k: "島", m: "جزيرة", r: "とう / しま" },
+
+{ k: "湯", m: "ماء ساخن", r: "とう / ゆ" },
+{ k: "登", m: "يصعد", r: "とう / のぼる" },
+{ k: "等", m: "مساوٍ / وغيرها", r: "とう / ひとしい" },
+{ k: "動", m: "يتحرك", r: "どう / うごく" },
+{ k: "童", m: "طفل", r: "どう" },
+{ k: "農", m: "زراعة", r: "のう" },
+{ k: "波", m: "موجة", r: "は / なみ" },
+{ k: "配", m: "توزيع", r: "はい / くばる" },
+{ k: "倍", m: "مضاعف", r: "ばい" },
+{ k: "箱", m: "صندوق", r: "はこ" },{ k: "畑", m: "حقل", r: "はたけ" },
+{ k: "発", m: "انطلاق / إصدار", r: "はつ / たつ" },
+{ k: "反", m: "عكس / معارضة", r: "はん / そる" },
+{ k: "坂", m: "منحدر", r: "はん / さか" },
+{ k: "板", m: "لوح", r: "ばん / いた" },
+{ k: "皮", m: "جلد / قشرة", r: "ひ / かわ" },
+{ k: "悲", m: "حزين", r: "ひ / かなしい" },
+{ k: "美", m: "جميل", r: "び / うつくしい" },
+{ k: "鼻", m: "أنف", r: "び / はな" },
+{ k: "筆", m: "فرشاة كتابة", r: "ひつ / ふで" },
+
+{ k: "氷", m: "ثلج", r: "ひょう / こおり" },
+{ k: "表", m: "سطح / جدول", r: "ひょう / おもて" },
+{ k: "秒", m: "ثانية", r: "びょう" },
+{ k: "品", m: "بضاعة / جودة", r: "ひん / しな" },
+{ k: "負", m: "يخسر / يحمل", r: "ふ / まける" },
+{ k: "部", m: "قسم", r: "ぶ" },
+{ k: "服", m: "ملابس", r: "ふく" },
+{ k: "福", m: "سعادة / حظ", r: "ふく" },
+{ k: "物", m: "شيء", r: "ぶつ / もの" },
+{ k: "平", m: "مستوٍ / عادي", r: "へい / たいら" },
+
+{ k: "返", m: "يرجع", r: "へん / かえす" },
+{ k: "勉", m: "اجتهاد", r: "べん" },
+{ k: "放", m: "يطلق / يترك", r: "ほう / はなす" },
+{ k: "訪", m: "يزور", r: "ほう / おとずれる" },
+{ k: "亡", m: "وفاة / فقدان", r: "ぼう / なくなる" },
+{ k: "忘", m: "ينسى", r: "ぼう / わすれる" },
+{ k: "望", m: "أمل / رغبة", r: "ぼう / のぞむ" },
+{ k: "末", m: "نهاية", r: "まつ / すえ" },
+{ k: "満", m: "ممتلئ", r: "まん / みちる" },
+{ k: "味", m: "طعم", r: "み / あじ" },
+
+{ k: "民", m: "شعب", r: "みん / たみ" },
+{ k: "無", m: "عدم / لا شيء", r: "む / ない" },
+{ k: "約", m: "وعد / تقريبًا", r: "やく" },
+{ k: "勇", m: "شجاعة", r: "ゆう / いさむ" },
+{ k: "有", m: "يمتلك / يوجد", r: "ゆう / ある" },
+{ k: "郵", m: "بريد", r: "ゆう" },
+{ k: "予", m: "مسبق", r: "よ" },
+{ k: "洋", m: "غربي / محيط", r: "よう" },
+{ k: "葉", m: "ورقة شجر", r: "よう / は" },
+{ k: "陽", m: "شمس / إيجابي", r: "よう" },
+
+{ k: "様", m: "شكل / سيد", r: "よう / さま" },
+{ k: "落", m: "يسقط", r: "らく / おちる" },
+{ k: "流", m: "يتدفق", r: "りゅう / ながれる" },
+{ k: "留", m: "يبقى", r: "りゅう / とまる" },
+{ k: "旅", m: "سفر", r: "りょ / たび" },
+{ k: "両", m: "كلا / اثنان", r: "りょう" },
+{ k: "緑", m: "أخضر", r: "りょく / みどり" },
+{ k: "礼", m: "احترام / تحية", r: "れい" },
+{ k: "列", m: "صف", r: "れつ" },
+{ k: "練", m: "تدريب", r: "れん / ねる" },{ k: "路", m: "طريق", r: "ろ / みち" },
+{ k: "和", m: "سلام / ياباني", r: "わ / やわらぐ" },
+{ k: "愛", m: "حب", r: "あい" },
+{ k: "案", m: "خطة / اقتراح", r: "あん" },
+{ k: "以", m: "بواسطة / منذ", r: "い" },
+{ k: "衣", m: "ملابس", r: "い / ころも" },
+{ k: "位", m: "مرتبة", r: "い / くらい" },
+{ k: "囲", m: "يحيط", r: "い / かこむ" },
+{ k: "胃", m: "معدة", r: "い" },
+{ k: "印", m: "ختم / علامة", r: "いん / しるし" },
+
+{ k: "英", m: "إنجليزي / ممتاز", r: "えい" },
+{ k: "栄", m: "ازدهار", r: "えい / さかえる" },
+{ k: "越", m: "يتجاوز", r: "えつ / こえる" },
+{ k: "演", m: "عرض / أداء", r: "えん" },
+{ k: "央", m: "مركز", r: "おう" },
+{ k: "億", m: "مئة مليون", r: "おく" },
+{ k: "可", m: "ممكن", r: "か" },
+{ k: "価", m: "قيمة", r: "か / あたい" },
+{ k: "加", m: "يضيف", r: "か / くわえる" },
+{ k: "果", m: "ثمرة / نتيجة", r: "か / はたす" },
+
+{ k: "河", m: "نهر", r: "か / かわ" },
+{ k: "科", m: "قسم دراسي", r: "か" },
+{ k: "歌", m: "أغنية", r: "か / うた" },
+{ k: "械", m: "آلة", r: "かい" },
+{ k: "害", m: "ضرر", r: "がい" },
+{ k: "街", m: "شارع / مدينة", r: "がい / まち" },
+{ k: "各", m: "كل", r: "かく" },
+{ k: "覚", m: "يتذكر / يدرك", r: "かく / おぼえる" },
+{ k: "完", m: "كامل", r: "かん" },
+{ k: "官", m: "مسؤول حكومي", r: "かん" },
+
+{ k: "管", m: "أنبوب / إدارة", r: "かん / くだ" },
+{ k: "関", m: "علاقة", r: "かん / せき" },
+{ k: "観", m: "مشاهدة", r: "かん" },
+{ k: "願", m: "أمنية / طلب", r: "がん / ねがう" },
+{ k: "希", m: "أمل", r: "き" },
+{ k: "季", m: "فصل", r: "き" },
+{ k: "紀", m: "سجل / حقبة", r: "き" },
+{ k: "記", m: "تسجيل", r: "き / しるす" },
+{ k: "技", m: "مهارة", r: "ぎ / わざ" },
+{ k: "義", m: "عدالة / معنى", r: "ぎ" },
+
+{ k: "久", m: "مدة طويلة", r: "きゅう / ひさしい" },
+{ k: "給", m: "راتب / تزويد", r: "きゅう" },
+{ k: "挙", m: "يرفع / انتخابات", r: "きょ / あげる" },
+{ k: "許", m: "يسمح", r: "きょ / ゆるす" },
+{ k: "漁", m: "صيد", r: "ぎょ / りょう" },
+{ k: "共", m: "معًا", r: "きょう / とも" },
+{ k: "協", m: "تعاون", r: "きょう" },
+{ k: "鏡", m: "مرآة", r: "きょう / かがみ" },
+{ k: "競", m: "منافسة", r: "きょう / きそう" },
+{ k: "極", m: "أقصى / شديد", r: "きょく / きわめる" },{ k: "訓", m: "تعليم / تدريب", r: "くん / おしえる" },
+{ k: "軍", m: "جيش", r: "ぐん" },
+{ k: "郡", m: "مقاطعة", r: "ぐん" },
+{ k: "型", m: "نموذج / قالب", r: "けい / かた" },
+{ k: "景", m: "منظر", r: "けい" },
+{ k: "芸", m: "فن", r: "げい" },
+{ k: "欠", m: "ينقص", r: "けつ / かける" },
+{ k: "険", m: "خطر", r: "けん / けわしい" },
+{ k: "験", m: "اختبار / تجربة", r: "けん" },
+{ k: "固", m: "صلب", r: "こ / かたい" },
+
+{ k: "功", m: "إنجاز", r: "こう" },
+{ k: "候", m: "مناخ / انتظار", r: "こう" },
+{ k: "航", m: "إبحار / ملاحة", r: "こう" },
+{ k: "講", m: "محاضرة", r: "こう" },
+{ k: "混", m: "اختلاط", r: "こん / まざる" },
+{ k: "査", m: "فحص", r: "さ" },
+{ k: "再", m: "مرة أخرى", r: "さい" },
+{ k: "災", m: "كارثة", r: "さい / わざわい" },
+{ k: "妻", m: "زوجة", r: "さい / つま" },
+{ k: "採", m: "يجمع / يعتمد", r: "さい / とる" },
+
+{ k: "際", m: "مناسبة / حدود", r: "さい / きわ" },
+{ k: "在", m: "يوجد", r: "ざい / ある" },
+{ k: "罪", m: "جريمة", r: "ざい / つみ" },
+{ k: "財", m: "ثروة", r: "ざい" },
+{ k: "咲", m: "يزهر", r: "さく" },
+{ k: "昨", m: "الماضي", r: "さく" },
+{ k: "冊", m: "مجلد / عداد كتب", r: "さつ" },
+{ k: "散", m: "يتفرق", r: "さん / ちる" },
+{ k: "賛", m: "موافقة / مدح", r: "さん" },
+{ k: "史", m: "تاريخ", r: "し" },
+
+{ k: "司", m: "إدارة", r: "し" },
+{ k: "士", m: "محترف / محارب", r: "し" },
+{ k: "試", m: "يجرب / اختبار", r: "し / ためす" },
+{ k: "児", m: "طفل", r: "じ" },
+{ k: "治", m: "حكم / علاج", r: "じ / おさめる" },
+{ k: "辞", m: "كلمة / استقالة", r: "じ / やめる" },
+{ k: "失", m: "يفقد", r: "しつ / うしなう" },
+{ k: "借", m: "يستعير", r: "しゃく / かりる" },
+{ k: "種", m: "نوع / بذرة", r: "しゅ / たね" },
+{ k: "周", m: "محيط / أسبوع", r: "しゅう / まわり" },
+
+{ k: "祝", m: "يحتفل", r: "しゅく / いわう" },
+{ k: "順", m: "ترتيب", r: "じゅん" },
+{ k: "処", m: "مكان / معالجة", r: "しょ" },
+{ k: "初", m: "أول", r: "しょ / はじめ" },
+{ k: "書", m: "يكتب", r: "しょ / かく" },
+{ k: "少", m: "قليل", r: "しょう / すくない" },
+{ k: "省", m: "وزارة / اختصار", r: "しょう" },
+{ k: "焼", m: "يحرق / يشوي", r: "しょう / やく" },
+{ k: "笑", m: "يضحك", r: "しょう / わらう" },
+{ k: "象", m: "فيل / ظاهرة", r: "しょう / ぞう" },{ k: "照", m: "يضيء", r: "しょう / てらす" },
+{ k: "信", m: "ثقة / إيمان", r: "しん / しんじる" },
+{ k: "臣", m: "وزير / تابع", r: "しん / じん" },
+{ k: "心", m: "قلب / عقل", r: "しん / こころ" },
+{ k: "震", m: "يرتجف", r: "しん / ふるえる" },
+{ k: "成", m: "يصبح / ينجز", r: "せい / なる" },
+{ k: "性", m: "طبيعة / جنس", r: "せい / しょう" },
+{ k: "政", m: "سياسة / حكومة", r: "せい / まつりごと" },
+{ k: "勢", m: "قوة / زخم", r: "せい / いきおい" },
+{ k: "精", m: "روح / دقة", r: "せい / しょう" },
+
+{ k: "製", m: "تصنيع", r: "せい" },
+{ k: "税", m: "ضريبة", r: "ぜい" },
+{ k: "責", m: "مسؤولية", r: "せき / せめる" },
+{ k: "績", m: "إنجاز / نتائج", r: "せき" },
+{ k: "接", m: "اتصال / لمس", r: "せつ / つぐ" },
+{ k: "設", m: "إنشاء / إعداد", r: "せつ / もうける" },
+{ k: "説", m: "شرح / نظرية", r: "せつ / とく" },
+{ k: "戦", m: "حرب / معركة", r: "せん / たたかう" },
+{ k: "選", m: "اختيار", r: "せん / えらぶ" },
+{ k: "然", m: "طبيعي / هكذا", r: "ぜん / ねん" },
+
+{ k: "争", m: "نزاع / منافسة", r: "そう / あらそう" },
+{ k: "倉", m: "مستودع", r: "そう / くら" },
+{ k: "層", m: "طبقة", r: "そう" },
+{ k: "総", m: "إجمالي / شامل", r: "そう" },
+{ k: "造", m: "يصنع / يبني", r: "ぞう / つくる" },
+{ k: "像", m: "صورة / تمثال", r: "ぞう" },
+{ k: "増", m: "يزيد", r: "ぞう / ふえる" },
+{ k: "則", m: "قاعدة", r: "そく / のっとる" },
+{ k: "測", m: "يقيس", r: "そく / はかる" },
+{ k: "続", m: "يستمر", r: "ぞく / つづく" },
+
+{ k: "卒", m: "تخرج", r: "そつ" },
+{ k: "存", m: "وجود", r: "そん" },
+{ k: "尊", m: "احترام", r: "そん / たっとい" },
+{ k: "宅", m: "منزل", r: "たく" },
+{ k: "担", m: "يتحمل", r: "たん / になう" },
+{ k: "単", m: "بسيط / مفرد", r: "たん" },
+{ k: "探", m: "يبحث", r: "たん / さがす" },
+{ k: "誕", m: "ميلاد", r: "たん" },
+{ k: "段", m: "درجة / مرحلة", r: "だん" },
+{ k: "値", m: "قيمة / سعر", r: "ち / ね" },
+
+{ k: "置", m: "يضع", r: "ち / おく" },
+{ k: "仲", m: "علاقة / صديق", r: "ちゅう / なか" },
+{ k: "貯", m: "يدخر", r: "ちょ / ためる" },
+{ k: "頂", m: "قمة / يتلقى", r: "ちょう / いただく" },
+{ k: "賃", m: "أجرة / إيجار", r: "ちん" },
+{ k: "痛", m: "ألم", r: "つう / いたい" },
+{ k: "展", m: "تطور / معرض", r: "てん" },
+{ k: "党", m: "حزب", r: "とう" },
+{ k: "討", m: "يناقش / يهاجم", r: "とう / うつ" },
+{ k: "得", m: "يحصل على", r: "とく / える" },{ k: "毒", m: "سم", r: "どく" },
+{ k: "独", m: "منفرد / مستقل", r: "どく / ひとり" },
+{ k: "任", m: "مسؤولية / تكليف", r: "にん / まかせる" },
+{ k: "燃", m: "يحترق", r: "ねん / もえる" },
+{ k: "能", m: "قدرة", r: "のう" },
+{ k: "破", m: "يكسر / يمزق", r: "は / やぶる" },
+{ k: "判", m: "حكم / قرار", r: "はん" },
+{ k: "版", m: "طبعة / إصدار", r: "はん" },
+{ k: "犯", m: "يرتكب (جريمة)", r: "はん / おかす" },
+{ k: "飯", m: "طعام / أرز مطبوخ", r: "はん / めし" },
+
+{ k: "飛", m: "يطير", r: "ひ / とぶ" },
+{ k: "費", m: "تكلفة / مصروف", r: "ひ / ついやす" },
+{ k: "必", m: "حتماً / ضروري", r: "ひつ / かならず" },
+{ k: "票", m: "ورقة اقتراع / تذكرة", r: "ひょう" },
+{ k: "標", m: "هدف / معيار", r: "ひょう / しるし" },
+{ k: "不", m: "غير / لا", r: "ふ" },
+{ k: "夫", m: "زوج", r: "ふ / おっと" },
+{ k: "付", m: "يلصق / يرفق", r: "ふ / つける" },
+{ k: "府", m: "حكومة / ولاية", r: "ふ" },
+{ k: "副", m: "نائب / مساعد", r: "ふく" }
+            // [هنا يتم لصق بقية الـ 370 كانجي لاحقاً]
+        ];
+
+        // مصفوفة الـ 370 كانجي للمستوى N2
+        const kanjiN2 = [
+            { k: "党", m: "حزب سياسي", r: "とう" }, { k: "協", m: "تعاون", r: "きょう" },
+            { k: "総", m: "عام / إجمالي", r: "そう" }, { k: "区", m: "حي / منطقة", r: "く" }
+            // [هنا يتم لصق بقية الـ 370 كانجي لاحقاً]
+        ];
+
+        // مصفوفة الـ 1,100 كانجي للمستوى N1
+        const kanjiN1 = [
+            { k: "氏", m: "لقب / عائلة", r: "し / うじ" }, { k: "統", m: "يتحكم / يحكم", r: "とう / すべる" },
+            { k: "保", m: "يحمي / يحفظ", r: "ほ / たもつ" }, { k: "企", m: "يخطط / مشروع", r: "き / くわだてる" }
+            // [هنا يتم لصق بقية الـ 1100 كانجي لاحقاً]
+        ];
+
+        let hiraUnlocked = [true, false, false, false, false, false, false, false, false, false];
+        let kataUnlocked = [true, false, false, false, false, false, false, false, false, false];
+
+        let activeType = 'hira';
+        let currentGroupIdx = 0;
+        let currentLetterIdx = 0;
+
+const vocabularyWords = [
+    {
+j:"車",h:"くるま",a:"سيارة",category:"transport"
+},
+{
+j:"電車",h:"でんしゃ",a:"قطار",category:"transport"
+},
+{
+j:"飛行機",h:"ひこうき",a:"طائرة",category:"transport"
+},
+{
+j:"駅",h:"えき",a:"محطة",category:"transport"
+},
+{
+j:"店",h:"みせ",a:"متجر",category:"shopping"
+},
+{
+j:"買う",h:"かう",a:"يشتري",category:"shopping"
+},
+{
+j:"売る",h:"うる",a:"يبيع",category:"shopping"
+},
+{
+j:"お金",h:"おかね",a:"مال",category:"shopping"
+},
+{
+j:"家",h:"いえ",a:"منزل",category:"home"
+},
+{
+j:"部屋",h:"へや",a:"غرفة",category:"home"
+},
+{
+j:"犬",h:"いぬ",a:"كلب",category:"animals"
+},
+{
+j:"猫",h:"ねこ",a:"قط",category:"animals"
+},
+{
+j:"鳥",h:"とり",a:"طائر",category:"animals"
+},
+{
+j:"魚",h:"さかな",a:"سمكة",category:"animals"
+},
+{
+j:"水",h:"みず",a:"ماء",category:"nature"
+},
+{
+j:"海",h:"うみ",a:"بحر",category:"nature"
+},
+{
+j:"山",h:"やま",a:"جبل",category:"nature"
+},
+{
+j:"川",h:"かわ",a:"نهر",category:"nature"
+},
+{
+j:"空",h:"そら",a:"سماء",category:"nature"
+},
+{
+j:"友達",h:"ともだち",a:"صديق",category:"daily"
+},
+{
+j:"名前",h:"なまえ",a:"اسم",category:"daily"
+},
+{
+j:"人",h:"ひと",a:"شخص",category:"daily"
+},
+{
+j:"食べる",h:"たべる",a:"يأكل",category:"food"
+},
+{
+j:"飲む",h:"のむ",a:"يشرب",category:"food"
+},
+{
+j:"ご飯",h:"ごはん",a:"أرز / وجبة",category:"food"
+},
+{
+j:"パン",h:"ぱん",a:"خبز",category:"food"
+},
+{
+j:"肉",h:"にく",a:"لحم",category:"food"
+},
+{
+j:"野菜",h:"やさい",a:"خضروات",category:"food"
+},
+{
+j:"果物",h:"くだもの",a:"فواكه",category:"food"
+},
+{
+j:"卵",h:"たまご",a:"بيض",category:"food"
+},
+{
+j:"牛乳",h:"ぎゅうにゅう",a:"حليب",category:"food"
+},
+{
+j:"お茶",h:"おちゃ",a:"شاي",category:"food"
+},
+{
+j:"行く",h:"いく",a:"يذهب",category:"verbs"
+},
+{
+j:"来る",h:"くる",a:"يأتي",category:"verbs"
+},
+{
+j:"見る",h:"みる",a:"يرى",category:"verbs"
+},
+{
+j:"聞く",h:"きく",a:"يسمع",category:"verbs"
+},
+{
+j:"話す",h:"はなす",a:"يتكلم",category:"verbs"
+},
+{
+j:"読む",h:"よむ",a:"يقرأ",category:"verbs"
+},
+{
+j:"書く",h:"かく",a:"يكتب",category:"verbs"
+},
+{
+j:"作る",h:"つくる",a:"يصنع",category:"verbs"
+},
+{
+j:"使う",h:"つかう",a:"يستخدم",category:"verbs"
+},
+{
+j:"待つ",h:"まつ",a:"ينتظر",category:"verbs"
+},
+{
+j:"大きい",h:"おおきい",a:"كبير",category:"adjectives"
+},
+{
+j:"小さい",h:"ちいさい",a:"صغير",category:"adjectives"
+},
+{
+j:"新しい",h:"あたらしい",a:"جديد",category:"adjectives"
+},
+{
+j:"古い",h:"ふるい",a:"قديم",category:"adjectives"
+},
+{
+j:"高い",h:"たかい",a:"مرتفع / غالي",category:"adjectives"
+},
+{
+j:"安い",h:"やすい",a:"رخيص",category:"adjectives"
+},
+{
+j:"速い",h:"はやい",a:"سريع",category:"adjectives"
+},
+{
+j:"遅い",h:"おそい",a:"بطيء",category:"adjectives"
+},
+{
+j:"良い",h:"よい",a:"جيد",category:"adjectives"
+},
+{
+j:"悪い",h:"わるい",a:"سيئ",category:"adjectives"
+},
+{
+j:"父",h:"ちち",a:"أب",category:"family"
+},
+{
+j:"母",h:"はは",a:"أم",category:"family"
+},
+{
+j:"兄",h:"あに",a:"أخ أكبر",category:"family"
+},
+{
+j:"姉",h:"あね",a:"أخت أكبر",category:"family"
+},
+{
+j:"弟",h:"おとうと",a:"أخ أصغر",category:"family"
+},
+{
+j:"妹",h:"いもうと",a:"أخت أصغر",category:"family"
+},
+{
+j:"夫",h:"おっと",a:"زوج",category:"family"
+},
+{
+j:"妻",h:"つま",a:"زوجة",category:"family"
+},
+{
+j:"家族",h:"かぞく",a:"عائلة",category:"family"
+},
+{
+j:"子供",h:"こども",a:"طفل",category:"family"
+},
+{
+j:"学校",h:"がっこう",a:"مدرسة",category:"school"
+},
+{
+j:"先生",h:"せんせい",a:"معلم",category:"school"
+},
+{
+j:"学生",h:"がくせい",a:"طالب",category:"school"
+},
+{
+j:"教室",h:"きょうしつ",a:"فصل دراسي",category:"school"
+},
+{
+j:"本",h:"ほん",a:"كتاب",category:"school"
+},
+{
+j:"辞書",h:"じしょ",a:"قاموس",category:"school"
+},
+{
+j:"宿題",h:"しゅくだい",a:"واجب منزلي",category:"school"
+},
+{
+j:"試験",h:"しけん",a:"اختبار",category:"school"
+},
+{
+j:"勉強",h:"べんきょう",a:"دراسة",category:"school"
+},
+{
+j:"ノート",h:"のーと",a:"دفتر",category:"school"
+},
+{
+j:"仕事",h:"しごと",a:"عمل",category:"work"
+},
+{
+j:"会社",h:"かいしゃ",a:"شركة",category:"work"
+},
+{
+j:"会議",h:"かいぎ",a:"اجتماع",category:"work"
+},
+{
+j:"社員",h:"しゃいん",a:"موظف",category:"work"
+},
+{
+j:"社長",h:"しゃちょう",a:"مدير",category:"work"
+},
+{
+j:"給料",h:"きゅうりょう",a:"راتب",category:"work"
+},
+{
+j:"休み",h:"やすみ",a:"إجازة",category:"work"
+},
+{
+j:"電話",h:"でんわ",a:"هاتف",category:"work"
+},
+{
+j:"机",h:"つくえ",a:"مكتب",category:"work"
+},
+{
+j:"パソコン",h:"ぱそこん",a:"حاسوب",category:"work"
+},
+{
+j:"今日",h:"きょう",a:"اليوم",category:"time"
+},
+{
+j:"昨日",h:"きのう",a:"أمس",category:"time"
+},
+{
+j:"明日",h:"あした",a:"غداً",category:"time"
+},
+{
+j:"今",h:"いま",a:"الآن",category:"time"
+},
+{
+j:"朝",h:"あさ",a:"صباح",category:"time"
+},
+{
+j:"昼",h:"ひる",a:"ظهر",category:"time"
+},
+{
+j:"夜",h:"よる",a:"ليل",category:"time"
+},
+{
+j:"時間",h:"じかん",a:"وقت",category:"time"
+},
+{
+j:"分",h:"ふん",a:"دقيقة",category:"time"
+},
+{
+j:"曜日",h:"ようび",a:"يوم الأسبوع",category:"time"
+},
+{
+j:"頭",h:"あたま",a:"رأس",category:"body"
+},
+{
+j:"目",h:"め",a:"عين",category:"body"
+},
+{
+j:"耳",h:"みみ",a:"أذن",category:"body"
+},
+{
+j:"鼻",h:"はな",a:"أنف",category:"body"
+},
+{
+j:"口",h:"くち",a:"فم",category:"body"
+},
+{
+j:"手",h:"て",a:"يد",category:"body"
+},
+{
+j:"足",h:"あし",a:"قدم",category:"body"
+},
+{
+j:"顔",h:"かお",a:"وجه",category:"body"
+},
+{
+j:"髪",h:"かみ",a:"شعر",category:"body"
+},
+{
+j:"体",h:"からだ",a:"جسم",category:"body"
+},
+{
+j:"病院",h:"びょういん",a:"مستشفى",category:"health"
+},
+{
+j:"医者",h:"いしゃ",a:"طبيب",category:"health"
+},
+{
+j:"薬",h:"くすり",a:"دواء",category:"health"
+},
+{
+j:"病気",h:"びょうき",a:"مرض",category:"health"
+},
+{
+j:"熱",h:"ねつ",a:"حمى",category:"health"
+},
+{
+j:"痛い",h:"いたい",a:"مؤلم",category:"health"
+},
+{
+j:"元気",h:"げんき",a:"بصحة جيدة",category:"health"
+},
+{
+j:"歯",h:"は",a:"سن",category:"health"
+},
+{
+j:"天気",h:"てんき",a:"طقس",category:"weather"
+},
+{
+j:"晴れ",h:"はれ",a:"مشمس",category:"weather"
+},
+{
+j:"雨",h:"あめ",a:"مطر",category:"weather"
+},
+{
+j:"雪",h:"ゆき",a:"ثلج",category:"weather"
+},
+{
+j:"風",h:"かぜ",a:"رياح",category:"weather"
+},
+{
+j:"曇り",h:"くもり",a:"غائم",category:"weather"
+},
+{
+j:"暑い",h:"あつい",a:"حار",category:"weather"
+},
+{
+j:"寒い",h:"さむい",a:"بارد",category:"weather"
+},
+{
+j:"赤",h:"あか",a:"أحمر",category:"colors"
+},
+{
+j:"青",h:"あお",a:"أزرق",category:"colors"
+},
+{
+j:"白",h:"しろ",a:"أبيض",category:"colors"
+},
+{
+j:"黒",h:"くろ",a:"أسود",category:"colors"
+},
+{
+j:"黄色",h:"きいろ",a:"أصفر",category:"colors"
+},
+{
+j:"緑",h:"みどり",a:"أخضر",category:"colors"
+},
+{
+j:"茶色",h:"ちゃいろ",a:"بني",category:"colors"
+},
+{
+j:"一",h:"いち",a:"واحد",category:"numbers"
+},
+{
+j:"二",h:"に",a:"اثنان",category:"numbers"
+},
+{
+j:"三",h:"さん",a:"ثلاثة",category:"numbers"
+},
+{
+j:"四",h:"よん",a:"أربعة",category:"numbers"
+},
+{
+j:"五",h:"ご",a:"خمسة",category:"numbers"
+},
+{
+j:"六",h:"ろく",a:"ستة",category:"numbers"
+},
+{
+j:"七",h:"なな",a:"سبعة",category:"numbers"
+},
+{
+j:"八",h:"はち",a:"ثمانية",category:"numbers"
+},
+{
+j:"九",h:"きゅう",a:"تسعة",category:"numbers"
+},
+{
+j:"十",h:"じゅう",a:"عشرة",category:"numbers"
+},
+{
+j:"窓",h:"まど",a:"نافذة",category:"home"
+},
+{
+j:"ドア",h:"どあ",a:"باب",category:"home"
+},
+{
+j:"台所",h:"だいどころ",a:"مطبخ",category:"home"
+},
+{
+j:"椅子",h:"いす",a:"كرسي",category:"home"
+},
+{
+j:"机",h:"つくえ",a:"طاولة",category:"home"
+},
+{
+j:"自転車",h:"じてんしゃ",a:"دراجة",category:"transport"
+},
+{
+j:"道路",h:"どうろ",a:"طريق",category:"transport"
+},
+{
+j:"空港",h:"くうこう",a:"مطار",category:"transport"
+},
+{
+j:"切符",h:"きっぷ",a:"تذكرة",category:"transport"
+},
+{
+j:"バス",h:"ばす",a:"حافلة",category:"transport"
+},
+{
+j:"時計",h:"とけい",a:"ساعة",category:"time"
+},
+{
+j:"先週",h:"せんしゅう",a:"الأسبوع الماضي",category:"time"
+},
+{
+j:"来週",h:"らいしゅう",a:"الأسبوع القادم",category:"time"
+},
+{
+j:"毎日",h:"まいにち",a:"كل يوم",category:"time"
+},
+{
+j:"午前",h:"ごぜん",a:"صباحاً",category:"time"
+},
+{
+j:"午後",h:"ごご",a:"مساءً",category:"time"
+},
+{
+j:"兄弟",h:"きょうだい",a:"إخوة",category:"family"
+},
+{
+j:"両親",h:"りょうしん",a:"الوالدان",category:"family"
+},
+{
+j:"祖父",h:"そふ",a:"جد",category:"family"
+},
+{
+j:"祖母",h:"そぼ",a:"جدة",category:"family"
+},
+{
+j:"働く",h:"はたらく",a:"يعمل",category:"verbs"
+},
+{
+j:"起きる",h:"おきる",a:"يستيقظ",category:"verbs"
+},
+{
+j:"寝る",h:"ねる",a:"ينام",category:"verbs"
+},
+{
+j:"立つ",h:"たつ",a:"يقف",category:"verbs"
+},
+{
+j:"座る",h:"すわる",a:"يجلس",category:"verbs"
+},
+{
+j:"歩く",h:"あるく",a:"يمشي",category:"verbs"
+},
+{
+j:"面白い",h:"おもしろい",a:"ممتع",category:"adjectives"
+},
+{
+j:"難しい",h:"むずかしい",a:"صعب",category:"adjectives"
+},
+{
+j:"易しい",h:"やさしい",a:"سهل",category:"adjectives"
+},
+{
+j:"忙しい",h:"いそがしい",a:"مشغول",category:"adjectives"
+},
+{
+j:"新聞",h:"しんぶん",a:"جريدة",category:"daily"
+},
+{
+j:"雑誌",h:"ざっし",a:"مجلة",category:"daily"
+},
+{
+j:"写真",h:"しゃしん",a:"صورة",category:"daily"
+},
+{
+j:"音楽",h:"おんがく",a:"موسيقى",category:"daily"
+},
+{
+j:"映画",h:"えいが",a:"فيلم",category:"daily"
+},
+{
+j:"旅行",h:"りょこう",a:"سفر",category:"daily"
+},
+{
+j:"趣味",h:"しゅみ",a:"هواية",category:"daily"
+},
+{
+j:"質問",h:"しつもん",a:"سؤال",category:"daily"
+},
+{
+j:"答え",h:"こたえ",a:"إجابة",category:"daily"
+},
+{
+j:"問題",h:"もんだい",a:"مشكلة",category:"daily"
+},
+
+{
+j:"春",h:"はる",a:"ربيع",category:"nature"
+},
+{
+j:"夏",h:"なつ",a:"صيف",category:"nature"
+},
+{
+j:"秋",h:"あき",a:"خريف",category:"nature"
+},
+{
+j:"冬",h:"ふゆ",a:"شتاء",category:"nature"
+},
+{
+j:"花",h:"はな",a:"زهرة",category:"nature"
+},
+{
+j:"木",h:"き",a:"شجرة",category:"nature"
+},
+{
+j:"森",h:"もり",a:"غابة",category:"nature"
+},
+{
+j:"石",h:"いし",a:"حجر",category:"nature"
+},
+
+{
+j:"猿",h:"さる",a:"قرد",category:"animals"
+},
+{
+j:"馬",h:"うま",a:"حصان",category:"animals"
+},
+{
+j:"牛",h:"うし",a:"بقرة",category:"animals"
+},
+{
+j:"豚",h:"ぶた",a:"خنزير",category:"animals"
+},
+{
+j:"羊",h:"ひつじ",a:"خروف",category:"animals"
+},
+{
+j:"兎",h:"うさぎ",a:"أرنب",category:"animals"
+},
+{
+j:"象",h:"ぞう",a:"فيل",category:"animals"
+},
+{
+j:"ライオン",h:"らいおん",a:"أسد",category:"animals"
+},
+
+{
+j:"塩",h:"しお",a:"ملح",category:"food"
+},
+{
+j:"砂糖",h:"さとう",a:"سكر",category:"food"
+},
+{
+j:"りんご",h:"りんご",a:"تفاح",category:"food"
+},
+{
+j:"みかん",h:"みかん",a:"برتقال",category:"food"
+},
+{
+j:"バナナ",h:"ばなな",a:"موز",category:"food"
+},
+{
+j:"ケーキ",h:"けーき",a:"كعكة",category:"food"
+},
+{
+j:"コーヒー",h:"こーひー",a:"قهوة",category:"food"
+},
+{
+j:"ジュース",h:"じゅーす",a:"عصير",category:"food"
+},
+{
+j:"約束",h:"やくそく",a:"موعد / وعد",category:"daily"
+},
+{
+j:"準備",h:"じゅんび",a:"استعداد",category:"daily"
+},
+{
+j:"説明",h:"せつめい",a:"شرح",category:"daily"
+},
+{
+j:"練習",h:"れんしゅう",a:"تدريب",category:"daily"
+},
+{
+j:"経験",h:"けいけん",a:"خبرة",category:"daily"
+},
+{
+j:"理由",h:"りゆう",a:"سبب",category:"daily"
+},
+{
+j:"必要",h:"ひつよう",a:"ضروري",category:"daily"
+},
+{
+j:"機会",h:"きかい",a:"فرصة",category:"daily"
+},
+
+{
+j:"泳ぐ",h:"およぐ",a:"يسبح",category:"verbs"
+},
+{
+j:"走る",h:"はしる",a:"يركض",category:"verbs"
+},
+{
+j:"歌う",h:"うたう",a:"يغني",category:"verbs"
+},
+{
+j:"踊る",h:"おどる",a:"يرقص",category:"verbs"
+},
+{
+j:"教える",h:"おしえる",a:"يعلم",category:"verbs"
+},
+{
+j:"習う",h:"ならう",a:"يتعلم",category:"verbs"
+},
+{
+j:"借りる",h:"かりる",a:"يستعير",category:"verbs"
+},
+{
+j:"返す",h:"かえす",a:"يعيد / يرد",category:"verbs"
+},
+{
+j:"開ける",h:"あける",a:"يفتح",category:"verbs"
+},
+{
+j:"閉める",h:"しめる",a:"يغلق",category:"verbs"
+},
+
+{
+j:"有名",h:"ゆうめい",a:"مشهور",category:"adjectives"
+},
+{
+j:"静か",h:"しずか",a:"هادئ",category:"adjectives"
+},
+{
+j:"賑やか",h:"にぎやか",a:"صاخب",category:"adjectives"
+},
+{
+j:"便利",h:"べんり",a:"مريح / عملي",category:"adjectives"
+},
+{
+j:"不便",h:"ふべん",a:"غير مريح",category:"adjectives"
+},
+{
+j:"大切",h:"たいせつ",a:"مهم",category:"adjectives"
+},
+{
+j:"簡単",h:"かんたん",a:"سهل",category:"adjectives"
+},
+{
+j:"危険",h:"きけん",a:"خطير",category:"adjectives"
+},
+
+{
+j:"銀行",h:"ぎんこう",a:"بنك",category:"shopping"
+},
+{
+j:"郵便局",h:"ゆうびんきょく",a:"مكتب بريد",category:"shopping"
+},
+{
+j:"財布",h:"さいふ",a:"محفظة",category:"shopping"
+},
+{
+j:"値段",h:"ねだん",a:"سعر",category:"shopping"
+},
+{
+j:"公園",h:"こうえん",a:"حديقة",category:"daily"
+},
+{
+j:"図書館",h:"としょかん",a:"مكتبة",category:"daily"
+},
+{
+j:"美術館",h:"びじゅつかん",a:"متحف فني",category:"daily"
+},
+{
+j:"動物園",h:"どうぶつえん",a:"حديقة حيوان",category:"daily"
+},
+{
+j:"住所",h:"じゅうしょ",a:"عنوان",category:"daily"
+},
+{
+j:"地図",h:"ちず",a:"خريطة",category:"daily"
+},
+{
+j:"世界",h:"せかい",a:"عالم",category:"daily"
+},
+{
+j:"文化",h:"ぶんか",a:"ثقافة",category:"daily"
+},
+
+{
+j:"送る",h:"おくる",a:"يرسل",category:"verbs"
+},
+{
+j:"受け取る",h:"うけとる",a:"يستلم",category:"verbs"
+},
+{
+j:"手伝う",h:"てつだう",a:"يساعد",category:"verbs"
+},
+{
+j:"選ぶ",h:"えらぶ",a:"يختار",category:"verbs"
+},
+{
+j:"調べる",h:"しらべる",a:"يبحث",category:"verbs"
+},
+{
+j:"続ける",h:"つづける",a:"يواصل",category:"verbs"
+},
+{
+j:"止める",h:"やめる",a:"يتوقف",category:"verbs"
+},
+{
+j:"始まる",h:"はじまる",a:"يبدأ",category:"verbs"
+},
+{
+j:"終わる",h:"おわる",a:"ينتهي",category:"verbs"
+},
+{
+j:"忘れる",h:"わすれる",a:"ينسى",category:"verbs"
+},
+
+{
+j:"親切",h:"しんせつ",a:"لطيف",category:"adjectives"
+},
+{
+j:"正しい",h:"ただしい",a:"صحيح",category:"adjectives"
+},
+{
+j:"間違い",h:"まちがい",a:"خطأ",category:"adjectives"
+},
+{
+j:"特別",h:"とくべつ",a:"خاص",category:"adjectives"
+},
+{
+j:"自由",h:"じゆう",a:"حر",category:"adjectives"
+},
+{
+j:"安全",h:"あんぜん",a:"آمن",category:"adjectives"
+},
+{
+j:"深い",h:"ふかい",a:"عميق",category:"adjectives"
+},
+{
+j:"浅い",h:"あさい",a:"ضحل",category:"adjectives"
+},
+
+{
+j:"帽子",h:"ぼうし",a:"قبعة",category:"shopping"
+},
+{
+j:"靴",h:"くつ",a:"حذاء",category:"shopping"
+},
+{
+j:"服",h:"ふく",a:"ملابس",category:"shopping"
+},
+{
+j:"鞄",h:"かばん",a:"حقيبة",category:"shopping"
+},
+{
+j:"橋",h:"はし",a:"جسر",category:"daily"
+},
+{
+j:"交差点",h:"こうさてん",a:"تقاطع",category:"daily"
+},
+{
+j:"信号",h:"しんごう",a:"إشارة مرور",category:"daily"
+},
+{
+j:"町",h:"まち",a:"بلدة",category:"daily"
+},
+{
+j:"村",h:"むら",a:"قرية",category:"daily"
+},
+{
+j:"都市",h:"とし",a:"مدينة",category:"daily"
+},
+{
+j:"人口",h:"じんこう",a:"عدد السكان",category:"daily"
+},
+{
+j:"歴史",h:"れきし",a:"تاريخ",category:"daily"
+},
+
+{
+j:"拾う",h:"ひろう",a:"يلتقط",category:"verbs"
+},
+{
+j:"落とす",h:"おとす",a:"يسقط شيئًا",category:"verbs"
+},
+{
+j:"運ぶ",h:"はこぶ",a:"ينقل",category:"verbs"
+},
+{
+j:"置く",h:"おく",a:"يضع",category:"verbs"
+},
+{
+j:"包む",h:"つつむ",a:"يلف",category:"verbs"
+},
+{
+j:"洗う",h:"あらう",a:"يغسل",category:"verbs"
+},
+{
+j:"磨く",h:"みがく",a:"يلمع / ينظف",category:"verbs"
+},
+{
+j:"集める",h:"あつめる",a:"يجمع",category:"verbs"
+},
+{
+j:"比べる",h:"くらべる",a:"يقارن",category:"verbs"
+},
+{
+j:"残る",h:"のこる",a:"يبقى",category:"verbs"
+},
+
+{
+j:"明るい",h:"あかるい",a:"مشرق",category:"adjectives"
+},
+{
+j:"暗い",h:"くらい",a:"مظلم",category:"adjectives"
+},
+{
+j:"甘い",h:"あまい",a:"حلو المذاق",category:"adjectives"
+},
+{
+j:"辛い",h:"からい",a:"حار المذاق",category:"adjectives"
+},
+{
+j:"重い",h:"おもい",a:"ثقيل",category:"adjectives"
+},
+{
+j:"軽い",h:"かるい",a:"خفيف",category:"adjectives"
+},
+{
+j:"狭い",h:"せまい",a:"ضيق",category:"adjectives"
+},
+{
+j:"広い",h:"ひろい",a:"واسع",category:"adjectives"
+},
+
+{
+j:"指輪",h:"ゆびわ",a:"خاتم",category:"shopping"
+},
+{
+j:"傘",h:"かさ",a:"مظلة",category:"shopping"
+},
+{
+j:"時計",h:"とけい",a:"ساعة يد",category:"shopping"
+},
+{
+j:"贈り物",h:"おくりもの",a:"هدية",category:"shopping"
+},
+{
+j:"港",h:"みなと",a:"ميناء",category:"transport"
+},
+{
+j:"船",h:"ふね",a:"سفينة",category:"transport"
+},
+{
+j:"地下鉄",h:"ちかてつ",a:"مترو",category:"transport"
+},
+{
+j:"運転手",h:"うんてんしゅ",a:"سائق",category:"transport"
+},
+{
+j:"乗客",h:"じょうきゃく",a:"راكب",category:"transport"
+},
+
+{
+j:"冷蔵庫",h:"れいぞうこ",a:"ثلاجة",category:"home"
+},
+{
+j:"洗濯機",h:"せんたくき",a:"غسالة",category:"home"
+},
+{
+j:"電灯",h:"でんとう",a:"مصباح",category:"home"
+},
+{
+j:"天井",h:"てんじょう",a:"سقف",category:"home"
+},
+{
+j:"庭",h:"にわ",a:"حديقة منزل",category:"home"
+},
+
+{
+j:"腕",h:"うで",a:"ذراع",category:"body"
+},
+{
+j:"指",h:"ゆび",a:"إصبع",category:"body"
+},
+{
+j:"首",h:"くび",a:"رقبة",category:"body"
+},
+{
+j:"背中",h:"せなか",a:"ظهر",category:"body"
+},
+{
+j:"胸",h:"むね",a:"صدر",category:"body"
+},
+
+{
+j:"看護師",h:"かんごし",a:"ممرض",category:"health"
+},
+{
+j:"患者",h:"かんじゃ",a:"مريض",category:"health"
+},
+{
+j:"診察",h:"しんさつ",a:"فحص طبي",category:"health"
+},
+{
+j:"注射",h:"ちゅうしゃ",a:"حقنة",category:"health"
+},
+{
+j:"治る",h:"なおる",a:"يشفى",category:"health"
+},
+
+{
+j:"月",h:"つき",a:"قمر",category:"nature"
+},
+{
+j:"星",h:"ほし",a:"نجمة",category:"nature"
+},
+{
+j:"草",h:"くさ",a:"عشب",category:"nature"
+},
+{
+j:"葉",h:"は",a:"ورقة شجر",category:"nature"
+},
+{
+j:"竹",h:"たけ",a:"خيزران",category:"nature"
+},
+
+{
+j:"狼",h:"おおかみ",a:"ذئب",category:"animals"
+},
+{
+j:"狐",h:"きつね",a:"ثعلب",category:"animals"
+},
+{
+j:"熊",h:"くま",a:"دب",category:"animals"
+},
+{
+j:"鹿",h:"しか",a:"غزال",category:"animals"
+},
+{
+j:"亀",h:"かめ",a:"سلحفاة",category:"animals"
+},
+{
+j:"黒板",h:"こくばん",a:"سبورة",category:"school"
+},
+{
+j:"鉛筆",h:"えんぴつ",a:"قلم رصاص",category:"school"
+},
+{
+j:"消しゴム",h:"けしごむ",a:"ممحاة",category:"school"
+},
+{
+j:"作文",h:"さくぶん",a:"مقال",category:"school"
+},
+{
+j:"授業",h:"じゅぎょう",a:"حصة دراسية",category:"school"
+},
+
+{
+j:"工場",h:"こうじょう",a:"مصنع",category:"work"
+},
+{
+j:"同僚",h:"どうりょう",a:"زميل عمل",category:"work"
+},
+{
+j:"部長",h:"ぶちょう",a:"رئيس قسم",category:"work"
+},
+{
+j:"残業",h:"ざんぎょう",a:"عمل إضافي",category:"work"
+},
+{
+j:"履歴書",h:"りれきしょ",a:"سيرة ذاتية",category:"work"
+},
+
+{
+j:"叔父",h:"おじ",a:"عم / خال",category:"family"
+},
+{
+j:"叔母",h:"おば",a:"عمة / خالة",category:"family"
+},
+{
+j:"孫",h:"まご",a:"حفيد",category:"family"
+},
+{
+j:"親戚",h:"しんせき",a:"قريب",category:"family"
+},
+{
+j:"夫婦",h:"ふうふ",a:"زوجان",category:"family"
+},
+
+{
+j:"一月",h:"いちがつ",a:"يناير",category:"time"
+},
+{
+j:"二月",h:"にがつ",a:"فبراير",category:"time"
+},
+{
+j:"三月",h:"さんがつ",a:"مارس",category:"time"
+},
+{
+j:"四月",h:"しがつ",a:"أبريل",category:"time"
+},
+{
+j:"五月",h:"ごがつ",a:"مايو",category:"time"
+},
+
+{
+j:"台風",h:"たいふう",a:"إعصار",category:"weather"
+},
+{
+j:"雷",h:"かみなり",a:"رعد",category:"weather"
+},
+{
+j:"気温",h:"きおん",a:"درجة الحرارة",category:"weather"
+},
+{
+j:"湿度",h:"しつど",a:"الرطوبة",category:"weather"
+},
+{
+j:"虹",h:"にじ",a:"قوس قزح",category:"weather"
+},
+
+{
+j:"紫",h:"むらさき",a:"بنفسجي",category:"colors"
+},
+{
+j:"灰色",h:"はいいろ",a:"رمادي",category:"colors"
+},
+{
+j:"金色",h:"きんいろ",a:"ذهبي",category:"colors"
+},
+{
+j:"銀色",h:"ぎんいろ",a:"فضي",category:"colors"
+},
+
+{
+j:"百",h:"ひゃく",a:"مئة",category:"numbers"
+},
+{
+j:"千",h:"せん",a:"ألف",category:"numbers"
+},
+{
+j:"万",h:"まん",a:"عشرة آلاف",category:"numbers"
+},
+
+{
+j:"客",h:"きゃく",a:"زبون",category:"shopping"
+},
+{
+j:"商品",h:"しょうひん",a:"منتج",category:"shopping"
+},
+{
+j:"割引",h:"わりびき",a:"خصم",category:"shopping"
+},
+{
+j:"領収書",h:"りょうしゅうしょ",a:"إيصال",category:"shopping"
+},
+{
+j:"月曜日",h:"げつようび",a:"الاثنين",category:"time"
+},
+{
+j:"火曜日",h:"かようび",a:"الثلاثاء",category:"time"
+},
+{
+j:"水曜日",h:"すいようび",a:"الأربعاء",category:"time"
+},
+{
+j:"木曜日",h:"もくようび",a:"الخميس",category:"time"
+},
+{
+j:"金曜日",h:"きんようび",a:"الجمعة",category:"time"
+},
+{
+j:"土曜日",h:"どようび",a:"السبت",category:"time"
+},
+{
+j:"日曜日",h:"にちようび",a:"الأحد",category:"time"
+},
+
+{
+j:"十一",h:"じゅういち",a:"11",category:"numbers"
+},
+{
+j:"十二",h:"じゅうに",a:"12",category:"numbers"
+},
+{
+j:"十三",h:"じゅうさん",a:"13",category:"numbers"
+},
+{
+j:"十四",h:"じゅうよん",a:"14",category:"numbers"
+},
+{
+j:"十五",h:"じゅうご",a:"15",category:"numbers"
+},
+{
+j:"二十",h:"にじゅう",a:"20",category:"numbers"
+},
+{
+j:"三十",h:"さんじゅう",a:"30",category:"numbers"
+},
+{
+j:"五十",h:"ごじゅう",a:"50",category:"numbers"
+},
+
+{
+j:"定規",h:"じょうぎ",a:"مسطرة",category:"school"
+},
+{
+j:"筆箱",h:"ふでばこ",a:"مقلمة",category:"school"
+},
+{
+j:"教科書",h:"きょうかしょ",a:"كتاب مدرسي",category:"school"
+},
+{
+j:"漢字",h:"かんじ",a:"كانجي",category:"school"
+},
+{
+j:"ひらがな",h:"ひらがな",a:"هيراغانا",category:"school"
+},
+{
+j:"カタカナ",h:"かたかな",a:"كاتاكانا",category:"school"
+},
+
+{
+j:"鏡",h:"かがみ",a:"مرآة",category:"home"
+},
+{
+j:"毛布",h:"もうふ",a:"بطانية",category:"home"
+},
+{
+j:"枕",h:"まくら",a:"وسادة",category:"home"
+},
+{
+j:"棚",h:"たな",a:"رف",category:"home"
+},
+{
+j:"玄関",h:"げんかん",a:"مدخل المنزل",category:"home"
+},
+
+{
+j:"茶碗",h:"ちゃわん",a:"وعاء أرز",category:"food"
+},
+{
+j:"箸",h:"はし",a:"عيدان أكل",category:"food"
+},
+{
+j:"スプーン",h:"すぷーん",a:"ملعقة",category:"food"
+},
+{
+j:"フォーク",h:"ふぉーく",a:"شوكة",category:"food"
+},
+{
+j:"ナイフ",h:"ないふ",a:"سكين",category:"food"
+},
+
+{
+j:"受付",h:"うけつけ",a:"استقبال",category:"work"
+},
+{
+j:"書類",h:"しょるい",a:"مستندات",category:"work"
+},
+{
+j:"印刷",h:"いんさつ",a:"طباعة",category:"work"
+},
+{
+j:"契約",h:"けいやく",a:"عقد",category:"work"
+},
+{
+j:"出張",h:"しゅっちょう",a:"رحلة عمل",category:"work"
+},
+{
+j:"私",h:"わたし",a:"أنا",category:"daily"
+},
+{
+j:"あなた",h:"あなた",a:"أنت",category:"daily"
+},
+{
+j:"彼",h:"かれ",a:"هو",category:"daily"
+},
+{
+j:"彼女",h:"かのじょ",a:"هي",category:"daily"
+},
+{
+j:"皆",h:"みんな",a:"الجميع",category:"daily"
+},
+
+{
+j:"右",h:"みぎ",a:"يمين",category:"daily"
+},
+{
+j:"左",h:"ひだり",a:"يسار",category:"daily"
+},
+{
+j:"前",h:"まえ",a:"أمام",category:"daily"
+},
+{
+j:"後ろ",h:"うしろ",a:"خلف",category:"daily"
+},
+{
+j:"中",h:"なか",a:"داخل",category:"daily"
+},
+{
+j:"外",h:"そと",a:"خارج",category:"daily"
+},
+{
+j:"近く",h:"ちかく",a:"قريب",category:"daily"
+},
+{
+j:"遠く",h:"とおく",a:"بعيد",category:"daily"
+},
+
+{
+j:"六月",h:"ろくがつ",a:"يونيو",category:"time"
+},
+{
+j:"七月",h:"しちがつ",a:"يوليو",category:"time"
+},
+{
+j:"八月",h:"はちがつ",a:"أغسطس",category:"time"
+},
+{
+j:"九月",h:"くがつ",a:"سبتمبر",category:"time"
+},
+{
+j:"十月",h:"じゅうがつ",a:"أكتوبر",category:"time"
+},
+{
+j:"十一月",h:"じゅういちがつ",a:"نوفمبر",category:"time"
+},
+{
+j:"十二月",h:"じゅうにがつ",a:"ديسمبر",category:"time"
+},
+
+{
+j:"ホテル",h:"ほてる",a:"فندق",category:"daily"
+},
+{
+j:"警察",h:"けいさつ",a:"شرطة",category:"daily"
+},
+{
+j:"消防署",h:"しょうぼうしょ",a:"مركز إطفاء",category:"daily"
+},
+{
+j:"薬局",h:"やっきょく",a:"صيدلية",category:"daily"
+},
+{
+j:"役所",h:"やくしょ",a:"دائرة حكومية",category:"daily"
+},
+
+{
+j:"入る",h:"はいる",a:"يدخل",category:"verbs"
+},
+{
+j:"出る",h:"でる",a:"يخرج",category:"verbs"
+},
+{
+j:"乗る",h:"のる",a:"يركب",category:"verbs"
+},
+{
+j:"降りる",h:"おりる",a:"ينزل",category:"verbs"
+},
+{
+j:"持つ",h:"もつ",a:"يحمل",category:"verbs"
+},
+{
+j:"切る",h:"きる",a:"يقطع",category:"verbs"
+},
+{
+j:"消す",h:"けす",a:"يطفئ / يمسح",category:"verbs"
+},
+{
+j:"点ける",h:"つける",a:"يشغل",category:"verbs"
+},
+
+{
+j:"若い",h:"わかい",a:"شاب",category:"adjectives"
+},
+{
+j:"年寄り",h:"としより",a:"مسن",category:"adjectives"
+},
+{
+j:"美しい",h:"うつくしい",a:"جميل",category:"adjectives"
+},
+{
+j:"汚い",h:"きたない",a:"متسخ",category:"adjectives"
+},
+{
+j:"強い",h:"つよい",a:"قوي",category:"adjectives"
+},
+{
+j:"弱い",h:"よわい",a:"ضعيف",category:"adjectives"
+},
+{
+j:"声",h:"こえ",a:"صوت",category:"daily"
+},
+{
+j:"言葉",h:"ことば",a:"كلمة / لغة",category:"daily"
+},
+{
+j:"意味",h:"いみ",a:"معنى",category:"daily"
+},
+{
+j:"気持ち",h:"きもち",a:"شعور",category:"daily"
+},
+{
+j:"夢",h:"ゆめ",a:"حلم",category:"daily"
+},
+{
+j:"予定",h:"よてい",a:"خطة / موعد",category:"daily"
+},
+{
+j:"用事",h:"ようじ",a:"مهمة",category:"daily"
+},
+{
+j:"秘密",h:"ひみつ",a:"سر",category:"daily"
+},
+
+{
+j:"笑う",h:"わらう",a:"يضحك",category:"verbs"
+},
+{
+j:"泣く",h:"なく",a:"يبكي",category:"verbs"
+},
+{
+j:"怒る",h:"おこる",a:"يغضب",category:"verbs"
+},
+{
+j:"喜ぶ",h:"よろこぶ",a:"يفرح",category:"verbs"
+},
+{
+j:"覚える",h:"おぼえる",a:"يتذكر",category:"verbs"
+},
+{
+j:"忘れる",h:"わすれる",a:"ينسى",category:"verbs"
+},
+{
+j:"見つける",h:"みつける",a:"يجد",category:"verbs"
+},
+{
+j:"失う",h:"うしなう",a:"يفقد",category:"verbs"
+},
+{
+j:"送る",h:"おくる",a:"يرسل",category:"verbs"
+},
+{
+j:"受ける",h:"うける",a:"يستقبل / يتلقى",category:"verbs"
+},
+
+{
+j:"嬉しい",h:"うれしい",a:"سعيد",category:"adjectives"
+},
+{
+j:"悲しい",h:"かなしい",a:"حزين",category:"adjectives"
+},
+{
+j:"寂しい",h:"さびしい",a:"وحيد",category:"adjectives"
+},
+{
+j:"優しい",h:"やさしい",a:"لطيف",category:"adjectives"
+},
+{
+j:"厳しい",h:"きびしい",a:"صارم",category:"adjectives"
+},
+{
+j:"熱い",h:"あつい",a:"ساخن",category:"adjectives"
+},
+{
+j:"冷たい",h:"つめたい",a:"بارد (للمس)",category:"adjectives"
+},
+
+{
+j:"現金",h:"げんきん",a:"نقد",category:"shopping"
+},
+{
+j:"お釣り",h:"おつり",a:"باقي المبلغ",category:"shopping"
+},
+{
+j:"袋",h:"ふくろ",a:"كيس",category:"shopping"
+},
+{
+j:"売り場",h:"うりば",a:"قسم المبيعات",category:"shopping"
+},
+
+{
+j:"机の上",h:"つくえのうえ",a:"فوق الطاولة",category:"daily"
+},
+{
+j:"机の下",h:"つくえのした",a:"تحت الطاولة",category:"daily"
+},
+{
+j:"空気",h:"くうき",a:"هواء",category:"nature"
+},
+{
+j:"光",h:"ひかり",a:"ضوء",category:"nature"
+},
+{
+j:"影",h:"かげ",a:"ظل",category:"nature"
+},
+{
+j:"砂",h:"すな",a:"رمل",category:"nature"
+},
+{
+j:"波",h:"なみ",a:"موجة",category:"nature"
+},
+
+{
+j:"鼠",h:"ねずみ",a:"فأر",category:"animals"
+},
+{
+j:"鶏",h:"にわとり",a:"دجاجة",category:"animals"
+},
+{
+j:"鴨",h:"かも",a:"بطة",category:"animals"
+},
+{
+j:"蜂",h:"はち",a:"نحلة",category:"animals"
+},
+{
+j:"蝶",h:"ちょう",a:"فراشة",category:"animals"
+},
+
+{
+j:"制服",h:"せいふく",a:"زي رسمي",category:"school"
+},
+{
+j:"留学生",h:"りゅうがくせい",a:"طالب أجنبي",category:"school"
+},
+{
+j:"成績",h:"せいせき",a:"درجة / نتيجة",category:"school"
+},
+{
+j:"質問用紙",h:"しつもんようし",a:"ورقة أسئلة",category:"school"
+},
+{
+j:"卒業",h:"そつぎょう",a:"تخرج",category:"school"
+},
+
+{
+j:"工事",h:"こうじ",a:"أعمال بناء",category:"work"
+},
+{
+j:"面接",h:"めんせつ",a:"مقابلة",category:"work"
+},
+{
+j:"予定表",h:"よていひょう",a:"جدول مواعيد",category:"work"
+},
+{
+j:"名刺",h:"めいし",a:"بطاقة عمل",category:"work"
+},
+{
+j:"事務所",h:"じむしょ",a:"مكتب إداري",category:"work"
+},
+
+{
+j:"鍵",h:"かぎ",a:"مفتاح",category:"home"
+},
+{
+j:"壁",h:"かべ",a:"جدار",category:"home"
+},
+{
+j:"床",h:"ゆか",a:"أرضية",category:"home"
+},
+{
+j:"階段",h:"かいだん",a:"درج",category:"home"
+},
+{
+j:"風呂",h:"ふろ",a:"حمام ياباني",category:"home"
+},
+
+{
+j:"喉",h:"のど",a:"حلق",category:"body"
+},
+{
+j:"肩",h:"かた",a:"كتف",category:"body"
+},
+{
+j:"膝",h:"ひざ",a:"ركبة",category:"body"
+},
+{
+j:"指先",h:"ゆびさき",a:"طرف الإصبع",category:"body"
+},
+{
+j:"唇",h:"くちびる",a:"شفاه",category:"body"
+},
+{
+j:"市場",h:"いちば",a:"سوق",category:"shopping"
+},
+{
+j:"値札",h:"ねふだ",a:"بطاقة سعر",category:"shopping"
+},
+{
+j:"店員",h:"てんいん",a:"بائع",category:"shopping"
+},
+{
+j:"品物",h:"しなもの",a:"بضاعة",category:"shopping"
+},
+{
+j:"在庫",h:"ざいこ",a:"مخزون",category:"shopping"
+},
+
+{
+j:"曇る",h:"くもる",a:"يصبح غائماً",category:"weather"
+},
+{
+j:"降る",h:"ふる",a:"يهطل",category:"weather"
+},
+{
+j:"霧",h:"きり",a:"ضباب",category:"weather"
+},
+{
+j:"気候",h:"きこう",a:"مناخ",category:"weather"
+},
+{
+j:"日差し",h:"ひざし",a:"أشعة الشمس",category:"weather"
+},
+
+{
+j:"桃色",h:"ももいろ",a:"وردي",category:"colors"
+},
+{
+j:"橙色",h:"だいだいいろ",a:"برتقالي",category:"colors"
+},
+{
+j:"紺色",h:"こんいろ",a:"كحلي",category:"colors"
+},
+{
+j:"水色",h:"みずいろ",a:"أزرق فاتح",category:"colors"
+},
+{
+j:"黄緑",h:"きみどり",a:"أخضر فاتح",category:"colors"
+},
+
+{
+j:"百円",h:"ひゃくえん",a:"100 ين",category:"numbers"
+},
+{
+j:"千円",h:"せんえん",a:"1000 ين",category:"numbers"
+},
+{
+j:"一万",h:"いちまん",a:"10000",category:"numbers"
+},
+{
+j:"半分",h:"はんぶん",a:"نصف",category:"numbers"
+},
+{
+j:"全部",h:"ぜんぶ",a:"كله",category:"numbers"
+},
+
+{
+j:"娘",h:"むすめ",a:"ابنة",category:"family"
+},
+{
+j:"息子",h:"むすこ",a:"ابن",category:"family"
+},
+{
+j:"双子",h:"ふたご",a:"توأم",category:"family"
+},
+{
+j:"義父",h:"ぎふ",a:"حمو / والد الزوج",category:"family"
+},
+{
+j:"義母",h:"ぎぼ",a:"حماته / والدة الزوجة",category:"family"
+},
+
+{
+j:"招待",h:"しょうたい",a:"دعوة",category:"daily"
+},
+{
+j:"挨拶",h:"あいさつ",a:"تحية",category:"daily"
+},
+{
+j:"会話",h:"かいわ",a:"محادثة",category:"daily"
+},
+{
+j:"返事",h:"へんじ",a:"رد",category:"daily"
+},
+{
+j:"連絡",h:"れんらく",a:"اتصال / تواصل",category:"daily"
+},
+{
+j:"案内",h:"あんない",a:"إرشاد",category:"daily"
+},
+{
+j:"予約",h:"よやく",a:"حجز",category:"daily"
+},
+{
+j:"順番",h:"じゅんばん",a:"دور / ترتيب",category:"daily"
+},
+{
+j:"場合",h:"ばあい",a:"حالة",category:"daily"
+},
+{
+j:"方法",h:"ほうほう",a:"طريقة",category:"daily"
+},
+{
+j:"結果",h:"けっか",a:"نتيجة",category:"daily"
+},
+{
+j:"注意",h:"ちゅうい",a:"انتباه",category:"daily"
+},
+
+{
+j:"渡る",h:"わたる",a:"يعبر",category:"verbs"
+},
+{
+j:"曲がる",h:"まがる",a:"ينعطف",category:"verbs"
+},
+{
+j:"急ぐ",h:"いそぐ",a:"يستعجل",category:"verbs"
+},
+{
+j:"払う",h:"はらう",a:"يدفع",category:"verbs"
+},
+{
+j:"選択する",h:"せんたくする",a:"يختار",category:"verbs"
+},
+{
+j:"確認する",h:"かくにんする",a:"يتأكد",category:"verbs"
+},
+{
+j:"利用する",h:"りようする",a:"يستخدم",category:"verbs"
+},
+{
+j:"参加する",h:"さんかする",a:"يشارك",category:"verbs"
+},
+
+{
+j:"丁寧",h:"ていねい",a:"مهذب",category:"adjectives"
+},
+{
+j:"大丈夫",h:"だいじょうぶ",a:"بخير / لا بأس",category:"adjectives"
+},
+{
+j:"普通",h:"ふつう",a:"عادي",category:"adjectives"
+},
+{
+j:"特に",h:"とくに",a:"خصوصاً",category:"adjectives"
+},
+{
+j:"十分",h:"じゅうぶん",a:"كافٍ",category:"adjectives"
+},
+{
+j:"複雑",h:"ふくざつ",a:"معقد",category:"adjectives"
+},
+
+{
+j:"寺",h:"てら",a:"معبد",category:"daily"
+},
+{
+j:"神社",h:"じんじゃ",a:"ضريح",category:"daily"
+},
+{
+j:"広場",h:"ひろば",a:"ساحة",category:"daily"
+},
+{
+j:"駐車場",h:"ちゅうしゃじょう",a:"موقف سيارات",category:"daily"
+},
+{
+j:"入口",h:"いりぐち",a:"مدخل",category:"daily"
+},
+{
+j:"出口",h:"でぐち",a:"مخرج",category:"daily"
+},
+
+{
+j:"電池",h:"でんち",a:"بطارية",category:"shopping"
+},
+{
+j:"充電器",h:"じゅうでんき",a:"شاحن",category:"shopping"
+},
+{
+j:"眼鏡",h:"めがね",a:"نظارة",category:"shopping"
+},
+{
+j:"手袋",h:"てぶくろ",a:"قفازات",category:"shopping"
+},
+{
+j:"郵便",h:"ゆうびん",a:"بريد",category:"daily"
+},
+{
+j:"荷物",h:"にもつ",a:"طرد / أمتعة",category:"daily"
+},
+{
+j:"看板",h:"かんばん",a:"لافتة",category:"daily"
+},
+{
+j:"規則",h:"きそく",a:"قانون / قاعدة",category:"daily"
+},
+{
+j:"習慣",h:"しゅうかん",a:"عادة",category:"daily"
+},
+{
+j:"希望",h:"きぼう",a:"أمل",category:"daily"
+},
+{
+j:"成功",h:"せいこう",a:"نجاح",category:"daily"
+},
+{
+j:"失敗",h:"しっぱい",a:"فشل",category:"daily"
+},
+
+{
+j:"拾得",h:"しゅうとく",a:"اكتساب",category:"daily"
+},
+{
+j:"育てる",h:"そだてる",a:"يربي",category:"verbs"
+},
+{
+j:"増える",h:"ふえる",a:"يزداد",category:"verbs"
+},
+{
+j:"減る",h:"へる",a:"ينقص",category:"verbs"
+},
+{
+j:"動く",h:"うごく",a:"يتحرك",category:"verbs"
+},
+{
+j:"止まる",h:"とまる",a:"يتوقف",category:"verbs"
+},
+{
+j:"直す",h:"なおす",a:"يصلح",category:"verbs"
+},
+{
+j:"壊れる",h:"こわれる",a:"يتعطل",category:"verbs"
+},
+{
+j:"届ける",h:"とどける",a:"يوصل",category:"verbs"
+},
+{
+j:"迎える",h:"むかえる",a:"يستقبل",category:"verbs"
+},
+
+{
+j:"豊か",h:"ゆたか",a:"غني / وفير",category:"adjectives"
+},
+{
+j:"貧しい",h:"まずしい",a:"فقير",category:"adjectives"
+},
+{
+j:"柔らかい",h:"やわらかい",a:"ناعم",category:"adjectives"
+},
+{
+j:"硬い",h:"かたい",a:"صلب",category:"adjectives"
+},
+{
+j:"丸い",h:"まるい",a:"دائري",category:"adjectives"
+},
+{
+j:"四角い",h:"しかくい",a:"مربع",category:"adjectives"
+},
+
+{
+j:"郊外",h:"こうがい",a:"ضاحية",category:"daily"
+},
+{
+j:"住宅",h:"じゅうたく",a:"مسكن",category:"daily"
+},
+{
+j:"建物",h:"たてもの",a:"مبنى",category:"daily"
+},
+{
+j:"通り",h:"とおり",a:"شارع",category:"daily"
+},
+
+{
+j:"化粧品",h:"けしょうひん",a:"مستحضرات تجميل",category:"shopping"
+},
+{
+j:"売店",h:"ばいてん",a:"كشك بيع",category:"shopping"
+},
+{
+j:"試着",h:"しちゃく",a:"تجربة الملابس",category:"shopping"
+},
+{
+j:"包装",h:"ほうそう",a:"تغليف",category:"shopping"
+},
+{
+j:"最近",h:"さいきん",a:"مؤخراً",category:"daily"
+},
+{
+j:"将来",h:"しょうらい",a:"المستقبل",category:"daily"
+},
+{
+j:"途中",h:"とちゅう",a:"في الطريق",category:"daily"
+},
+{
+j:"以外",h:"いがい",a:"باستثناء",category:"daily"
+},
+{
+j:"以上",h:"いじょう",a:"أكثر من",category:"daily"
+},
+{
+j:"以下",h:"いか",a:"أقل من",category:"daily"
+},
+{
+j:"最後",h:"さいご",a:"الأخير",category:"daily"
+},
+{
+j:"最初",h:"さいしょ",a:"الأول",category:"daily"
+},
+
+{
+j:"感じる",h:"かんじる",a:"يشعر",category:"verbs"
+},
+{
+j:"信じる",h:"しんじる",a:"يصدق",category:"verbs"
+},
+{
+j:"決める",h:"きめる",a:"يقرر",category:"verbs"
+},
+{
+j:"続く",h:"つづく",a:"يستمر",category:"verbs"
+},
+{
+j:"戻る",h:"もどる",a:"يعود",category:"verbs"
+},
+{
+j:"変わる",h:"かわる",a:"يتغير",category:"verbs"
+},
+{
+j:"増やす",h:"ふやす",a:"يزيد",category:"verbs"
+},
+{
+j:"減らす",h:"へらす",a:"يقلل",category:"verbs"
+},
+{
+j:"残す",h:"のこす",a:"يترك",category:"verbs"
+},
+{
+j:"許す",h:"ゆるす",a:"يسامح",category:"verbs"
+},
+
+{
+j:"正直",h:"しょうじき",a:"صادق",category:"adjectives"
+},
+{
+j:"親しい",h:"したしい",a:"مقرب",category:"adjectives"
+},
+{
+j:"珍しい",h:"めずらしい",a:"نادر",category:"adjectives"
+},
+{
+j:"細かい",h:"こまかい",a:"دقيق",category:"adjectives"
+},
+{
+j:"激しい",h:"はげしい",a:"عنيف",category:"adjectives"
+},
+{
+j:"穏やか",h:"おだやか",a:"هادئ",category:"adjectives"
+},
+
+{
+j:"旅館",h:"りょかん",a:"نزل ياباني",category:"daily"
+},
+{
+j:"温泉",h:"おんせん",a:"ينبوع حار",category:"daily"
+},
+{
+j:"観光",h:"かんこう",a:"سياحة",category:"daily"
+},
+{
+j:"景色",h:"けしき",a:"منظر طبيعي",category:"daily"
+},
+
+{
+j:"領域",h:"りょういき",a:"منطقة",category:"daily"
+},
+{
+j:"地方",h:"ちほう",a:"منطقة / إقليم",category:"daily"
+},
+{
+j:"中心",h:"ちゅうしん",a:"مركز",category:"daily"
+},
+{
+j:"周り",h:"まわり",a:"حول",category:"daily"
+},
+{
+j:"約",h:"やく",a:"حوالي",category:"daily"
+},
+{
+j:"例えば",h:"たとえば",a:"على سبيل المثال",category:"daily"
+},
+{
+j:"実は",h:"じつは",a:"في الحقيقة",category:"daily"
+},
+{
+j:"もちろん",h:"もちろん",a:"بالطبع",category:"daily"
+},
+{
+j:"たぶん",h:"たぶん",a:"ربما",category:"daily"
+},
+{
+j:"特別に",h:"とくべつに",a:"بشكل خاص",category:"daily"
+},
+{
+j:"突然",h:"とつぜん",a:"فجأة",category:"daily"
+},
+{
+j:"普通に",h:"ふつうに",a:"بشكل عادي",category:"daily"
+},
+
+{
+j:"確かめる",h:"たしかめる",a:"يتحقق",category:"verbs"
+},
+{
+j:"選び直す",h:"えらびなおす",a:"يعيد الاختيار",category:"verbs"
+},
+{
+j:"誘う",h:"さそう",a:"يدعو",category:"verbs"
+},
+{
+j:"断る",h:"ことわる",a:"يرفض",category:"verbs"
+},
+{
+j:"間に合う",h:"まにあう",a:"يلحق بالوقت",category:"verbs"
+},
+{
+j:"遅れる",h:"おくれる",a:"يتأخر",category:"verbs"
+},
+{
+j:"伝える",h:"つたえる",a:"يبلغ",category:"verbs"
+},
+{
+j:"慣れる",h:"なれる",a:"يعتاد",category:"verbs"
+},
+{
+j:"驚く",h:"おどろく",a:"يندهش",category:"verbs"
+},
+{
+j:"悩む",h:"なやむ",a:"يحتار / يقلق",category:"verbs"
+},
+
+{
+j:"賢い",h:"かしこい",a:"ذكي",category:"adjectives"
+},
+{
+j:"真面目",h:"まじめ",a:"جاد",category:"adjectives"
+},
+{
+j:"丁度",h:"ちょうど",a:"بالضبط",category:"adjectives"
+},
+{
+j:"立派",h:"りっぱ",a:"رائع",category:"adjectives"
+},
+{
+j:"不思議",h:"ふしぎ",a:"غريب",category:"adjectives"
+},
+{
+j:"新鮮",h:"しんせん",a:"طازج",category:"adjectives"
+},
+
+{
+j:"目標",h:"もくひょう",a:"هدف",category:"daily"
+},
+{
+j:"思い出",h:"おもいで",a:"ذكرى",category:"daily"
+},
+{
+j:"努力",h:"どりょく",a:"جهد",category:"daily"
+},
+{
+j:"挑戦",h:"ちょうせん",a:"تحدي",category:"daily"
+},
+{
+j:"成長",h:"せいちょう",a:"تطور",category:"daily"
+},
+
+{
+j:"担当",h:"たんとう",a:"مسؤول عن",category:"work"
+},
+{
+j:"料金",h:"りょうきん",a:"رسوم",category:"shopping"
+},
+{
+j:"返品",h:"へんぴん",a:"إرجاع منتج",category:"shopping"
+},
+{
+j:"売り切れ",h:"うりきれ",a:"نفد المخزون",category:"shopping"
+},
+{
+j:"支える",h:"ささえる",a:"يدعم",category:"verbs"
+},
+{
+j:"認める",h:"みとめる",a:"يعترف / يقر",category:"verbs"
+},
+{
+j:"深める",h:"ふかめる",a:"يعمق",category:"verbs"
+},
+{
+j:"相談",h:"そうだん",a:"استشارة",category:"daily"
+},
+{
+j:"約束",h:"やくそく",a:"وعد",category:"daily"
+},
+{
+j:"安心",h:"あんしん",a:"اطمئنان",category:"daily"
+},
+{
+j:"心配",h:"しんぱい",a:"قلق",category:"daily"
+},
+{
+j:"意見",h:"いけん",a:"رأي",category:"daily"
+},
+{
+j:"考え",h:"かんがえ",a:"فكرة",category:"daily"
+},
+{
+j:"事実",h:"じじつ",a:"حقيقة",category:"daily"
+},
+{
+j:"冗談",h:"じょうだん",a:"مزحة",category:"daily"
+},
+
+{
+j:"誘われる",h:"さそわれる",a:"يُدعى",category:"verbs"
+},
+{
+j:"頼む",h:"たのむ",a:"يطلب",category:"verbs"
+},
+{
+j:"頼られる",h:"たよられる",a:"يُعتمد عليه",category:"verbs"
+},
+{
+j:"受け入れる",h:"うけいれる",a:"يتقبل",category:"verbs"
+},
+{
+j:"断られる",h:"ことわられる",a:"يُرفض",category:"verbs"
+},
+{
+j:"守る",h:"まもる",a:"يحمي",category:"verbs"
+},
+{
+j:"助ける",h:"たすける",a:"يساعد",category:"verbs"
+},
+{
+j:"育つ",h:"そだつ",a:"ينمو",category:"verbs"
+},
+{
+j:"進む",h:"すすむ",a:"يتقدم",category:"verbs"
+},
+{
+j:"戻す",h:"もどす",a:"يعيد",category:"verbs"
+},
+
+{
+j:"豊富",h:"ほうふ",a:"وفير",category:"adjectives"
+},
+{
+j:"公平",h:"こうへい",a:"عادل",category:"adjectives"
+},
+{
+j:"不公平",h:"ふこうへい",a:"غير عادل",category:"adjectives"
+},
+{
+j:"有利",h:"ゆうり",a:"مفيد",category:"adjectives"
+},
+{
+j:"不利",h:"ふり",a:"غير مفيد",category:"adjectives"
+},
+{
+j:"適当",h:"てきとう",a:"مناسب",category:"adjectives"
+},
+
+{
+j:"工夫",h:"くふう",a:"ابتكار",category:"work"
+},
+{
+j:"会議室",h:"かいぎしつ",a:"غرفة اجتماعات",category:"work"
+},
+{
+j:"締切",h:"しめきり",a:"موعد نهائي",category:"work"
+},
+{
+j:"資料",h:"しりょう",a:"مستند / بيانات",category:"work"
+},
+
+{
+j:"予約席",h:"よやくせき",a:"مقعد محجوز",category:"shopping"
+},
+{
+j:"特価",h:"とっか",a:"سعر خاص",category:"shopping"
+},
+{
+j:"性格",h:"せいかく",a:"شخصية",category:"daily"
+},
+{
+j:"気分",h:"きぶん",a:"مزاج",category:"daily"
+},
+{
+j:"魅力",h:"みりょく",a:"جاذبية",category:"daily"
+},
+{
+j:"印象",h:"いんしょう",a:"انطباع",category:"daily"
+},
+{
+j:"態度",h:"たいど",a:"تصرف",category:"daily"
+},
+{
+j:"習慣",h:"しゅうかん",a:"عادة",category:"daily"
+},
+{
+j:"機会",h:"きかい",a:"فرصة",category:"daily"
+},
+{
+j:"場面",h:"ばめん",a:"موقف",category:"daily"
+},
+
+{
+j:"褒める",h:"ほめる",a:"يمدح",category:"verbs"
+},
+{
+j:"叱る",h:"しかる",a:"يوبخ",category:"verbs"
+},
+{
+j:"誘い出す",h:"さそいだす",a:"يدعو للخروج",category:"verbs"
+},
+{
+j:"付き合う",h:"つきあう",a:"يرافق",category:"verbs"
+},
+{
+j:"謝る",h:"あやまる",a:"يعتذر",category:"verbs"
+},
+{
+j:"許される",h:"ゆるされる",a:"يُسامح",category:"verbs"
+},
+{
+j:"気付く",h:"きづく",a:"يلاحظ",category:"verbs"
+},
+{
+j:"間違える",h:"まちがえる",a:"يخطئ",category:"verbs"
+},
+{
+j:"確信する",h:"かくしんする",a:"يقتنع",category:"verbs"
+},
+{
+j:"工夫する",h:"くふうする",a:"يبتكر",category:"verbs"
+},
+
+{
+j:"丁寧な",h:"ていねいな",a:"مهذب",category:"adjectives"
+},
+{
+j:"失礼な",h:"しつれいな",a:"وقح",category:"adjectives"
+},
+{
+j:"素直な",h:"すなおな",a:"صريح",category:"adjectives"
+},
+{
+j:"勝手な",h:"かってな",a:"أناني",category:"adjectives"
+},
+{
+j:"慎重な",h:"しんちょうな",a:"حذر",category:"adjectives"
+},
+{
+j:"積極的な",h:"せっきょくてきな",a:"مبادر",category:"adjectives"
+},
+
+{
+j:"社員証",h:"しゃいんしょう",a:"بطاقة موظف",category:"work"
+},
+{
+j:"給料",h:"きゅうりょう",a:"راتب",category:"work"
+},
+{
+j:"休暇",h:"きゅうか",a:"إجازة",category:"work"
+},
+{
+j:"勤務",h:"きんむ",a:"دوام",category:"work"
+},
+
+{
+j:"試供品",h:"しきょうひん",a:"عينة مجانية",category:"shopping"
+},
+{
+j:"会計",h:"かいけい",a:"محاسبة / كاشير",category:"shopping"
+},
+{
+j:"仲間",h:"なかま",a:"رفيق",category:"daily"
+},
+{
+j:"絆",h:"きずな",a:"رابطة",category:"daily"
+},
+{
+j:"理解",h:"りかい",a:"فهم",category:"daily"
+},
+{
+j:"感謝",h:"かんしゃ",a:"امتنان",category:"daily"
+},
+{
+j:"協調",h:"きょうちょう",a:"تعاون",category:"daily"
+},
+{
+j:"役割",h:"やくわり",a:"دور",category:"daily"
+},
+{
+j:"義務",h:"ぎむ",a:"واجب",category:"daily"
+},
+{
+j:"余裕",h:"よゆう",a:"متسع / راحة",category:"daily"
+},
+
+{
+j:"励ます",h:"はげます",a:"يشجع",category:"verbs"
+},
+{
+j:"応援する",h:"おうえんする",a:"يدعم",category:"verbs"
+},
+{
+j:"反対する",h:"はんたいする",a:"يعارض",category:"verbs"
+},
+{
+j:"賛成する",h:"さんせいする",a:"يوافق",category:"verbs"
+},
+{
+j:"我慢する",h:"がまんする",a:"يصبر",category:"verbs"
+},
+{
+j:"期待する",h:"きたいする",a:"يتوقع",category:"verbs"
+},
+{
+j:"挑戦する",h:"ちょうせんする",a:"يتحدى",category:"verbs"
+},
+{
+j:"達成する",h:"たっせいする",a:"يحقق",category:"verbs"
+},
+{
+j:"工夫をする",h:"くふうをする",a:"يبتكر",category:"verbs"
+},
+{
+j:"成長する",h:"せいちょうする",a:"يتطور",category:"verbs"
+},
+
+{
+j:"勇敢な",h:"ゆうかんな",a:"شجاع",category:"adjectives"
+},
+{
+j:"臆病な",h:"おくびょうな",a:"جبان",category:"adjectives"
+},
+{
+j:"謙虚な",h:"けんきょな",a:"متواضع",category:"adjectives"
+},
+{
+j:"陽気な",h:"ようきな",a:"مرح",category:"adjectives"
+},
+{
+j:"冷静な",h:"れいせいな",a:"هادئ الأعصاب",category:"adjectives"
+},
+{
+j:"誠実な",h:"せいじつな",a:"مخلص",category:"adjectives"
+},
+
+{
+j:"転勤",h:"てんきん",a:"نقل وظيفي",category:"work"
+},
+{
+j:"採用",h:"さいよう",a:"توظيف",category:"work"
+},
+{
+j:"面談",h:"めんだん",a:"اجتماع فردي",category:"work"
+},
+{
+j:"業務",h:"ぎょうむ",a:"مهام العمل",category:"work"
+},
+
+{
+j:"福袋",h:"ふくぶくろ",a:"حقيبة مفاجآت",category:"shopping"
+},
+{
+j:"ポイントカード",h:"ぽいんとかーど",a:"بطاقة نقاط",category:"shopping"
+},
+{
+j:"知識",h:"ちしき",a:"معرفة",category:"daily"
+},
+{
+j:"情報",h:"じょうほう",a:"معلومات",category:"daily"
+},
+{
+j:"話題",h:"わだい",a:"موضوع حديث",category:"daily"
+},
+{
+j:"判断",h:"はんだん",a:"حكم / قرار",category:"daily"
+},
+{
+j:"選択",h:"せんたく",a:"اختيار",category:"daily"
+},
+{
+j:"目的",h:"もくてき",a:"هدف / غاية",category:"daily"
+},
+{
+j:"条件",h:"じょうけん",a:"شرط",category:"daily"
+},
+{
+j:"影響",h:"えいきょう",a:"تأثير",category:"daily"
+},
+
+{
+j:"調整する",h:"ちょうせいする",a:"يضبط",category:"verbs"
+},
+{
+j:"改善する",h:"かいぜんする",a:"يحسن",category:"verbs"
+},
+{
+j:"解決する",h:"かいけつする",a:"يحل مشكلة",category:"verbs"
+},
+{
+j:"発見する",h:"はっけんする",a:"يكتشف",category:"verbs"
+},
+{
+j:"準備する",h:"じゅんびする",a:"يجهز",category:"verbs"
+},
+{
+j:"整理する",h:"せいりする",a:"يرتب",category:"verbs"
+},
+{
+j:"確認を取る",h:"かくにんをとる",a:"يؤكد",category:"verbs"
+},
+{
+j:"連れて行く",h:"つれていく",a:"يصطحب",category:"verbs"
+},
+{
+j:"迎えに行く",h:"むかえにいく",a:"يذهب للاستقبال",category:"verbs"
+},
+{
+j:"見送る",h:"みおくる",a:"يودع",category:"verbs"
+},
+
+{
+j:"快適な",h:"かいてきな",a:"مريح",category:"adjectives"
+},
+{
+j:"不快な",h:"ふかいな",a:"مزعج",category:"adjectives"
+},
+{
+j:"重要な",h:"じゅうような",a:"مهم",category:"adjectives"
+},
+{
+j:"有効な",h:"ゆうこうな",a:"فعال",category:"adjectives"
+},
+{
+j:"公平な",h:"こうへいな",a:"عادل",category:"adjectives"
+},
+{
+j:"適切な",h:"てきせつな",a:"مناسب",category:"adjectives"
+},
+
+{
+j:"受付番号",h:"うけつけばんごう",a:"رقم انتظار",category:"daily"
+},
+{
+j:"案内所",h:"あんないじょ",a:"مكتب استعلامات",category:"daily"
+},
+{
+j:"忘れ物",h:"わすれもの",a:"مفقودات",category:"daily"
+},
+{
+j:"落とし物",h:"おとしもの",a:"شيء ضائع",category:"daily"
+},
+
+{
+j:"値引き",h:"ねびき",a:"تخفيض سعر",category:"shopping"
+},
+{
+j:"支払い",h:"しはらい",a:"دفع",category:"shopping"
+},
+{
+j:"調査",h:"ちょうさ",a:"تحقيق / دراسة",category:"daily"
+},
+{
+j:"発表",h:"はっぴょう",a:"عرض / إعلان",category:"daily"
+},
+{
+j:"内容",h:"ないよう",a:"محتوى",category:"daily"
+},
+{
+j:"現実",h:"げんじつ",a:"واقع",category:"daily"
+},
+{
+j:"理想",h:"りそう",a:"مثالي",category:"daily"
+},
+{
+j:"特徴",h:"とくちょう",a:"ميزة",category:"daily"
+},
+{
+j:"魅力的",h:"みりょくてき",a:"جذاب",category:"daily"
+},
+{
+j:"存在",h:"そんざい",a:"وجود",category:"daily"
+},
+
+{
+j:"比べ直す",h:"くらべなおす",a:"يعيد المقارنة",category:"verbs"
+},
+{
+j:"申し込む",h:"もうしこむ",a:"يتقدم بطلب",category:"verbs"
+},
+{
+j:"受け取れる",h:"うけとれる",a:"يستطيع الاستلام",category:"verbs"
+},
+{
+j:"乗り換える",h:"のりかえる",a:"يبدل وسيلة النقل",category:"verbs"
+},
+{
+j:"見直す",h:"みなおす",a:"يراجع",category:"verbs"
+},
+{
+j:"取り出す",h:"とりだす",a:"يخرج شيئًا",category:"verbs"
+},
+{
+j:"片付ける",h:"かたづける",a:"يرتب / ينظف",category:"verbs"
+},
+{
+j:"受け持つ",h:"うけもつ",a:"يتولى",category:"verbs"
+},
+{
+j:"申し上げる",h:"もうしあげる",a:"يقول (بأدب)",category:"verbs"
+},
+{
+j:"引っ越す",h:"ひっこす",a:"ينتقل للسكن",category:"verbs"
+},
+
+{
+j:"貴重な",h:"きちょうな",a:"ثمين",category:"adjectives"
+},
+{
+j:"深刻な",h:"しんこくな",a:"خطير / جاد",category:"adjectives"
+},
+{
+j:"単純な",h:"たんじゅんな",a:"بسيط",category:"adjectives"
+},
+{
+j:"自然な",h:"しぜんな",a:"طبيعي",category:"adjectives"
+},
+{
+j:"不自然な",h:"ふしぜんな",a:"غير طبيعي",category:"adjectives"
+},
+{
+j:"具体的な",h:"ぐたいてきな",a:"محدد",category:"adjectives"
+},
+
+{
+j:"改札",h:"かいさつ",a:"بوابة تذاكر",category:"transport"
+},
+{
+j:"定期券",h:"ていきけん",a:"اشتراك مواصلات",category:"transport"
+},
+{
+j:"片道",h:"かたみち",a:"ذهاب فقط",category:"transport"
+},
+{
+j:"往復",h:"おうふく",a:"ذهاب وإياب",category:"transport"
+},
+
+{
+j:"在学",h:"ざいがく",a:"الدراسة الحالية",category:"school"
+},
+{
+j:"履修",h:"りしゅう",a:"دراسة مقرر",category:"school"
+},
+{
+j:"不足",h:"ふそく",a:"نقص",category:"daily"
+},
+{
+j:"満足",h:"まんぞく",a:"رضا",category:"daily"
+},
+{
+j:"変化",h:"へんか",a:"تغير",category:"daily"
+},
+{
+j:"状況",h:"じょうきょう",a:"وضع",category:"daily"
+},
+{
+j:"傾向",h:"けいこう",a:"اتجاه",category:"daily"
+},
+{
+j:"基礎",h:"きそ",a:"أساس",category:"daily"
+},
+{
+j:"範囲",h:"はんい",a:"نطاق",category:"daily"
+},
+{
+j:"価値",h:"かち",a:"قيمة",category:"daily"
+},
+
+{
+j:"防ぐ",h:"ふせぐ",a:"يمنع",category:"verbs"
+},
+{
+j:"避ける",h:"さける",a:"يتجنب",category:"verbs"
+},
+{
+j:"支払う",h:"しはらう",a:"يدفع",category:"verbs"
+},
+{
+j:"預ける",h:"あずける",a:"يودع",category:"verbs"
+},
+{
+j:"受け付ける",h:"うけつける",a:"يستقبل طلباً",category:"verbs"
+},
+{
+j:"混む",h:"こむ",a:"يزدحم",category:"verbs"
+},
+{
+j:"空く",h:"すく",a:"يفرغ",category:"verbs"
+},
+{
+j:"伸びる",h:"のびる",a:"ينمو",category:"verbs"
+},
+{
+j:"縮む",h:"ちぢむ",a:"ينكمش",category:"verbs"
+},
+{
+j:"届く",h:"とどく",a:"يصل",category:"verbs"
+},
+
+{
+j:"確実な",h:"かくじつな",a:"مؤكد",category:"adjectives"
+},
+{
+j:"曖昧な",h:"あいまいな",a:"غامض",category:"adjectives"
+},
+{
+j:"重大な",h:"じゅうだいな",a:"خطير / مهم",category:"adjectives"
+},
+{
+j:"豊かな",h:"ゆたかな",a:"غني",category:"adjectives"
+},
+{
+j:"急激な",h:"きゅうげきな",a:"سريع جداً",category:"adjectives"
+},
+{
+j:"平等な",h:"びょうどうな",a:"متساوٍ",category:"adjectives"
+},
+
+{
+j:"窓口",h:"まどぐち",a:"شباك خدمة",category:"daily"
+},
+{
+j:"順序",h:"じゅんじょ",a:"ترتيب",category:"daily"
+},
+{
+j:"手続き",h:"てつづき",a:"إجراءات",category:"daily"
+},
+{
+j:"番号札",h:"ばんごうふだ",a:"رقم انتظار",category:"daily"
+},
+
+{
+j:"乗車券",h:"じょうしゃけん",a:"تذكرة ركوب",category:"transport"
+},
+{
+j:"終電",h:"しゅうでん",a:"آخر قطار",category:"transport"
+},
+{
+j:"利益",h:"りえき",a:"فائدة / ربح",category:"daily"
+},
+{
+j:"損失",h:"そんしつ",a:"خسارة",category:"daily"
+},
+{
+j:"課題",h:"かだい",a:"مهمة / تحدي",category:"daily"
+},
+{
+j:"解答",h:"かいとう",a:"إجابة",category:"daily"
+},
+{
+j:"提案",h:"ていあん",a:"اقتراح",category:"daily"
+},
+{
+j:"選手",h:"せんしゅ",a:"لاعب",category:"daily"
+},
+{
+j:"記録",h:"きろく",a:"سجل",category:"daily"
+},
+{
+j:"優勝",h:"ゆうしょう",a:"فوز بالمركز الأول",category:"daily"
+},
+
+{
+j:"競う",h:"きそう",a:"يتنافس",category:"verbs"
+},
+{
+j:"含む",h:"ふくむ",a:"يتضمن",category:"verbs"
+},
+{
+j:"加える",h:"くわえる",a:"يضيف",category:"verbs"
+},
+{
+j:"除く",h:"のぞく",a:"يستثني",category:"verbs"
+},
+{
+j:"測る",h:"はかる",a:"يقيس",category:"verbs"
+},
+{
+j:"記録する",h:"きろくする",a:"يسجل",category:"verbs"
+},
+{
+j:"保存する",h:"ほぞんする",a:"يحفظ",category:"verbs"
+},
+{
+j:"印刷する",h:"いんさつする",a:"يطبع",category:"verbs"
+},
+{
+j:"翻訳する",h:"ほんやくする",a:"يترجم",category:"verbs"
+},
+{
+j:"連想する",h:"れんそうする",a:"يربط الأفكار",category:"verbs"
+},
+
+{
+j:"正確な",h:"せいかくな",a:"دقيق",category:"adjectives"
+},
+{
+j:"豊富な",h:"ほうふな",a:"وفير",category:"adjectives"
+},
+{
+j:"有名な",h:"ゆうめいな",a:"مشهور",category:"adjectives"
+},
+{
+j:"有利な",h:"ゆうりな",a:"مفيد",category:"adjectives"
+},
+{
+j:"不利な",h:"ふりな",a:"غير مفيد",category:"adjectives"
+},
+{
+j:"貴重な",h:"きちょうな",a:"ثمين",category:"adjectives"
+},
+
+{
+j:"学期",h:"がっき",a:"فصل دراسي",category:"school"
+},
+{
+j:"講義",h:"こうぎ",a:"محاضرة",category:"school"
+},
+{
+j:"研究",h:"けんきゅう",a:"بحث",category:"school"
+},
+{
+j:"実験",h:"じっけん",a:"تجربة",category:"school"
+},
+
+{
+j:"領収証",h:"りょうしゅうしょう",a:"إيصال استلام",category:"shopping"
+},
+{
+j:"預金",h:"よきん",a:"إيداع مالي",category:"shopping"
+},
+{
+j:"環境",h:"かんきょう",a:"بيئة",category:"daily"
+},
+{
+j:"資源",h:"しげん",a:"موارد",category:"daily"
+},
+{
+j:"制度",h:"せいど",a:"نظام",category:"daily"
+},
+{
+j:"債任",h:"せきむ",a:"التزام",category:"daily"
+},
+{
+j:"事件",h:"じけん",a:"حادثة",category:"daily"
+},
+{
+j:"事故",h:"じこ",a:"حادث",category:"daily"
+},
+{
+j:"証拠",h:"しょうこ",a:"دليل",category:"daily"
+},
+{
+j:"結論",h:"けつろん",a:"استنتاج",category:"daily"
+},
+
+{
+j:"調べ直す",h:"しらべなおす",a:"يعيد البحث",category:"verbs"
+},
+{
+j:"確保する",h:"かくほする",a:"يؤمن / يضمن",category:"verbs"
+},
+{
+j:"維持する",h:"いじする",a:"يحافظ على",category:"verbs"
+},
+{
+j:"許可する",h:"きょかする",a:"يسمح",category:"verbs"
+},
+{
+j:"制限する",h:"せいげんする",a:"يقيّد",category:"verbs"
+},
+{
+j:"管理する",h:"かんりする",a:"يدير",category:"verbs"
+},
+{
+j:"観察する",h:"かんさつする",a:"يراقب",category:"verbs"
+},
+{
+j:"予測する",h:"よそくする",a:"يتوقع",category:"verbs"
+},
+{
+j:"発達する",h:"はったつする",a:"يتطور",category:"verbs"
+},
+{
+j:"集中する",h:"しゅうちゅうする",a:"يركز",category:"verbs"
+},
+
+{
+j:"明確な",h:"めいかくな",a:"واضح",category:"adjectives"
+},
+{
+j:"微妙な",h:"びみょうな",a:"دقيق / حساس",category:"adjectives"
+},
+{
+j:"安定した",h:"あんていした",a:"مستقر",category:"adjectives"
+},
+{
+j:"危険な",h:"きけんな",a:"خطير",category:"adjectives"
+},
+{
+j:"便利な",h:"べんりな",a:"مفيد",category:"adjectives"
+},
+{
+j:"不便な",h:"ふべんな",a:"غير مريح",category:"adjectives"
+},
+
+{
+j:"学費",h:"がくひ",a:"رسوم دراسية",category:"school"
+},
+{
+j:"専門",h:"せんもん",a:"تخصص",category:"school"
+},
+{
+j:"教授",h:"きょうじゅ",a:"أستاذ جامعي",category:"school"
+},
+{
+j:"出席",h:"しゅっせき",a:"حضور",category:"school"
+},
+
+{
+j:"口座",h:"こうざ",a:"حساب بنكي",category:"shopping"
+},
+{
+j:"残高",h:"ざんだか",a:"رصيد",category:"shopping"
+},
+{
+j:"栄養",h:"えいよう",a:"تغذية",category:"food"
+},
+{
+j:"調味料",h:"ちょうみりょう",a:"بهارات",category:"food"
+},
+{
+j:"食欲",h:"しょくよく",a:"شهية",category:"food"
+},
+{
+j:"満腹",h:"まんぷく",a:"شبعان",category:"food"
+},
+
+{
+j:"車線",h:"しゃせん",a:"مسار طريق",category:"transport"
+},
+{
+j:"停留所",h:"ていりゅうじょ",a:"موقف حافلة",category:"transport"
+},
+{
+j:"発車",h:"はっしゃ",a:"انطلاق",category:"transport"
+},
+{
+j:"到着",h:"とうちゃく",a:"وصول",category:"transport"
+},
+
+{
+j:"診断",h:"しんだん",a:"تشخيص",category:"health"
+},
+{
+j:"症状",h:"しょうじょう",a:"أعراض",category:"health"
+},
+{
+j:"体温",h:"たいおん",a:"درجة حرارة الجسم",category:"health"
+},
+{
+j:"回復",h:"かいふく",a:"تعافي",category:"health"
+},
+
+{
+j:"森",h:"もり",a:"غابة",category:"nature"
+},
+{
+j:"湖",h:"みずうみ",a:"بحيرة",category:"nature"
+},
+{
+j:"泉",h:"いずみ",a:"نبع",category:"nature"
+},
+{
+j:"岩",h:"いわ",a:"صخرة",category:"nature"
+},
+
+{
+j:"猿",h:"さる",a:"قرد",category:"animals"
+},
+{
+j:"虎",h:"とら",a:"نمر",category:"animals"
+},
+{
+j:"兎",h:"うさぎ",a:"أرنب",category:"animals"
+},
+{
+j:"羊",h:"ひつじ",a:"خروف",category:"animals"
+},
+
+{
+j:"廊下",h:"ろうか",a:"ممر",category:"home"
+},
+{
+j:"玄関口",h:"げんかんぐち",a:"باب المدخل",category:"home"
+},
+{
+j:"引き出し",h:"ひきだし",a:"درج",category:"home"
+},
+{
+j:"洗面所",h:"せんめんじょ",a:"مغسلة",category:"home"
+},
+
+{
+j:"額",h:"ひたい",a:"جبهة",category:"body"
+},
+{
+j:"顎",h:"あご",a:"ذقن",category:"body"
+},
+{
+j:"爪",h:"つめ",a:"ظفر",category:"body"
+},
+{
+j:"頬",h:"ほお",a:"خد",category:"body"
+},
+{
+j:"炊飯器",h:"すいはんき",a:"قدر أرز كهربائي",category:"food"
+},
+{
+j:"味噌",h:"みそ",a:"ميسو",category:"food"
+},
+{
+j:"醤油",h:"しょうゆ",a:"صلصة الصويا",category:"food"
+},
+{
+j:"酢",h:"す",a:"خل",category:"food"
+},
+{
+j:"塩",h:"しお",a:"ملح",category:"food"
+},
+{
+j:"砂糖",h:"さとう",a:"سكر",category:"food"
+},
+{
+j:"小麦粉",h:"こむぎこ",a:"طحين",category:"food"
+},
+{
+j:"卵焼き",h:"たまごやき",a:"عجة يابانية",category:"food"
+},
+
+{
+j:"薬",h:"くすり",a:"دواء",category:"health"
+},
+{
+j:"風邪",h:"かぜ",a:"زكام",category:"health"
+},
+{
+j:"咳",h:"せき",a:"سعال",category:"health"
+},
+{
+j:"頭痛",h:"ずつう",a:"صداع",category:"health"
+},
+{
+j:"腹痛",h:"ふくつう",a:"ألم بطن",category:"health"
+},
+{
+j:"けが",h:"けが",a:"إصابة",category:"health"
+},
+{
+j:"包帯",h:"ほうたい",a:"ضمادة",category:"health"
+},
+{
+j:"救急車",h:"きゅうきゅうしゃ",a:"سيارة إسعاف",category:"health"
+},
+
+{
+j:"滝",h:"たき",a:"شلال",category:"nature"
+},
+{
+j:"谷",h:"たに",a:"وادي",category:"nature"
+},
+{
+j:"丘",h:"おか",a:"تل",category:"nature"
+},
+{
+j:"枝",h:"えだ",a:"غصن",category:"nature"
+},
+{
+j:"根",h:"ね",a:"جذر",category:"nature"
+},
+{
+j:"種",h:"たね",a:"بذرة",category:"nature"
+},
+
+{
+j:"馬",h:"うま",a:"حصان",category:"animals"
+},
+{
+j:"牛",h:"うし",a:"بقرة",category:"animals"
+},
+{
+j:"豚",h:"ぶた",a:"خنزير",category:"animals"
+},
+{
+j:"山羊",h:"やぎ",a:"ماعز",category:"animals"
+},
+{
+j:"孔雀",h:"くじゃく",a:"طاووس",category:"animals"
+},
+{
+j:"駱駝",h:"らくだ",a:"جمل",category:"animals"
+},
+
+{
+j:"肘",h:"ひじ",a:"مرفق",category:"body"
+},
+{
+j:"手首",h:"てくび",a:"معصم",category:"body"
+},
+{
+j:"足首",h:"あしくび",a:"كاحل",category:"body"
+},
+{
+j:"腰",h:"こし",a:"خصر",category:"body"
+},
+{
+j:"舌",h:"した",a:"لسان",category:"body"
+},
+{
+j:"歯茎",h:"はぐき",a:"لثة",category:"body"
+},
+{
+j:"曇り",h:"くもり",a:"غائم",category:"weather"
+},
+{
+j:"雷",h:"かみなり",a:"رعد",category:"weather"
+},
+{
+j:"稲妻",h:"いなずま",a:"برق",category:"weather"
+},
+{
+j:"湿度",h:"しつど",a:"رطوبة",category:"weather"
+},
+{
+j:"気温",h:"きおん",a:"درجة الحرارة",category:"weather"
+},
+{
+j:"台風",h:"たいふう",a:"إعصار",category:"weather"
+},
+
+{
+j:"紫",h:"むらさき",a:"بنفسجي",category:"colors"
+},
+{
+j:"灰色",h:"はいいろ",a:"رمادي",category:"colors"
+},
+{
+j:"金色",h:"きんいろ",a:"ذهبي",category:"colors"
+},
+{
+j:"銀色",h:"ぎんいろ",a:"فضي",category:"colors"
+},
+
+{
+j:"祖父",h:"そふ",a:"جد",category:"family"
+},
+{
+j:"祖母",h:"そぼ",a:"جدة",category:"family"
+},
+{
+j:"孫",h:"まご",a:"حفيد",category:"family"
+},
+{
+j:"親戚",h:"しんせき",a:"أقارب",category:"family"
+},
+{
+j:"夫婦",h:"ふうふ",a:"زوجان",category:"family"
+},
+{
+j:"双子",h:"ふたご",a:"توأم",category:"family"
+},
+
+{
+j:"枕",h:"まくら",a:"وسادة",category:"home"
+},
+{
+j:"毛布",h:"もうふ",a:"بطانية",category:"home"
+},
+{
+j:"畳",h:"たたみ",a:"حصير ياباني",category:"home"
+},
+{
+j:"鏡",h:"かがみ",a:"مرآة",category:"home"
+},
+{
+j:"時計",h:"とけい",a:"ساعة",category:"home"
+},
+{
+j:"鍵",h:"かぎ",a:"مفتاح",category:"home"
+},
+
+{
+j:"封筒",h:"ふうとう",a:"مظروف",category:"daily"
+},
+{
+j:"切手",h:"きって",a:"طابع بريدي",category:"daily"
+},
+{
+j:"辞書",h:"じしょ",a:"قاموس",category:"daily"
+},
+{
+j:"鉛筆",h:"えんぴつ",a:"قلم رصاص",category:"daily"
+},
+
+{
+j:"泳ぐ",h:"およぐ",a:"يسبح",category:"verbs"
+},
+{
+j:"登る",h:"のぼる",a:"يتسلق",category:"verbs"
+},
+{
+j:"降りる",h:"おりる",a:"ينزل",category:"verbs"
+},
+{
+j:"拾う",h:"ひろう",a:"يلتقط",category:"verbs"
+},
+{
+j:"磨く",h:"みがく",a:"يلمع / ينظف",category:"verbs"
+},
+{
+j:"飾る",h:"かざる",a:"يزين",category:"verbs"
+},
+{
+j:"袋",h:"ふくろ",a:"كيس",category:"shopping"
+},
+{
+j:"棚",h:"たな",a:"رف",category:"shopping"
+},
+{
+j:"値札",h:"ねふだ",a:"بطاقة سعر",category:"shopping"
+},
+{
+j:"現金",h:"げんきん",a:"نقد",category:"shopping"
+},
+{
+j:"硬貨",h:"こうか",a:"عملة معدنية",category:"shopping"
+},
+{
+j:"紙幣",h:"しへい",a:"ورقة نقدية",category:"shopping"
+},
+
+{
+j:"駅員",h:"えきいん",a:"موظف محطة",category:"transport"
+},
+{
+j:"改札口",h:"かいさつぐち",a:"بوابة المحطة",category:"transport"
+},
+{
+j:"信号",h:"しんごう",a:"إشارة مرور",category:"transport"
+},
+{
+j:"横断歩道",h:"おうだんほどう",a:"ممر مشاة",category:"transport"
+},
+{
+j:"交差点",h:"こうさてん",a:"تقاطع",category:"transport"
+},
+{
+j:"駐車場",h:"ちゅうしゃじょう",a:"موقف سيارات",category:"transport"
+},
+
+{
+j:"砂",h:"すな",a:"رمل",category:"nature"
+},
+{
+j:"泥",h:"どろ",a:"طين",category:"nature"
+},
+{
+j:"竹",h:"たけ",a:"خيزران",category:"nature"
+},
+{
+j:"葉",h:"は",a:"ورقة شجر",category:"nature"
+},
+{
+j:"花びら",h:"はなびら",a:"بتلة",category:"nature"
+},
+{
+j:"実",h:"み",a:"ثمرة",category:"nature"
+},
+
+{
+j:"鶏",h:"にわとり",a:"دجاجة",category:"animals"
+},
+{
+j:"鳩",h:"はと",a:"حمامة",category:"animals"
+},
+{
+j:"雀",h:"すずめ",a:"عصفور",category:"animals"
+},
+{
+j:"狼",h:"おおかみ",a:"ذئب",category:"animals"
+},
+{
+j:"鹿",h:"しか",a:"غزال",category:"animals"
+},
+{
+j:"狸",h:"たぬき",a:"راكون ياباني",category:"animals"
+},
+
+{
+j:"肩",h:"かた",a:"كتف",category:"body"
+},
+{
+j:"胸",h:"むね",a:"صدر",category:"body"
+},
+{
+j:"背中",h:"せなか",a:"ظهر",category:"body"
+},
+{
+j:"指",h:"ゆび",a:"إصبع",category:"body"
+},
+{
+j:"膝",h:"ひざ",a:"ركبة",category:"body"
+},
+{
+j:"踵",h:"かかと",a:"كعب القدم",category:"body"
+},
+
+{
+j:"泣く",h:"なく",a:"يبكي",category:"verbs"
+},
+{
+j:"笑う",h:"わらう",a:"يضحك",category:"verbs"
+},
+{
+j:"虹",h:"にじ",a:"قوس قزح",category:"weather"
+},
+{
+j:"霧",h:"きり",a:"ضباب",category:"weather"
+},
+{
+j:"霜",h:"しも",a:"صقيع",category:"weather"
+},
+{
+j:"雪だるま",h:"ゆきだるま",a:"رجل ثلج",category:"weather"
+},
+{
+j:"日陰",h:"ひかげ",a:"ظل",category:"weather"
+},
+{
+j:"日差し",h:"ひざし",a:"أشعة الشمس",category:"weather"
+},
+
+{
+j:"桃色",h:"ももいろ",a:"وردي",category:"colors"
+},
+{
+j:"茶色",h:"ちゃいろ",a:"بني",category:"colors"
+},
+{
+j:"紺色",h:"こんいろ",a:"كحلي",category:"colors"
+},
+{
+j:"水色",h:"みずいろ",a:"أزرق سماوي",category:"colors"
+},
+
+{
+j:"伯父",h:"おじ",a:"عم / خال",category:"family"
+},
+{
+j:"伯母",h:"おば",a:"عمة / خالة",category:"family"
+},
+{
+j:"いとこ",h:"いとこ",a:"ابن العم / الخال",category:"family"
+},
+{
+j:"義父",h:"ぎふ",a:"حمو",category:"family"
+},
+{
+j:"義母",h:"ぎぼ",a:"حماتي",category:"family"
+},
+{
+j:"兄弟姉妹",h:"きょうだいしまい",a:"إخوة وأخوات",category:"family"
+},
+
+{
+j:"天井",h:"てんじょう",a:"سقف",category:"home"
+},
+{
+j:"壁",h:"かべ",a:"جدار",category:"home"
+},
+{
+j:"床",h:"ゆか",a:"أرضية",category:"home"
+},
+{
+j:"階段",h:"かいだん",a:"درج",category:"home"
+},
+{
+j:"押し入れ",h:"おしいれ",a:"خزانة يابانية",category:"home"
+},
+{
+j:"照明",h:"しょうめい",a:"إضاءة",category:"home"
+},
+
+{
+j:"鮭",h:"さけ",a:"سمك السلمون",category:"food"
+},
+{
+j:"豆腐",h:"とうふ",a:"توفو",category:"food"
+},
+{
+j:"海苔",h:"のり",a:"أعشاب بحرية",category:"food"
+},
+{
+j:"焼き魚",h:"やきざかな",a:"سمك مشوي",category:"food"
+},
+{
+j:"弁当",h:"べんとう",a:"وجبة صندوق",category:"food"
+},
+{
+j:"漬物",h:"つけもの",a:"مخللات",category:"food"
+},
+
+{
+j:"撫でる",h:"なでる",a:"يربت",category:"verbs"
+},
+{
+j:"抱く",h:"だく",a:"يعانق",category:"verbs"
+},
+{
+j:"窓",h:"まど",a:"نافذة",category:"home"
+},
+{
+j:"扉",h:"とびら",a:"باب",category:"home"
+},
+{
+j:"机",h:"つくえ",a:"مكتب",category:"home"
+},
+{
+j:"椅子",h:"いす",a:"كرسي",category:"home"
+},
+{
+j:"冷蔵庫",h:"れいぞうこ",a:"ثلاجة",category:"home"
+},
+{
+j:"洗濯機",h:"せんたくき",a:"غسالة",category:"home"
+},
+
+{
+j:"林",h:"はやし",a:"بستان",category:"nature"
+},
+{
+j:"草",h:"くさ",a:"عشب",category:"nature"
+},
+{
+j:"虫",h:"むし",a:"حشرة",category:"nature"
+},
+{
+j:"羽",h:"はね",a:"جناح",category:"nature"
+},
+{
+j:"星",h:"ほし",a:"نجمة",category:"nature"
+},
+{
+j:"月",h:"つき",a:"قمر",category:"nature"
+},
+
+{
+j:"亀",h:"かめ",a:"سلحفاة",category:"animals"
+},
+{
+j:"蛙",h:"かえる",a:"ضفدع",category:"animals"
+},
+{
+j:"蛇",h:"へび",a:"ثعبان",category:"animals"
+},
+{
+j:"熊",h:"くま",a:"دب",category:"animals"
+},
+{
+j:"狐",h:"きつね",a:"ثعلب",category:"animals"
+},
+{
+j:"鷲",h:"わし",a:"نسر",category:"animals"
+},
+
+{
+j:"喉",h:"のど",a:"حلق",category:"body"
+},
+{
+j:"首",h:"くび",a:"رقبة",category:"body"
+},
+{
+j:"腕",h:"うで",a:"ذراع",category:"body"
+},
+{
+j:"拳",h:"こぶし",a:"قبضة",category:"body"
+},
+{
+j:"腹",h:"はら",a:"بطن",category:"body"
+},
+{
+j:"尻",h:"しり",a:"مؤخرة",category:"body"
+},
+
+{
+j:"葡萄",h:"ぶどう",a:"عنب",category:"food"
+},
+{
+j:"梨",h:"なし",a:"كمثرى",category:"food"
+},
+{
+j:"桃",h:"もも",a:"خوخ",category:"food"
+},
+{
+j:"玉葱",h:"たまねぎ",a:"بصل",category:"food"
+},
+{
+j:"人参",h:"にんじん",a:"جزر",category:"food"
+},
+{
+j:"胡瓜",h:"きゅうり",a:"خيار",category:"food"
+},
+
+{
+j:"転ぶ",h:"ころぶ",a:"يسقط",category:"verbs"
+},
+{
+j:"押す",h:"おす",a:"يدفع",category:"verbs"
+}
+
+];
+let currentDeck = [];
+let currentWordIndex = 0;
+let cardFlipped = false;
+        window.onload = function() {
+            renderStages();
+            renderKanji('N5');
+window.onload = function() {
+
+    renderStages();
+    renderKanji('N5');
+
+};
+
+document.addEventListener("click", function(e){
+
+    if(e.target.id === "flashCardBox"){
+
+        cardFlipped = !cardFlipped;
+        showFlashcard();
+
+    }
+
+});
+        
+let currentWordIndex = 0;
+let cardFlipped = false;
+
+};
+        function switchMainPage(pageId) {
+console.log("فتح الصفحة:", pageId);
+
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+
+    document.getElementById(pageId).classList.add('active');
+
+    document.querySelectorAll('.main-nav .nav-tab').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    if(pageId === 'homePage'){
+        document.querySelector('.main-nav .nav-tab:nth-child(1)').classList.add('active');
+    }
+    else if(pageId === 'kanaPage'){
+        document.querySelector('.main-nav .nav-tab:nth-child(2)').classList.add('active');
+    }
+    else if(pageId === 'kanjiPage'){
+        document.querySelector('.main-nav .nav-tab:nth-child(3)').classList.add('active');
+    }
+
+else if(pageId === 'vocabularyPage'){
+    document.querySelector('.main-nav .nav-tab:nth-child(4)').classList.add('active');
+
+    renderVocabulary();
+}
+else if(pageId === 'flashcardPage'){
+
+    setTimeout(() => {
+        showFlashcard();
+    }, 10);
+
+} 
+}      function switchSubSection(type) {
+            activeType = type;
+            document.getElementById('universalPracticeZone').style.display = 'none';
+            
+            if(type === 'hira') {
+                document.getElementById('hiraContentSection').classList.add('active');
+                document.getElementById('kataContentSection').classList.remove('active');
+                document.getElementById('tabHiraBtn').classList.add('active');
+                document.getElementById('tabKataBtn').classList.remove('active');
+            } else {
+                document.getElementById('hiraContentSection').classList.remove('active');
+                document.getElementById('kataContentSection').classList.add('active');
+                document.getElementById('tabHiraBtn').classList.remove('active');
+                document.getElementById('tabKataBtn').classList.add('active');
+            }
+            renderStages();
+        }
+
+        function renderStages() {
+            const hiraGrid = document.getElementById('hiraStagesGrid');
+            const kataGrid = document.getElementById('kataStagesGrid');
+            
+            hiraGrid.innerHTML = "";
+            kataGrid.innerHTML = "";
+
+            hiraData.forEach((group, idx) => {
+                const isUnlocked = hiraUnlocked[idx];
+                const box = document.createElement('div');
+                box.className = `stage-box ${isUnlocked ? 'unlocked' : 'locked'}`;
+                if(isUnlocked && currentGroupIdx === idx && activeType === 'hira') box.className += ' active-running';
+                
+                box.innerHTML = `
+                    <div style="font-weight:bold; color:#fff;">مجموعة ${idx + 1}</div>
+                    <div style="font-size:12px; color:var(--accent-pink); margin-top:4px;">${group.name}</div>
+                    <div class="status-text">${isUnlocked ? '🔓 مفتوح' : '🔒 مقفل'}</div>
+                `;
+                box.onclick = () => { if(isUnlocked) startGroupTesting('hira', idx); else alert("🔒 يجب إنهاء الصف السابق أولاً!"); };
+                hiraGrid.appendChild(box);
+            });
+
+            kataData.forEach((group, idx) => {
+                const isUnlocked = kataUnlocked[idx];
+                const box = document.createElement('div');
+                box.className = `stage-box ${isUnlocked ? 'unlocked' : 'locked'}`;
+                if(isUnlocked && currentGroupIdx === idx && activeType === 'kata') box.className += ' active-running';
+                
+                box.innerHTML = `
+                    <div style="font-weight:bold; color:#fff;">مجموعة ${idx + 1}</div>
+                    <div style="font-size:12px; color:var(--cyan-color); margin-top:4px;">${group.name}</div>
+                    <div class="status-text">${isUnlocked ? '🔓 مفتوح' : '🔒 مقفل'}</div>
+                `;
+                box.onclick = () => { if(isUnlocked) startGroupTesting('kata', idx); else alert("🔒 يجب إنهاء الصف السابق أولاً!"); };
+                kataGrid.appendChild(box);
+            });
+        }
+
+        function switchKanjiLevel(level) {
+            document.getElementById('levelN5Btn').classList.remove('active');
+            document.getElementById('levelN4Btn').classList.remove('active');
+            document.getElementById('levelN3Btn').classList.remove('active');
+            document.getElementById('levelN2Btn').classList.remove('active');
+            document.getElementById('levelN1Btn').classList.remove('active');
+
+            document.getElementById(`level${level}Btn`).classList.add('active');
+
+            let maxCount = 100;
+            if(level === 'N4') maxCount = 300;
+            if(level === 'N3') maxCount = 370;
+            if(level === 'N2') maxCount = 430;
+            if(level === 'N1') maxCount = 800;
+
+            document.getElementById('kanjiCountLabel').innerText = `المعروض حالياً: قائمة الـ ${maxCount} كانجي للمستوى ${level}`;
+            renderKanji(level);
+        }
+
+function renderKanji(level) {
+
+    const grid = document.getElementById('kanjiGridSection');
+    grid.innerHTML = "";
+
+    let selectedData = [];
+
+    if(level === 'N5') selectedData = kanjiN5;
+    else if(level === 'N4') selectedData = kanjiN4;
+    else if(level === 'N3') selectedData = kanjiN3;
+    else if(level === 'N2') selectedData = kanjiN2;
+    else if(level === 'N1') selectedData = kanjiN1;
+
+    if(selectedData.length === 0){
+        grid.innerHTML = "<p>لا توجد بيانات كانجي.</p>";
+        return;
+    }
+
+
+    selectedData.forEach(item => {
+
+        let on = "";
+        let kun = "";
+
+        if(item.r){
+            const parts = item.r.split("/");
+            on = parts[0] ? parts[0].trim() : "";
+            kun = parts[1] ? parts[1].trim() : "";
+        }
+
+        const card = document.createElement("div");
+        card.className = "kanji-card";
+
+        card.innerHTML = `
+            <div class="flip-card">
+                <div class="flip-card-inner">
+
+                    <div class="flip-card-front">
+                        <div class="kanji-main">${item.k}</div>
+                    </div>
+
+                    <div class="flip-card-back">
+
+                        <div class="meaning">
+                            ${item.m}
+                        </div>
+
+                        <div class="onyomi">
+                            onyomi
+                            <br>
+                            ${on}
+                        </div>
+
+                        <div class="kunyomi">
+                            kuniomi
+                            <br>
+                            ${kun}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        `;
+
+        const flip = card.querySelector(".flip-card");
+
+        flip.addEventListener("click", () => {
+            flip.classList.toggle("flipped");
+        });
+
+        grid.appendChild(card);
+    });
+
+const favBtn = card.querySelector(".favorite-btn");
+
+favBtn.addEventListener("click", (e) => {
+
+    e.stopPropagation();
+
+    word.difficult = !word.difficult;
+
+    favBtn.textContent =
+        word.difficult ? "⭐" : "☆";
+});
+    }
+
+function renderVocabulary() {
+
+    const grid = document.getElementById('vocabularyGrid');
+
+    if (!grid) return;
+
+    grid.innerHTML = "";
+updateStats();
+
+    vocabularyWords.forEach(word => {
+
+        const card = document.createElement("div");
+
+        card.className = "kanji-card";
+
+        card.innerHTML = `
+
+<div class="flip-card">
+    <div class="flip-card-inner">
+
+        <div class="flip-card-front">
+            <div class="kanji-main">${word.j}</div>
+        </div>
+
+        <div class="flip-card-back">
+            <div class="kanji-reading">${word.h}</div>
+            <div class="kanji-meaning">${word.a}</div>
+        </div>
+
+    </div>
+</div>
+
+<button class="favorite-btn">
+    ${word.difficult ? '⭐' : '☆'}
+</button>
+
+`;
+
+const flip = card.querySelector(".flip-card");
+
+flip.addEventListener("click", () => {
+    flip.classList.toggle("flipped");
+});
+const favBtn = card.querySelector(".favorite-btn");
+
+favBtn.addEventListener("click", (e) => {
+
+    e.stopPropagation();
+
+    word.difficult = !word.difficult;
+
+    favBtn.textContent =
+        word.difficult ? "⭐" : "☆";
+ });
+        grid.appendChild(card);
+
+    });
+}
+function showDifficultWords(){
+
+    const grid = document.getElementById('vocabularyGrid');
+
+    grid.innerHTML = "";
+
+    vocabularyWords
+    .filter(word => word.difficult)
+    .forEach(word => {
+
+        const card = document.createElement("div");
+
+        card.className = "kanji-card";
+
+        card.innerHTML = `
+            <div class="kanji-main">${word.j}</div>
+            <div class="kanji-reading">${word.h}</div>
+            <div class="kanji-meaning">${word.a}</div>
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+}
+function openCategory(category){
+
+    currentDeck = vocabularyWords.filter(
+        w => w.category === category
+    );
+document.getElementById("flashCardBox").style.display = "block";
+document.getElementById("savedWordsContainer").innerHTML = "";
+document.getElementById("reviewButtons").style.display = "flex";
+
+    currentWordIndex = 0;
+
+    cardFlipped = false;
+
+    switchMainPage('flashcardPage');
+
+    showFlashcard();
+
+    updateCategoryStats();
+
+}
+function showFlashcard(){
+
+    const card = document.getElementById("flashCardBox");
+
+    const word = currentDeck[currentWordIndex];
+
+    if(!word) return;
+
+    card.innerHTML = `
+        <div class="flip-card ${cardFlipped ? 'flipped' : ''}"
+     style="width:220px;height:280px;margin:auto;">
+            <div class="flip-card-inner">
+
+                <div class="flip-card-front">
+                    <div class="kanji-main">
+                        ${word.j}
+                    </div>
+                    <div class="kanji-reading">
+                      ${word.h}
+                    </div>
+<div style="
+        font-size:28px;
+        color:#aaa;
+        margin-top:10px;
+    ">
+</div>
+</div>
+                <div class="flip-card-back">
+                    <div class="kanji-meaning">
+                        ${word.a}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    `;
+}
+document.addEventListener("click", function(e){
+
+    const flashCard =
+        document.querySelector("#flashCardBox .flip-card");
+
+    if(!flashCard) return;
+
+    if(flashCard.contains(e.target)){
+        flashCard.classList.toggle("flipped");
+    }
+
+});
+function moveCard(type){
+
+    const flashCard =
+        document.querySelector("#flashCardBox .flip-card");
+
+    if(!flashCard) return;
+
+    if(type === "known"){
+
+        currentDeck[currentWordIndex].known = true;
+        currentDeck[currentWordIndex].difficult = false;
+
+        flashCard.style.transform =
+            "translateX(400px)";
+
+    }else{
+
+        currentDeck[currentWordIndex].difficult = true;
+        currentDeck[currentWordIndex].known = false;
+
+        flashCard.style.transform =
+            "translateX(-400px)";
+
+    }
+
+    flashCard.style.transition =
+        "transform .35s ease, opacity .35s ease";
+
+    flashCard.style.opacity = "0";
+
+    setTimeout(() => {
+
+    const movedCard =
+        currentDeck.splice(currentWordIndex,1)[0];
+
+    currentDeck.push(movedCard);
+
+    cardFlipped = false;
+
+    showFlashcard();
+
+    const newCard =
+        document.querySelector("#flashCardBox .flip-card");
+
+    if(newCard){
+
+        newCard.style.opacity = "0";
+
+        newCard.style.transition =
+            "opacity .4s ease";
+
+        setTimeout(() => {
+
+            newCard.style.opacity = "1";
+
+        },20);
+
+    }
+
+},350);
+
+}
+function markKnown(){
+    moveCard("known");
+updateCategoryStats();
+}
+
+function markUnknown(){
+    moveCard("unknown");
+updateCategoryStats();
+}
+function showKnownWords(){
+
+    const words =
+        vocabularyWords.filter(w => w.known);
+
+    switchMainPage('flashcardPage');
+
+    document.getElementById("flashCardBox").style.display = "none";
+    document.getElementById("reviewButtons").style.display = "none";
+
+    const container =
+        document.getElementById("savedWordsContainer");
+
+    container.innerHTML = words.map(word => `
+       <div class="saved-card">
+
+    <div class="j">${word.j}</div>
+    <div class="h">${word.h}</div>
+    <div class="a">${word.a}</div>
+
+    <button class="sub-btn"
+onclick="removeWord('${word.j}','known')">
+✖ حذف
+</button>
+
+</div>
+    `).join("");
+}
+
+function showDifficultWords(){
+
+    const words =
+        vocabularyWords.filter(w => w.difficult);
+
+    switchMainPage('flashcardPage');
+
+    document.getElementById("flashCardBox").style.display = "none";
+    document.getElementById("reviewButtons").style.display = "none";
+
+    const container =
+        document.getElementById("savedWordsContainer");
+
+    container.innerHTML = words.map(word => `
+        <div class="saved-card">
+
+    <div class="j">${word.j}</div>
+    <div class="h">${word.h}</div>
+    <div class="a">${word.a}</div>
+
+    <button class="sub-btn"
+onclick="removeWord('${word.j}','difficult')">
+✖ حذف
+</button>
+
+</div>
+    `).join("");
+}
+function removeWord(kanji,type){
+
+    const word =
+        vocabularyWords.find(w => w.j === kanji);
+
+    if(!word) return;
+
+    word.known = false;
+    word.difficult = false;
+
+    if(type === "known"){
+        showKnownWords();
+    }else{
+        showDifficultWords();
+    }
+}
+function nextWord(){
+
+    currentWordIndex++;
+
+    if(currentWordIndex >= currentDeck.length){
+        currentWordIndex = 0;
+    }
+
+    cardFlipped = false;
+
+    showFlashcard();
+
+}
+function updateCategoryStats(){
+
+    const total = currentDeck.length;
+
+    const known =
+        currentDeck.filter(
+            w => w.known
+        ).length;
+
+    const difficult =
+        currentDeck.filter(
+            w => w.difficult
+        ).length;
+
+    const percent =
+        total > 0
+        ? Math.round((known / total) * 100)
+        : 0;
+
+    document.getElementById("categoryStats")
+        .innerHTML =
+        `📚 ${total} | ✅ ${known} | ❌ ${difficult} | 🎯 ${percent}%`;
+
+}
+
+function updateStats(){
+
+    const known =
+        vocabularyWords.filter(
+            w => w.known
+        ).length;
+
+    const difficult =
+        vocabularyWords.filter(
+            w => w.difficult
+        ).length;
+
+    document.getElementById("vocabStats")
+        .innerHTML =
+        `✅ ${known} | ❌ ${difficult}`;
+
+}
+        function startGroupTesting(type, idx) {
+            activeType = type;
+            currentGroupIdx = idx;
+            currentLetterIdx = 0;
+
+            document.getElementById('universalPracticeZone').style.display = 'block';
+            renderStages();
+            updateUniversalUI();
+            
+            setTimeout(() => { document.getElementById('uInput').focus(); }, 100);
+        }
+
+        function updateUniversalUI() {
+            const dataSrc = (activeType === 'hira') ? hiraData : kataData;
+            const currentGroup = dataSrc[currentGroupIdx];
+            const currentLetter = currentGroup.letters[currentLetterIdx];
+
+            document.getElementById('uStageLabel').innerText = `${activeType === 'hira' ? 'هيراغانا' : 'كاتاكانا'} - ${currentGroup.name}`;
+            document.getElementById('uTargetChar').innerText = currentLetter.ch;
+            document.getElementById('uTargetHint').innerText = `النطق بالعربي: ${currentLetter.ar}`;
+            document.getElementById('uCounter').innerText = `الحرف: ${currentLetterIdx + 1} / ${currentGroup.letters.length}`;
+
+            const percent = (currentLetterIdx / currentGroup.letters.length) * 100;
+            document.getElementById('uProgressBar').style.width = `${percent}%`;
+        }
+
+        function checkUniversalInput() {
+            const inputField = document.getElementById('uInput');
+            const userVal = inputField.value.trim().toLowerCase();
+            
+            const dataSrc = (activeType === 'hira') ? hiraData : kataData;
+            const currentGroup = dataSrc[currentGroupIdx];
+            const targetRomaji = currentGroup.letters[currentLetterIdx].ro;
+
+            if(userVal === targetRomaji) {
+                currentLetterIdx++;
+
+                if(currentLetterIdx >= currentGroup.letters.length) {
+                    document.getElementById('uProgressBar').style.width = "100%";
+                    
+                    if(activeType === 'hira') {
+                        if(currentGroupIdx + 1 < hiraData.length) {
+                            hiraUnlocked[currentGroupIdx + 1] = true;
+                        }
+                    } else {
+                        if(currentGroupIdx + 1 < kataData.length) {
+                            kataUnlocked[currentGroupIdx + 1] = true;
+                        }
+                    }
+
+                    document.getElementById('universalPracticeZone').style.display = 'none';
+                    inputField.value = "";
+                    renderStages();
+                    return;
+                }
+
+                inputField.value = "";
+                updateUniversalUI();
+            }
+        }
+    </script>
+<script>
+function runLocalSearch() {
+    const search = document
+        .getElementById("localSearchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const results = document.getElementById("searchResults");
+    results.innerHTML = "";
+
+    if (!search) return;
+
+   const elements = document.querySelectorAll("*");
+
+    let found = 0;
+
+    elements.forEach(el => {
+        const text = (el.innerText || "").toLowerCase();
+
+        if (text.startsWith(search)) {
+            found++;
+
+            const item = document.createElement("div");
+            item.className = "search-result-item";
+            item.textContent = el.innerText.substring(0, 50000);
+
+            item.onclick = () => {
+                el.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            };
+
+            results.appendChild(item);
+        }
+    });
+
+    if (found === 0) {
+        results.innerHTML = "<div>لا توجد نتائج</div>";
+    }
+}
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabase = window.supabase.createClient(
+  'https://svjctjqckfiehillebxx.supabase.co',
+  'sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R'
+);
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+window.supabaseClient = window.supabase.createClient(
+  'https://svjctjqckfiehillebxx.supabase.co',
+  'sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R'
+);
+
+async function loginGoogle() {
+  const { error } = await window.supabaseClient.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin
+    }
+  });
+
+  if (error) {
+    console.error(error);
+    alert(error.message);
+  }
+}
+
+async function logout() {
+  await window.supabaseClient.auth.signOut();
+  location.reload();
+}
+
+async function checkUser() {
+  const { data: { user } } =
+    await window.supabaseClient.auth.getUser();
+
+  const userInfo = document.getElementById('userInfo');
+
+  if (user && userInfo) {
+    userInfo.textContent = `مرحباً ${user.email}`;
+  }
+}
+
+checkUser();
+</script>
+
+  if (error) {
+    console.error(error);
+    alert(error.message);
+  }
+}
+
+async function logout() {
+  await supabase.auth.signOut();
+  location.reload();
+}
+
+async function checkUser() {
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+
+  const userInfo = document.getElementById('userInfo');
+
+  if (user && userInfo) {
+    userInfo.textContent = `مرحباً ${user.email}`;
+  }
+}
+
+checkUser();
+</script>
+</body>
+</html>
