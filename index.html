@@ -5441,10 +5441,46 @@ const supabase = window.supabase.createClient(
   'sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R'
 );
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+window.supabaseClient = window.supabase.createClient(
+  'https://svjctjqckfiehillebxx.supabase.co',
+  'sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R'
+);
+
 async function loginGoogle() {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google'
+  const { error } = await window.supabaseClient.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin
+    }
   });
+
+  if (error) {
+    console.error(error);
+    alert(error.message);
+  }
+}
+
+async function logout() {
+  await window.supabaseClient.auth.signOut();
+  location.reload();
+}
+
+async function checkUser() {
+  const { data: { user } } =
+    await window.supabaseClient.auth.getUser();
+
+  const userInfo = document.getElementById('userInfo');
+
+  if (user && userInfo) {
+    userInfo.textContent = `مرحباً ${user.email}`;
+  }
+}
+
+checkUser();
+</script>
 
   if (error) {
     console.error(error);
