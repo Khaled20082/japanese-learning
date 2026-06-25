@@ -5441,14 +5441,6 @@ const supabase = window.supabase.createClient(
   'sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R'
 );
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const supabase = window.supabase.createClient(
-  'https://svjctjqckfiehillebxx.supabase.co',
-  'sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R'
-);
-
 async function loginGoogle() {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
