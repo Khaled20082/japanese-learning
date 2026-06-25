@@ -5022,20 +5022,6 @@ const flip = card.querySelector(".flip-card");
 flip.addEventListener("click", () => {
     flip.classList.toggle("flipped");
 });
-const favBtn = card.querySelector(".favorite-btn");
-
-favBtn.addEventListener("click", (e) => {
-
-    e.stopPropagation();
-
-    word.difficult = !word.difficult;
-
-    favBtn.textContent =
-        word.difficult ? "⭐" : "☆";
- });
-        grid.appendChild(card);
-
-    });
 }
 function showDifficultWords(){
 
