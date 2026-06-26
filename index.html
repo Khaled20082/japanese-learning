@@ -5362,61 +5362,52 @@ function runLocalSearch() {
     const search = document
         .getElementById("localSearchInput")
         .value
-        .trim()
-        .toLowerCase();
+        .toLowerCase()
+        .trim();
 
     const results = document.getElementById("searchResults");
     results.innerHTML = "";
 
     if (!search) return;
 
-    let found = [];
+   // بدلاً من querySelectorAll("*") قمنا باستثناء وسوم الميتا والتنسيقات والبرمجة لتفادي أخطاء الـ 404 والانهيار
+const elements = document.querySelectorAll("body *:not(script):not(style):not(meta):not(link)");
 
-    // تأمين مصفوفة الكانجي الشاملة لحين التأكد من تحميل المتغيرات بالكامل
-    const allKanji = [
-        ...(typeof kanjiN5 !== 'undefined' ? kanjiN5 : []),
-        ...(typeof kanjiN4 !== 'undefined' ? kanjiN4 : []),
-        ...(typeof kanjiN3 !== 'undefined' ? kanjiN3 : []),
-        ...(typeof kanjiN2 !== 'undefined' ? kanjiN2 : []),
-        ...(typeof kanjiN1 !== 'undefined' ? kanjiN1 : [])
-    ];
+    let found = 0;
 
-    allKanji.forEach(item => {
-        const text = `${item.k} ${item.m} ${item.r}`.toLowerCase();
-        if (text.includes(search)) {
-            found.push(item);
+    elements.forEach(el => {
+        const text = (el.innerText || "").toLowerCase();
+
+        if (text.startsWith(search)) {
+            found++;
+
+            const item = document.createElement("div");
+            item.className = "search-result-item";
+            item.textContent = el.innerText.substring(0, 50000);
+
+            item.onclick = () => {
+                el.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            };
+
+            results.appendChild(item);
         }
     });
 
-    if (found.length === 0) {
+    if (found === 0) {
         results.innerHTML = "<div>لا توجد نتائج</div>";
-        return;
     }
-
-    found.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "search-result-item";
-        div.innerHTML = `
-            <b style="font-size:30px">${item.k}</b><br>
-            ${item.m}<br>
-            ${item.r}
-        `;
-        results.appendChild(div);
-    });
 }
-
-// تهيئة Supabase والتحقق الآمن من وجود المكتبة الخارجية لمنع الكراش بعد التوجيه
-if (window.supabase) {
-    window.jpAuth = window.supabase.createClient(
-      "https://svjctjqckfiehillebxx.supabase.co",
-      "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R"
-    );
-} else {
-    console.error("مكتبة Supabase الخارجية لم يتم تحميلها بشكل صحيح.");
-}
+</script>
+<script>
+window.jpAuth = window.supabase.createClient(
+  "https://svjctjqckfiehillebxx.supabase.co",
+  "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R"
+);
 
 window.loginGoogle = async function () {
-  if (!window.jpAuth) return alert("سوبابيس غير متصل حالياً!");
   const { error } = await window.jpAuth.auth.signInWithOAuth({
     provider: "google",
     options: {
@@ -5431,27 +5422,24 @@ window.loginGoogle = async function () {
 };
 
 window.logout = async function () {
-  if (window.jpAuth) {
-    await window.jpAuth.auth.signOut();
-  }
+  await window.jpAuth.auth.signOut();
   location.reload();
 };
 
 window.checkUser = async function () {
-  if (!window.jpAuth) return;
   const {
     data: { user }
   } = await window.jpAuth.auth.getUser();
 
   const userInfo = document.getElementById("userInfo");
+
   if (user && userInfo) {
     userInfo.textContent = "مرحباً " + user.email;
   }
 };
 
-// تشغيل جلب بيانات المستخدم بعد بناء واجهة الموقع بالكامل
 document.addEventListener("DOMContentLoaded", () => {
-    window.checkUser();
+    checkUser();
 });
 </script>
 </body>
