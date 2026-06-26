@@ -5370,7 +5370,8 @@ function runLocalSearch() {
 
     if (!search) return;
 
-   const elements = document.querySelectorAll("*");
+   // بدلاً من querySelectorAll("*") قمنا باستثناء وسوم الميتا والتنسيقات والبرمجة لتفادي أخطاء الـ 404 والانهيار
+const elements = document.querySelectorAll("body *:not(script):not(style):not(meta):not(link)");
 
     let found = 0;
 
@@ -5437,7 +5438,9 @@ window.checkUser = async function () {
   }
 };
 
-checkUser();
+document.addEventListener("DOMContentLoaded", () => {
+    checkUser();
+});
 </script>
 </body>
 </html>
