@@ -596,6 +596,7 @@ function runLocalSearch() {
 
     let found = [];
 
+    // جمع كل الكانجي من كافة المستويات للبحث فيها
     const allKanji = [
         ...kanjiN5,
         ...kanjiN4,
@@ -605,44 +606,75 @@ function runLocalSearch() {
     ];
 
     allKanji.forEach(item => {
-        const text =
-            `${item.k} ${item.m} ${item.r}`.toLowerCase();
-
+        const text = `${item.k} ${item.m} ${item.r}`.toLowerCase();
         if (text.includes(search)) {
             found.push(item);
         }
     });
 
     if (found.length === 0) {
-        results.innerHTML = "<div>لا توجد نتائج</div>";
+        results.innerHTML = "<div style='color:#aaa; padding:10px;'>لا توجد نتائج</div>";
         return;
     }
 
+    // عرض النتائج على شكل بطاقات قابلة للقلب والتفاعل
     found.forEach(item => {
-        const div = document.createElement("div");
+        let on = "";
+        let kun = "";
 
-        div.className = "search-result-item";
+        if(item.r){
+            const parts = item.r.split("/");
+            on = parts[0] ? parts[0].trim() : "";
+            kun = parts[1] ? parts[1].trim() : "";
+        }
 
-        div.innerHTML = `
-            <b style="font-size:30px">${item.k}</b><br>
-            ${item.m}<br>
-            ${item.r}
+        const card = document.createElement("div");
+        card.className = "kanji-card";
+        card.style.width = "200px";
+        card.style.display = "inline-block";
+        card.style.margin = "10px";
+
+        card.innerHTML = `
+            <div class="flip-card" style="height: 250px; perspective: 1000px;">
+                <div class="flip-card-inner" style="position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d;">
+                    <div class="flip-card-front" style="background-color: var(--card-bg); border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center; position: absolute; width: 100%; height: 100%; backface-visibility: hidden;">
+                        <div class="kanji-main" style="font-size: 60px; font-weight: bold; color: var(--text-color);">${item.k}</div>
+                    </div>
+                    <div class="flip-card-back" style="background-color: #1c1c27; border-radius: 15px; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: space-around; align-items: center; padding: 15px; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; box-sizing: border-box;">
+                        <div class="meaning" style="font-size: 18px; font-weight: bold; color: var(--btn-bg);">${item.m}</div>
+                        <div class="onyomi" style="font-size: 13px; color: #a0a0ab;">onyomi<br>${on}</div>
+                        <div class="kunyomi" style="font-size: 13px; color: #a0a0ab;">kuniomi<br>${kun}</div>
+                    </div>
+                </div>
+            </div>
         `;
 
-        results.appendChild(div);
+        const flip = card.querySelector(".flip-card");
+        flip.addEventListener("click", () => {
+            const inner = flip.querySelector(".flip-card-inner");
+            if (inner.style.transform === "rotateY(180deg)") {
+                inner.style.transform = "rotateY(0deg)";
+            } else {
+                inner.style.transform = "rotateY(180deg)";
+            }
+        });
+
+        results.appendChild(card);
     });
 }
-
 </script>
-<div id="userInfo"></div>
 
-<button onclick="loginGoogle()">
-🔵 تسجيل الدخول عبر Google
-</button>
-
-<button onclick="logout()">
-🚪 تسجيل الخروج
-</button>
+<div class="navbar" style="width: 100%; background-color: var(--nav-bg); padding: 15px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 100;">
+    <div style="width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+        <div class="logo" style="font-size: 24px; font-weight: bold; color: var(--text-color);">アラビア語で日本🇯🇵 اليابان بالعربي</div>
+        <div class="auth-section" style="display: flex; align-items: center; gap: 15px;">
+            <span id="userInfo" style="color: #f0f0f5; font-size: 15px; font-weight: bold;"></span>
+            <button id="authBtn" style="background: var(--btn-bg); color: #fff; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; box-shadow: var(--btn-shadow); transition: all 0.3s;" onclick="loginGoogle()">
+                🔵 تسجيل الدخول
+            </button>
+        </div>
+    </div>
+</div>
     <div class="navbar">
         <div class="logo">アラビア語で日本🇯🇵 اليابان بالعربي</div>
     </div>
@@ -5371,11 +5403,14 @@ function runLocalSearch() {
 
     if (!search) return;
 
-   const elements = document.querySelectorAll("*");
+    const elements = document.querySelectorAll("*");
 
     let found = 0;
 
     elements.forEach(el => {
+        // نتحقق أن العنصر ليس صندوق البحث نفسه ولا حاوية النتائج لكي لا تتكرر النصوص
+        if (el.id === "localSearchInput" || el.id === "searchResults" || el.closest("#searchResults")) return;
+
         const text = (el.innerText || "").toLowerCase();
 
         if (text.startsWith(search)) {
@@ -5434,11 +5469,16 @@ window.checkUser = async function () {
   const userInfo = document.getElementById("userInfo");
 
   if (user && userInfo) {
-    userInfo.textContent = "مرحباً " + user.email;
+    userInfo.textContent = "مرحباً " + (user.user_metadata.full_name || user.email);
   }
 };
 
-checkUser();
+// تشغيل الفحص التلقائي للمستخدم عند فتح الصفحة لحل مشكلة عدم الظهور
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.jpAuth) {
+        checkUser();
+    }
+});
 </script>
 </body>
 </html>
