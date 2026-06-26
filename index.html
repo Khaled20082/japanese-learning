@@ -4892,18 +4892,20 @@ else if(pageId === 'flashcardPage'){
         }
 function renderKanji(level) {
     const grid = document.getElementById('kanjiGridSection');
+    if (!grid) return;
     grid.innerHTML = "";
 
     let selectedData = [];
 
-    if(level === 'N5') selectedData = kanjiN5;
-    else if(level === 'N4') selectedData = kanjiN4;
-    else if(level === 'N3') selectedData = kanjiN3;
-    else if(level === 'N2') selectedData = kanjiN2;
-    else if(level === 'N1') selectedData = kanjiN1;
+    // التحقق الآمن من وجود المصفوفات لمنع انهيار الصفحة والـ 404 أول الدخول
+    if(level === 'N5') selectedData = (typeof kanjiN5 !== 'undefined') ? kanjiN5 : [];
+    else if(level === 'N4') selectedData = (typeof kanjiN4 !== 'undefined') ? kanjiN4 : [];
+    else if(level === 'N3') selectedData = (typeof kanjiN3 !== 'undefined') ? kanjiN3 : [];
+    else if(level === 'N2') selectedData = (typeof kanjiN2 !== 'undefined') ? kanjiN2 : [];
+    else if(level === 'N1') selectedData = (typeof kanjiN1 !== 'undefined') ? kanjiN1 : [];
 
     if(selectedData.length === 0){
-        grid.innerHTML = "<p>لا توجد بيانات كانجي.</p>";
+        grid.innerHTML = "<p style='text-align:center; padding:20px;'>لا توجد بيانات كانجي لهذا المستوى حالياً.</p>";
         return;
     }
 
@@ -4917,26 +4919,24 @@ function renderKanji(level) {
             kun = parts[1] ? parts[1].trim() : "";
         }
 
-        // 1. إنشاء عنصر البطاقة أولاً في الذاكرة لحل خطأ card is not defined
         const card = document.createElement("div");
         card.className = "kanji-card";
 
-        // 2. تعبئة المحتوى بأمان
         card.innerHTML = `
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="kanji-main">${item.k}</div>
+                        <div class="kanji-main">${item.k || ''}</div>
                     </div>
                     <div class="flip-card-back">
-                        <div class="meaning">${item.m}</div>
+                        <div class="meaning">${item.m || ''}</div>
                         <div class="onyomi">
                             onyomi
                             <br>
                             ${on}
                         </div>
                         <div class="kunyomi">
-                            kuniomi
+                            kunyomi
                             <br>
                             ${kun}
                         </div>
@@ -4945,13 +4945,13 @@ function renderKanji(level) {
             </div>
         `;
 
-        // 3. إضافة تأثير القلب عند الضغط على البطاقة
         const flip = card.querySelector(".flip-card");
-        flip.addEventListener("click", () => {
-            flip.classList.toggle("flipped");
-        });
+        if(flip) {
+            flip.addEventListener("click", () => {
+                flip.classList.toggle("flipped");
+            });
+        }
 
-        // 4. عرض البطاقة بداخل حاوية الشبكة في الموقع
         grid.appendChild(card);
     });
 }
