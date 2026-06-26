@@ -596,7 +596,6 @@ function runLocalSearch() {
 
     let found = [];
 
-    // جمع كل الكانجي من كافة المستويات للبحث فيها
     const allKanji = [
         ...kanjiN5,
         ...kanjiN4,
@@ -606,75 +605,44 @@ function runLocalSearch() {
     ];
 
     allKanji.forEach(item => {
-        const text = `${item.k} ${item.m} ${item.r}`.toLowerCase();
+        const text =
+            `${item.k} ${item.m} ${item.r}`.toLowerCase();
+
         if (text.includes(search)) {
             found.push(item);
         }
     });
 
     if (found.length === 0) {
-        results.innerHTML = "<div style='color:#aaa; padding:10px;'>لا توجد نتائج</div>";
+        results.innerHTML = "<div>لا توجد نتائج</div>";
         return;
     }
 
-    // عرض النتائج على شكل بطاقات قابلة للقلب والتفاعل
     found.forEach(item => {
-        let on = "";
-        let kun = "";
+        const div = document.createElement("div");
 
-        if(item.r){
-            const parts = item.r.split("/");
-            on = parts[0] ? parts[0].trim() : "";
-            kun = parts[1] ? parts[1].trim() : "";
-        }
+        div.className = "search-result-item";
 
-        const card = document.createElement("div");
-        card.className = "kanji-card";
-        card.style.width = "200px";
-        card.style.display = "inline-block";
-        card.style.margin = "10px";
-
-        card.innerHTML = `
-            <div class="flip-card" style="height: 250px; perspective: 1000px;">
-                <div class="flip-card-inner" style="position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d;">
-                    <div class="flip-card-front" style="background-color: var(--card-bg); border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center; position: absolute; width: 100%; height: 100%; backface-visibility: hidden;">
-                        <div class="kanji-main" style="font-size: 60px; font-weight: bold; color: var(--text-color);">${item.k}</div>
-                    </div>
-                    <div class="flip-card-back" style="background-color: #1c1c27; border-radius: 15px; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: space-around; align-items: center; padding: 15px; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; box-sizing: border-box;">
-                        <div class="meaning" style="font-size: 18px; font-weight: bold; color: var(--btn-bg);">${item.m}</div>
-                        <div class="onyomi" style="font-size: 13px; color: #a0a0ab;">onyomi<br>${on}</div>
-                        <div class="kunyomi" style="font-size: 13px; color: #a0a0ab;">kuniomi<br>${kun}</div>
-                    </div>
-                </div>
-            </div>
+        div.innerHTML = `
+            <b style="font-size:30px">${item.k}</b><br>
+            ${item.m}<br>
+            ${item.r}
         `;
 
-        const flip = card.querySelector(".flip-card");
-        flip.addEventListener("click", () => {
-            const inner = flip.querySelector(".flip-card-inner");
-            if (inner.style.transform === "rotateY(180deg)") {
-                inner.style.transform = "rotateY(0deg)";
-            } else {
-                inner.style.transform = "rotateY(180deg)";
-            }
-        });
-
-        results.appendChild(card);
+        results.appendChild(div);
     });
 }
-</script>
 
-<div class="navbar" style="width: 100%; background-color: var(--nav-bg); padding: 15px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 100;">
-    <div style="width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
-        <div class="logo" style="font-size: 24px; font-weight: bold; color: var(--text-color);">アラビア語で日本🇯🇵 اليابان بالعربي</div>
-        <div class="auth-section" style="display: flex; align-items: center; gap: 15px;">
-            <span id="userInfo" style="color: #f0f0f5; font-size: 15px; font-weight: bold;"></span>
-            <button id="authBtn" style="background: var(--btn-bg); color: #fff; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; box-shadow: var(--btn-shadow); transition: all 0.3s;" onclick="loginGoogle()">
-                🔵 تسجيل الدخول
-            </button>
-        </div>
-    </div>
-</div>
+</script>
+<div id="userInfo"></div>
+
+<button onclick="loginGoogle()">
+🔵 تسجيل الدخول عبر Google
+</button>
+
+<button onclick="logout()">
+🚪 تسجيل الخروج
+</button>
     <div class="navbar">
         <div class="logo">アラビア語で日本🇯🇵 اليابان بالعربي</div>
     </div>
@@ -5395,202 +5363,44 @@ function runLocalSearch() {
     const search = document
         .getElementById("localSearchInput")
         .value
-        .trim()
-        .toLowerCase();
+        .toLowerCase()
+        .trim();
 
     const results = document.getElementById("searchResults");
     results.innerHTML = "";
 
     if (!search) return;
 
-    let found = [];
+   const elements = document.querySelectorAll("*");
 
-    // دمج مصفوفات الكانجي للبحث داخلها
-    const allKanji = [
-        ...(typeof kanjiN5 !== 'undefined' ? kanjiN5 : []),
-        ...(typeof kanjiN4 !== 'undefined' ? kanjiN4 : []),
-        ...(typeof kanjiN3 !== 'undefined' ? kanjiN3 : []),
-        ...(typeof kanjiN2 !== 'undefined' ? kanjiN2 : []),
-        ...(typeof kanjiN1 !== 'undefined' ? kanjiN1 : [])
-    ];
+    let found = 0;
 
-    allKanji.forEach(item => {
-        const text = `${item.k} ${item.m} ${item.r}`.toLowerCase();
-        if (text.includes(search)) {
-            found.push(item);
+    elements.forEach(el => {
+        const text = (el.innerText || "").toLowerCase();
+
+        if (text.startsWith(search)) {
+            found++;
+
+            const item = document.createElement("div");
+            item.className = "search-result-item";
+            item.textContent = el.innerText.substring(0, 50000);
+
+            item.onclick = () => {
+                el.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            };
+
+            results.appendChild(item);
         }
     });
 
-    if (found.length === 0) {
+    if (found === 0) {
         results.innerHTML = "<div>لا توجد نتائج</div>";
-        return;
     }
-
-    found.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "search-result-item";
-        div.innerHTML = `
-            <b style="font-size:30px">${item.k}</b><br>
-            ${item.m}<br>
-            ${item.r}
-        `;
-        results.appendChild(div);
-    });
 }
 </script>
-
-<div id="userInfo" style="color: #fff; font-weight: bold; margin: 10px; text-align: center;"></div>
-
-<div style="text-align: center; margin-bottom: 20px;">
-    <button class="sub-btn" onclick="loginGoogle()">
-    🔵 تسجيل الدخول عبر Google
-    </button>
-    <button class="sub-btn" onclick="logout()">
-    🚪 تسجيل الخروج
-    </button>
-</div>
-
-<div class="navbar">
-    <div class="logo">アラビア語で日本🇯🇵 اليابان بالعربي</div>
-</div>
-           
-<div class="main-nav">
-    <button class="nav-tab active" onclick="switchMainPage('homePage')">🏠 الرئيسية</button>
-    <button class="nav-tab" onclick="switchMainPage('kanaPage')">🎏 الكانا</button>
-    <button class="nav-tab" onclick="switchMainPage('kanjiPage')">⛩️ الكانجي</button>
-    <button class="nav-tab" onclick="switchMainPage('vocabularyPage')">📖 المفردات</button>
-    <button class="nav-tab" onclick="alert('قريباً')">📌 القواعد</button>
-</div>
-
-<div class="page active" id="homePage">
-    <div class="hero-section">       
-        <h1 class="hero-title">مرحباً بك في منصتك التعليمية</h1>
-
-        <div class="search-box">
-            <input type="text"
-                   id="localSearchInput"
-                   oninput="runLocalSearch()"
-                   placeholder=" (البحث) اكتب الكانجي أو المعنى العربي أو القراءة اليابانية (مثال: 水 ، ماء ، みず) ">
-        </div>
-
-        <div id="searchResults" class="search-results"></div>
-
-        <div class="hero-circle">
-            <h2>دليلك لتعلم الاحرف و الكلمات</h2>
-            <p>
-                تعلم وإتقان حروف اللغة اليابانية والرموز الصينية (الكانجي) والكلمات اليابانية بواجهة عربية متكاملة.
-                <br><br>
-                ولزيادة حصيلتك في اللغة اليابانية، فإن جميع حقوق الموقع وطرق التعلم تعود إلى فريق
-                <br>
-                <strong>アラビア語で日本🇯🇵 اليابان بالعربي</strong>
-                <br><br>
-                نسأل الله التوفيق والنجاح.
-                <br><br>
-                مؤدي ومبرمج الموقع: <strong>Nuil_1</strong>
-            </p>
-        </div>
-        
-        <div class="social-container">
-            <a href="https://www.tiktok.com/@learn_japanese_with_arab" target="_blank" class="social-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="#fff" d="M12.53.02c1.31.01 2.61-.01 3.91.02.08 1.53.63 3.03 1.63 4.14.99 1.12 2.37 1.83 3.84 2.05v3.86c-1.63-.04-3.23-.55-4.57-1.49-.14-.1-.27-.21-.41-.32v5.69c-.06 2.12-.87 4.19-2.34 5.71-1.67 1.73-4.04 2.69-6.47 2.65-2.61-.04-5.11-1.24-6.69-3.32-1.64-2.14-2.16-5.01-1.39-7.61.73-2.52 2.72-4.59 5.27-5.32v3.74c-1.32.41-2.42 1.39-2.97 2.65-.62 1.38-.53 3.06.24 4.37.81 1.38 2.34 2.23 3.95 2.23 1.59-.01 3.09-.91 3.73-2.37.31-.7.42-1.47.41-2.24V0h.24z"/>
-                </svg>
-            </a>
-            <a href="https://www.youtube.com/@learn_japanese_with_arab" target="_blank" class="social-btn">
-                <svg viewBox="0 0 24 24"><path fill="#fff" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93 0 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </a>
-            <a href="https://discord.gg/d9PyytzEcq" target="_blank" class="social-btn">
-                <svg viewBox="0 0 24 24"><path fill="#fff" d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.075.075 0 0 1-.006.127 12.298 12.298 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 0.084 0.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></svg>
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="page" id="kanaPage">
-    <h2>قسم الحروف اليابانية (الكانا) الكاملة</h2>
-    <div class="sub-menu">
-        <button class="sub-btn active" id="tabHiraBtn" onclick="switchSubSection('hira')">حروف الهيراغانا 🌸</button>
-        <button class="sub-btn" id="tabKataBtn" onclick="switchSubSection('kata')">حروف الكاتاكانا ⚡</button>
-    </div>
-    <div class="sub-content active" id="hiraContentSection">
-        <h3>مجموعات الهيراغانا الكاملة (46 حرفاً)</h3>
-        <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">اجتز الصفوف بالترتيب لتفتح المجموعات التالية تلقائياً</p>
-        <div class="stages-grid" id="hiraStagesGrid"></div>
-    </div>
-    <div class="sub-content" id="kataContentSection">
-        <h3>مجموعات الكاتاكانا الكاملة (46 حرفاً)</h3>
-        <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">اجتز الصفوف بالترتيب لتفتح المجموعات التالية تلقائياً</p>
-        <div class="stages-grid" id="kataStagesGrid"></div>
-    </div>
-    <div class="practice-zone" id="universalPracticeZone">
-        <div class="pz-header">
-            <div class="pz-title" id="uStageLabel">المجموعة الحالية</div>
-            <div style="font-size: 16px; color: var(--cyan-color);" id="uCounter">الحرف: 1 / 5</div>
-        </div>
-        <div class="pz-char" id="uTargetChar">あ</div>
-        <div class="pz-hint" id="uTargetHint">النطق بالعربي: أَ</div>
-        <div class="pz-input-wrapper">
-            <input type="text" class="pz-input" id="uInput" autocomplete="off" placeholder="اكتب النطق هنا بالروماجي..." oninput="checkUniversalInput()">
-        </div>
-        <div class="progress-track">
-            <div class="progress-bar" id="uProgressBar"></div>
-        </div>
-    </div>
-</div>
-
-<div class="page" id="kanjiPage">
-    <h2>⛩️ مستودع الكانجي الياباني الشامل (N5 - N1)</h2>
-    <p style="color: #aaa; font-size: 15px; margin-bottom: 25px;">تصفح الكانجيات الرسمية المقسمة والمترتبة بدقة متناهية</p>
-    <div class="sub-menu">
-        <button class="sub-btn active" id="levelN5Btn" onclick="switchKanjiLevel('N5')">المستوى N5 (100 كانجي)</button>
-        <button class="sub-btn" id="levelN4Btn" onclick="switchKanjiLevel('N4')">المستوى N4 (300 كانجي)</button>
-        <button class="sub-btn" id="levelN3Btn" onclick="switchKanjiLevel('N3')">المستوى N3 (370 كانجي)</button>
-        <button class="sub-btn" id="levelN2Btn" onclick="switchKanjiLevel('N2')">المستوى N2 (430 كانجي)</button>
-        <button class="sub-btn" id="levelN1Btn" onclick="switchKanjiLevel('N1')">المستوى N1 (800 كانجي)</button>
-    </div>
-    <div class="kanji-counter-badge" id="kanjiCountLabel">المعروض حالياً: قائمة الـ 100 كانجي للمستوى N5</div>
-    <div class="kanji-grid" id="kanjiGridSection"></div>
-</div>
-
-<div class="page" id="vocabularyPage">
-    <h2 style="text-align:center">📖 المفردات اليابانية</h2>
-    <div class="review-buttons">
-        <button class="sub-btn" onclick="showDifficultWords()">❌ ما عرفتها</button>
-        <button class="sub-btn" onclick="showKnownWords()">✅ عرفتها</button>
-    </div>
-    <div class="sub-menu">
-        <button class="sub-btn" onclick="openCategory('school')">🏫 المدرسة</button>
-        <button class="sub-btn" onclick="openCategory('transport')">🚆 المواصلات</button>
-        <button class="sub-btn" onclick="openCategory('food')">🍜 الطعام</button>
-        <button class="sub-btn" onclick="openCategory('home')">🏠 المنزل</button>
-        <button class="sub-btn" onclick="openCategory('family')">👨‍👩‍👧‍👦 العائلة</button>
-        <button class="sub-btn" onclick="openCategory('work')">💼 العمل</button>
-        <button class="sub-btn" onclick="openCategory('shopping')">🛒 التسوق</button>
-        <button class="sub-btn" onclick="openCategory('time')">⏰ الوقت والتاريخ</button>
-        <button class="sub-btn" onclick="openCategory('weather')">☀️ الطقس</button>
-        <button class="sub-btn" onclick="openCategory('body')">🧍 الجسم</button>
-        <button class="sub-btn" onclick="openCategory('health')">🏥 الصحة</button>
-        <button class="sub-btn" onclick="openCategory('nature')">🌳 الطبيعة</button>
-        <button class="sub-btn" onclick="openCategory('animals')">🐶 الحيوانات</button>
-        <button class="sub-btn" onclick="openCategory('colors')">🎨 الألوان</button>
-        <button class="sub-btn" onclick="openCategory('numbers')">🔢 الأرقام</button>
-        <button class="sub-btn" onclick="openCategory('verbs')">🏃 الأفعال</button>
-        <button class="sub-btn" onclick="openCategory('adjectives')">✨ الصفات</button>
-        <button class="sub-btn" onclick="openCategory('daily')">📅 الحياة اليومية</button>
-    </div>
-</div>
-
-<div class="page" id="flashcardPage">
-    <h2>🃏 فلاش كارد</h2>
-    <div id="categoryStats" style="text-align:center; margin-bottom:15px; font-size:18px; color:#aaa;"></div>
-    <div id="flashCardBox"></div>
-    <div class="review-buttons" id="reviewButtons">
-        <button class="sub-btn" onclick="markKnown()">✅ عرفتها</button>
-        <button class="sub-btn" onclick="markUnknown()">❌ ما عرفتها</button>
-    </div>
-    <div id="savedWordsContainer"></div>
-</div>
-
 <script>
 window.jpAuth = window.supabase.createClient(
   "https://svjctjqckfiehillebxx.supabase.co",
@@ -5617,19 +5427,18 @@ window.logout = async function () {
 };
 
 window.checkUser = async function () {
-  const { data: { user } } = await window.jpAuth.auth.getUser();
+  const {
+    data: { user }
+  } = await window.jpAuth.auth.getUser();
+
   const userInfo = document.getElementById("userInfo");
 
   if (user && userInfo) {
-    userInfo.textContent = "مرحباً " + (user.user_metadata.full_name || user.email);
+    userInfo.textContent = "مرحباً " + user.email;
   }
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (window.jpAuth) {
-        window.checkUser();
-    }
-});
+checkUser();
 </script>
 </body>
 </html>
