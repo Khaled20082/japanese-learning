@@ -53,9 +53,73 @@
             padding: 20px 0;
             display: flex;
             justify-content: center;
+            align-items: center;
+            position: relative;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             border-bottom: 2px solid rgba(255, 77, 166, 0.2);
         }
+
+        /* زر / معلومات المستخدم في أعلى اليسار */
+        #authArea {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #loginBtn {
+            background: #16161f;
+            border: 2px solid rgba(255,77,166,.35);
+            color: white;
+            padding: 7px 13px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: .3s;
+            white-space: nowrap;
+        }
+        #loginBtn:hover { border-color: #ff4da6; }
+
+        #userProfile {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        #userAvatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid #ff4da6;
+            object-fit: cover;
+        }
+
+        #userName {
+            font-size: 13px;
+            font-weight: bold;
+            color: #fff;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #logoutBtn {
+            background: transparent;
+            border: 1px solid rgba(255,77,166,.4);
+            color: #ff4da6;
+            padding: 4px 9px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: .2s;
+        }
+        #logoutBtn:hover { background: rgba(255,77,166,.15); }
 
         .logo {
             font-size: 34px; margin: 25px 0 15px 0; color: var(--btn-bg); text-shadow: var(--btn-shadow);
@@ -578,95 +642,20 @@
     margin-top:12px;
     width:100%;
 }
-        #accountArea{
-    position:absolute;
-    left:20px;
-    top:50%;
-    transform:translateY(-50%);
-}
-
-#userBtn{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-#userAvatar{
-    width:30px;
-    height:30px;
-    border-radius:50%;
-}
 </style>
 </head>
-<script>
-function runLocalSearch() {
-    const search = document
-        .getElementById("localSearchInput")
-        .value
-        .trim()
-        .toLowerCase();
-
-    const results = document.getElementById("searchResults");
-    results.innerHTML = "";
-
-    if (!search) return;
-
-    let found = [];
-
-    const allKanji = [
-        ...kanjiN5,
-        ...kanjiN4,
-        ...kanjiN3,
-        ...kanjiN2,
-        ...kanjiN1
-    ];
-
-    allKanji.forEach(item => {
-        const text =
-            `${item.k} ${item.m} ${item.r}`.toLowerCase();
-
-        if (text.includes(search)) {
-            found.push(item);
-        }
-    });
-
-    if (found.length === 0) {
-        results.innerHTML = "<div>لا توجد نتائج</div>";
-        return;
-    }
-
-    found.forEach(item => {
-        const div = document.createElement("div");
-
-        div.className = "search-result-item";
-
-        div.innerHTML = `
-            <b style="font-size:30px">${item.k}</b><br>
-            ${item.m}<br>
-            ${item.r}
-        `;
-
-        results.appendChild(div);
-    });
-}
-
-</script>
-<div class="navbar">
-
-    <div id="accountArea">
-        <button id="loginBtn" class="menu-btn" onclick="loginGoogle()">
-            تسجيل الدخول
-        </button>
-
-        <button id="userBtn" class="menu-btn" onclick="logout()" style="display:none;">
-            <img id="userAvatar">
-            <span id="userName"></span>
-        </button>
+<body>
+    <div class="navbar">
+        <div id="authArea">
+            <button id="loginBtn" onclick="loginGoogle()">🔵 تسجيل الدخول</button>
+            <div id="userProfile">
+                <img id="userAvatar" src="" alt="avatar">
+                <span id="userName"></span>
+                <button id="logoutBtn" onclick="logout()">خروج</button>
+            </div>
+        </div>
+        <div class="logo">アラビア語で日本🇯🇵 اليابان بالعربي</div>
     </div>
-
-    <div class="logo">アラビア語で日本🇯🇵 اليابان بالعربي</div>
-
-</div>
            
  <div class="main-nav">
     <button class="nav-tab active" onclick="switchMainPage('homePage')">🏠 الرئيسية</button>
@@ -857,7 +846,6 @@ placeholder=" (البحث) اكتب الكانجي أو المعنى العرب�
             ❌ ما عرفتها
         </button>
 </div>
-<div id="flashCardBox"></div>
 
 <div id="savedWordsContainer"></div>
 
@@ -5182,12 +5170,14 @@ function moveCard(type){
 }
 function markKnown(){
     moveCard("known");
-updateCategoryStats();
+    updateCategoryStats();
+    if (window.saveProgress) saveProgress();
 }
 
 function markUnknown(){
     moveCard("unknown");
-updateCategoryStats();
+    updateCategoryStats();
+    if (window.saveProgress) saveProgress();
 }
 function showKnownWords(){
 
@@ -5255,6 +5245,7 @@ function removeWord(kanji,type){
 
     word.known = false;
     word.difficult = false;
+    if (window.saveProgress) saveProgress();
 
     if(type === "known"){
         showKnownWords();
@@ -5370,6 +5361,7 @@ function updateStats(){
                     document.getElementById('universalPracticeZone').style.display = 'none';
                     inputField.value = "";
                     renderStages();
+                    if (window.saveProgress) saveProgress();
                     return;
                 }
 
@@ -5426,63 +5418,145 @@ function runLocalSearch() {
     });
 }
 
-// تهيئة Supabase بشكل آمن بعد التأكد من تحميل المكتبة الخارجية من الـ CDN
+// ============================================================
+//  Supabase Init
+// ============================================================
 if (window.supabase) {
     window.jpAuth = window.supabase.createClient(
-      "https://svjctjqckfiehillebxx.supabase.co",
-      "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R"
+        "https://svjctjqckfiehillebxx.supabase.co",
+        "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R"
     );
-    window.jpAuth.auth.onAuthStateChange(() => {
-    checkUser();
-});
 } else {
-    console.error("خطأ: لم يتم تحميل مكتبة Supabase الخارجية بشكل صحيح.");
+    console.error("خطأ: لم يتم تحميل مكتبة Supabase.");
 }
 
+// ============================================================
+//  Auth helpers
+// ============================================================
 window.loginGoogle = async function () {
-  if (!window.jpAuth) return alert("سوبابيس غير متصل حالياً!");
-  const { error } = await window.jpAuth.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: window.location.origin
-    }
-  });
-
-  if (error) {
-    console.error(error);
-    alert(error.message);
-  }
+    if (!window.jpAuth) return alert("سوبابيس غير متصل حالياً!");
+    const { error } = await window.jpAuth.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: window.location.origin }
+    });
+    if (error) { console.error(error); alert(error.message); }
 };
 
 window.logout = async function () {
-  if (window.jpAuth) {
-    await window.jpAuth.auth.signOut();
-  }
-  location.reload();
+    if (window.jpAuth) await window.jpAuth.auth.signOut();
+    location.reload();
 };
 
-window.checkUser = async function () {
-
-    const { data:{ user } } =
-        await window.jpAuth.auth.getUser();
-
-    if(!user) return;
-
+// ============================================================
+//  Show / hide profile widget
+// ============================================================
+function showUserProfile(user) {
     document.getElementById("loginBtn").style.display = "none";
+    const profile = document.getElementById("userProfile");
+    profile.style.display = "flex";
 
-    document.getElementById("userBtn").style.display = "flex";
+    const avatar = document.getElementById("userAvatar");
+    const pic = user.user_metadata?.avatar_url || user.user_metadata?.picture || "";
+    if (pic) { avatar.src = pic; avatar.style.display = "block"; }
+    else avatar.style.display = "none";
 
-    document.getElementById("userName").textContent =
-        user.user_metadata.full_name || user.email;
+    const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split("@")[0];
+    document.getElementById("userName").textContent = name;
+}
 
-    document.getElementById("userAvatar").src =
-        user.user_metadata.avatar_url;
+// ============================================================
+//  Progress: SAVE to Supabase
+// ============================================================
+window.saveProgress = async function () {
+    if (!window.jpAuth) return;
+    try {
+        const { data: { user } } = await window.jpAuth.auth.getUser();
+        if (!user) return;
+
+        const progress = {
+            user_id: user.id,
+            hira_unlocked: JSON.stringify(hiraUnlocked),
+            kata_unlocked: JSON.stringify(kataUnlocked),
+            vocab_known: JSON.stringify(
+                vocabularyWords.filter(w => w.known).map(w => w.j)
+            ),
+            vocab_difficult: JSON.stringify(
+                vocabularyWords.filter(w => w.difficult).map(w => w.j)
+            ),
+            updated_at: new Date().toISOString()
+        };
+
+        await window.jpAuth
+            .from("user_progress")
+            .upsert(progress, { onConflict: "user_id" });
+    } catch (e) {
+        console.log("saveProgress error:", e);
+    }
 };
-// تشغيل الفحص والتحقق بشكل سليم تماماً بعد اكتمال بناء عناصر الصفحة (DOM) لمنع الكراش
-document.addEventListener("DOMContentLoaded", () => {
-    window.checkUser();
+
+// ============================================================
+//  Progress: LOAD from Supabase
+// ============================================================
+window.loadProgress = async function () {
+    if (!window.jpAuth) return;
+    try {
+        const { data: { user } } = await window.jpAuth.auth.getUser();
+        if (!user) return;
+
+        const { data, error } = await window.jpAuth
+            .from("user_progress")
+            .select("*")
+            .eq("user_id", user.id)
+            .single();
+
+        if (error || !data) return;
+
+        if (data.hira_unlocked) {
+            const h = JSON.parse(data.hira_unlocked);
+            if (Array.isArray(h)) h.forEach((v, i) => { hiraUnlocked[i] = v; });
+        }
+        if (data.kata_unlocked) {
+            const k = JSON.parse(data.kata_unlocked);
+            if (Array.isArray(k)) k.forEach((v, i) => { kataUnlocked[i] = v; });
+        }
+        if (data.vocab_known) {
+            const known = JSON.parse(data.vocab_known);
+            known.forEach(j => {
+                const w = vocabularyWords.find(x => x.j === j);
+                if (w) w.known = true;
+            });
+        }
+        if (data.vocab_difficult) {
+            const diff = JSON.parse(data.vocab_difficult);
+            diff.forEach(j => {
+                const w = vocabularyWords.find(x => x.j === j);
+                if (w) w.difficult = true;
+            });
+        }
+
+        renderStages();
+        console.log("✅ تم تحميل التقدم من الحساب");
+    } catch (e) {
+        console.log("loadProgress error:", e);
+    }
+};
+
+// ============================================================
+//  On page load: check session
+// ============================================================
+document.addEventListener("DOMContentLoaded", async () => {
+    if (!window.jpAuth) return;
+    try {
+        const { data: { user } } = await window.jpAuth.auth.getUser();
+        if (user) {
+            showUserProfile(user);
+            await loadProgress();
+        }
+    } catch (e) {
+        console.log("checkUser:", e);
+    }
 });
-    checkUser();
+
 </script>
 </body>
 </html>
