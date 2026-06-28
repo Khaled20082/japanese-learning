@@ -631,17 +631,50 @@ function runLocalSearch() {
         results.appendChild(div);
     });
 }
+    .account-box{
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:9999;
+}
+
+#userBox{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#1f1f2b;
+    padding:8px 12px;
+    border-radius:50px;
+}
+
+#userAvatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+}
+
+#userName{
+    color:white;
+    font-weight:bold;
+}
 
 </script>
-<div id="userInfo"></div>
+<div id="accountBox" class="account-box">
 
-<button onclick="loginGoogle()">
-🔵 تسجيل الدخول عبر Google
-</button>
+  <button id="loginBtn" onclick="loginGoogle()">
+    🔵 تسجيل الدخول
+  </button>
 
-<button onclick="logout()">
-🚪 تسجيل الخروج
-</button>
+  <div id="userBox" style="display:none;">
+    <img id="userAvatar">
+    <span id="userName"></span>
+
+    <button onclick="logout()">
+      🚪
+    </button>
+  </div>
+
+</div>
     <div class="navbar">
         <div class="logo">アラビア語で日本🇯🇵 اليابان بالعربي</div>
     </div>
@@ -5437,15 +5470,22 @@ window.logout = async function () {
 };
 
 window.checkUser = async function () {
-  if (!window.jpAuth) return;
-  try {
-    const { data: { user } } = await window.jpAuth.auth.getUser();
-    const userInfo = document.getElementById("userInfo");
-    if (user && userInfo) {
-      userInfo.textContent = "مرحباً " + user.email;
-    }
-  } catch (e) {
-    console.log("لم يتم تسجيل الدخول بعد أو الرابط فارغ.");
+
+  const { data:{ user } } =
+      await window.jpAuth.auth.getUser();
+
+  if(user){
+
+      document.getElementById("loginBtn").style.display="none";
+
+      document.getElementById("userBox").style.display="flex";
+
+      document.getElementById("userName").textContent =
+          user.user_metadata.full_name || user.email;
+
+      document.getElementById("userAvatar").src =
+          user.user_metadata.avatar_url;
+
   }
 };
 
