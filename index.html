@@ -88,7 +88,7 @@
             display: none;
             align-items: center;
             gap: 8px;
-            cursor: pointer;
+            cursor: default;
         }
 
         #userAvatar {
@@ -97,6 +97,8 @@
             border-radius: 50%;
             border: 2px solid #ff4da6;
             object-fit: cover;
+            display: none;
+            box-shadow: 0 0 8px rgba(255,77,166,0.5);
         }
 
         #userName {
@@ -4766,31 +4768,18 @@ j:"押す",h:"おす",a:"يدفع",category:"verbs"
 let currentDeck = [];
 let currentWordIndex = 0;
 let cardFlipped = false;
-        window.onload = function() {
-            renderStages();
-            renderKanji('N5');
-window.onload = function() {
 
+window.onload = function() {
     renderStages();
     renderKanji('N5');
-
 };
 
 document.addEventListener("click", function(e){
-
     if(e.target.id === "flashCardBox"){
-
         cardFlipped = !cardFlipped;
         showFlashcard();
-
     }
-
 });
-        
-let currentWordIndex = 0;
-let cardFlipped = false;
-
-};
         function switchMainPage(pageId) {
 console.log("فتح الصفحة:", pageId);
 
@@ -5419,16 +5408,38 @@ function runLocalSearch() {
 }
 
 // ============================================================
-//  Supabase Init
+//  Supabase Init + Auth (all inside DOMContentLoaded)
 // ============================================================
-if (window.supabase) {
-    window.jpAuth = window.supabase.createClient(
-        "https://svjctjqckfiehillebxx.supabase.co",
-        "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R"
-    );
-} else {
-    console.error("خطأ: لم يتم تحميل مكتبة Supabase.");
-}
+document.addEventListener("DOMContentLoaded", async () => {
+
+    // تهيئة Supabase - نستخدم supabase.createClient من CDN
+    try {
+        const sbLib = window.supabase || (window.supabaseJs);
+        if (sbLib && sbLib.createClient) {
+            window.jpAuth = sbLib.createClient(
+                "https://svjctjqckfiehillebxx.supabase.co",
+                "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R"
+            );
+        } else {
+            console.error("مكتبة Supabase غير موجودة");
+            return;
+        }
+    } catch(e) {
+        console.error("Supabase init error:", e);
+        return;
+    }
+
+    // تحقق من الجلسة الحالية
+    try {
+        const { data: { user } } = await window.jpAuth.auth.getUser();
+        if (user) {
+            showUserProfile(user);
+            await loadProgress();
+        }
+    } catch (e) {
+        console.log("checkUser:", e);
+    }
+});
 
 // ============================================================
 //  Auth helpers
@@ -5451,17 +5462,33 @@ window.logout = async function () {
 //  Show / hide profile widget
 // ============================================================
 function showUserProfile(user) {
-    document.getElementById("loginBtn").style.display = "none";
-    const profile = document.getElementById("userProfile");
+    const loginBtn = document.getElementById("loginBtn");
+    const profile  = document.getElementById("userProfile");
+    const avatar   = document.getElementById("userAvatar");
+    const nameEl   = document.getElementById("userName");
+
+    if (loginBtn) loginBtn.style.display = "none";
+    if (!profile) return;
+
     profile.style.display = "flex";
 
-    const avatar = document.getElementById("userAvatar");
-    const pic = user.user_metadata?.avatar_url || user.user_metadata?.picture || "";
-    if (pic) { avatar.src = pic; avatar.style.display = "block"; }
-    else avatar.style.display = "none";
+    // صورة الحساب - جوجل بتحطها في avatar_url أو picture
+    const pic = user.user_metadata?.avatar_url
+             || user.user_metadata?.picture
+             || "";
+    if (pic && avatar) {
+        avatar.src = pic;
+        avatar.style.display = "block";
+        // fallback لو الصورة ما حملت
+        avatar.onerror = () => { avatar.style.display = "none"; };
+    }
 
-    const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split("@")[0];
-    document.getElementById("userName").textContent = name;
+    // الاسم
+    const name = user.user_metadata?.full_name
+              || user.user_metadata?.name
+              || user.email?.split("@")[0]
+              || "مستخدم";
+    if (nameEl) nameEl.textContent = name;
 }
 
 // ============================================================
@@ -5541,21 +5568,6 @@ window.loadProgress = async function () {
     }
 };
 
-// ============================================================
-//  On page load: check session
-// ============================================================
-document.addEventListener("DOMContentLoaded", async () => {
-    if (!window.jpAuth) return;
-    try {
-        const { data: { user } } = await window.jpAuth.auth.getUser();
-        if (user) {
-            showUserProfile(user);
-            await loadProgress();
-        }
-    } catch (e) {
-        console.log("checkUser:", e);
-    }
-});
 
 </script>
 </body>
