@@ -5408,55 +5408,64 @@ function runLocalSearch() {
 }
 
 // ============================================================
-//  Supabase Init + Auth (all inside DOMContentLoaded)
+//  Supabase Init + Auth
 // ============================================================
-document.addEventListener("DOMContentLoaded", async () => {
 
-    // تهيئة Supabase - نستخدم supabase.createClient من CDN
-    try {
-        const sbLib = window.supabase || (window.supabaseJs);
-        if (sbLib && sbLib.createClient) {
-            window.jpAuth = sbLib.createClient(
-                "https://svjctjqckfiehillebxx.supabase.co",
-                "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R"
-            );
-        } else {
-            console.error("مكتبة Supabase غير موجودة");
-            return;
-        }
-    } catch(e) {
-        console.error("Supabase init error:", e);
-        return;
+const SUPABASE_URL = "https://svjctjqckfiehillebxx.supabase.co";
+const SUPABASE_KEY = "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R";
+
+function initSupabase() {
+    // CDN الرسمي يعطي: window.supabase.createClient
+    if (window.supabase && typeof window.supabase.createClient === "function") {
+        window.jpAuth = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        return true;
     }
+    console.error("Supabase CDN لم يحمّل بعد");
+    return false;
+}
 
-    // تحقق من الجلسة الحالية
-    try {
-        const { data: { user } } = await window.jpAuth.auth.getUser();
-        if (user) {
-            showUserProfile(user);
-            await loadProgress();
-        }
-    } catch (e) {
-        console.log("checkUser:", e);
-    }
-});
-
-// ============================================================
-//  Auth helpers
-// ============================================================
 window.loginGoogle = async function () {
-    if (!window.jpAuth) return alert("سوبابيس غير متصل حالياً!");
+    if (!window.jpAuth && !initSupabase()) return alert("فشل الاتصال بـ Supabase");
     const { error } = await window.jpAuth.auth.signInWithOAuth({
         provider: "google",
-        options: { redirectTo: window.location.origin }
+        options: { redirectTo: window.location.href.split("?")[0].split("#")[0] }
     });
-    if (error) { console.error(error); alert(error.message); }
+    if (error) alert(error.message);
 };
 
 window.logout = async function () {
     if (window.jpAuth) await window.jpAuth.auth.signOut();
-    location.reload();
+    location.href = location.href.split("?")[0].split("#")[0];
 };
+
+// ============================================================
+//  تشغيل عند تحميل الصفحة (يلتقط الـ redirect بعد OAuth)
+// ============================================================
+window.addEventListener("load", async () => {
+    if (!initSupabase()) return;
+
+    // استخدم getSession لأنها تلتقط الـ token من الـ URL hash بعد OAuth redirect
+    try {
+        const { data: { session } } = await window.jpAuth.auth.getSession();
+        if (session && session.user) {
+            showUserProfile(session.user);
+            await loadProgress();
+        }
+    } catch(e) {
+        console.log("session check error:", e);
+    }
+
+    // استمع لأي تغيير في حالة الدخول
+    window.jpAuth.auth.onAuthStateChange(async (event, session) => {
+        if (event === "SIGNED_IN" && session?.user) {
+            showUserProfile(session.user);
+            await loadProgress();
+        } else if (event === "SIGNED_OUT") {
+            document.getElementById("loginBtn").style.display = "";
+            document.getElementById("userProfile").style.display = "none";
+        }
+    });
+});
 
 // ============================================================
 //  Show / hide profile widget
