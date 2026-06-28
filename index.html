@@ -578,22 +578,22 @@
     margin-top:12px;
     width:100%;
 }
-           #accountArea{
-    position:fixed;
-    top:20px;
+        #accountArea{
+    position:absolute;
     left:20px;
-    z-index:9999;
+    top:50%;
+    transform:translateY(-50%);
 }
 
 #userBtn{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:8px;
 }
 
 #userAvatar{
-    width:28px;
-    height:28px;
+    width:30px;
+    height:30px;
     border-radius:50%;
 }
 </style>
@@ -649,22 +649,24 @@ function runLocalSearch() {
         results.appendChild(div);
     });
 }
+
 </script>
-<div id="accountArea">
+<div class="navbar">
 
-    <button id="loginBtn" class="menu-btn" onclick="loginGoogle()">
-        تسجيل الدخول
-    </button>
+    <div id="accountArea">
+        <button id="loginBtn" class="menu-btn" onclick="loginGoogle()">
+            تسجيل الدخول
+        </button>
 
-    <button id="userBtn" class="menu-btn" onclick="logout()" style="display:none;">
-        <img id="userAvatar">
-        <span id="userName"></span>
-    </button>
+        <button id="userBtn" class="menu-btn" onclick="logout()" style="display:none;">
+            <img id="userAvatar">
+            <span id="userName"></span>
+        </button>
+    </div>
+
+    <div class="logo">アラビア語で日本🇯🇵 اليابان بالعربي</div>
 
 </div>
-    <div class="navbar">
-        <div class="logo">アラビア語で日本🇯🇵 اليابان بالعربي</div>
-    </div>
            
  <div class="main-nav">
     <button class="nav-tab active" onclick="switchMainPage('homePage')">🏠 الرئيسية</button>
@@ -5430,6 +5432,9 @@ if (window.supabase) {
       "https://svjctjqckfiehillebxx.supabase.co",
       "sb_publishable_lTDWueJhbcgkENUevXotHQ_94ljTW1R"
     );
+    window.jpAuth.auth.onAuthStateChange(() => {
+    checkUser();
+});
 } else {
     console.error("خطأ: لم يتم تحميل مكتبة Supabase الخارجية بشكل صحيح.");
 }
@@ -5458,27 +5463,26 @@ window.logout = async function () {
 
 window.checkUser = async function () {
 
-    const { data:{ user } } = await window.jpAuth.auth.getUser();
+    const { data:{ user } } =
+        await window.jpAuth.auth.getUser();
 
-    if(user){
+    if(!user) return;
 
-        document.getElementById("loginBtn").style.display = "none";
+    document.getElementById("loginBtn").style.display = "none";
 
-        document.getElementById("userBtn").style.display = "flex";
+    document.getElementById("userBtn").style.display = "flex";
 
-        document.getElementById("userName").textContent =
-            user.user_metadata.full_name || user.email;
+    document.getElementById("userName").textContent =
+        user.user_metadata.full_name || user.email;
 
-        document.getElementById("userAvatar").src =
-            user.user_metadata.avatar_url;
-    }
-
+    document.getElementById("userAvatar").src =
+        user.user_metadata.avatar_url;
 };
-
 // تشغيل الفحص والتحقق بشكل سليم تماماً بعد اكتمال بناء عناصر الصفحة (DOM) لمنع الكراش
 document.addEventListener("DOMContentLoaded", () => {
     window.checkUser();
 });
+    checkUser();
 </script>
 </body>
 </html>
