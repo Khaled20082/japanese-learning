@@ -631,48 +631,36 @@ function runLocalSearch() {
         results.appendChild(div);
     });
 }
-    .account-box{
+   #accountArea{
     position:fixed;
     top:20px;
     left:20px;
     z-index:9999;
 }
 
-#userBox{
+#userBtn{
     display:flex;
     align-items:center;
     gap:10px;
-    background:#1f1f2b;
-    padding:8px 12px;
-    border-radius:50px;
 }
 
 #userAvatar{
-    width:42px;
-    height:42px;
+    width:28px;
+    height:28px;
     border-radius:50%;
 }
 
-#userName{
-    color:white;
-    font-weight:bold;
-}
-
 </script>
-<div id="accountBox" class="account-box">
+<div id="accountArea">
 
-  <button id="loginBtn" onclick="loginGoogle()">
-    🔵 تسجيل الدخول
-  </button>
-
-  <div id="userBox" style="display:none;">
-    <img id="userAvatar">
-    <span id="userName"></span>
-
-    <button onclick="logout()">
-      🚪
+    <button id="loginBtn" class="menu-btn" onclick="loginGoogle()">
+        تسجيل الدخول
     </button>
-  </div>
+
+    <button id="userBtn" class="menu-btn" onclick="logout()" style="display:none;">
+        <img id="userAvatar">
+        <span id="userName"></span>
+    </button>
 
 </div>
     <div class="navbar">
@@ -5471,22 +5459,21 @@ window.logout = async function () {
 
 window.checkUser = async function () {
 
-  const { data:{ user } } =
-      await window.jpAuth.auth.getUser();
+    const { data:{ user } } = await window.jpAuth.auth.getUser();
 
-  if(user){
+    if(user){
 
-      document.getElementById("loginBtn").style.display="none";
+        document.getElementById("loginBtn").style.display = "none";
 
-      document.getElementById("userBox").style.display="flex";
+        document.getElementById("userBtn").style.display = "flex";
 
-      document.getElementById("userName").textContent =
-          user.user_metadata.full_name || user.email;
+        document.getElementById("userName").textContent =
+            user.user_metadata.full_name || user.email;
 
-      document.getElementById("userAvatar").src =
-          user.user_metadata.avatar_url;
+        document.getElementById("userAvatar").src =
+            user.user_metadata.avatar_url;
+    }
 
-  }
 };
 
 // تشغيل الفحص والتحقق بشكل سليم تماماً بعد اكتمال بناء عناصر الصفحة (DOM) لمنع الكراش
