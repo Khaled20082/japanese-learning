@@ -5400,42 +5400,72 @@ function initSupabase() {
 }
 
 window.loginGoogle = async function () {
-    if (!window.jpAuth && !initSupabase()) return alert("فشل الاتصال بـ Supabase");
+    console.log("🟦 [1] تم الضغط على زر تسجيل الدخول");
+    if (!window.jpAuth && !initSupabase()) {
+        console.log("🔴 فشل تهيئة Supabase");
+        return alert("فشل الاتصال بـ Supabase");
+    }
+    console.log("🟦 [2] جاري استدعاء signInWithOAuth...");
     const { error } = await window.jpAuth.auth.signInWithOAuth({
         provider: "google",
         options: { redirectTo: window.location.href.split("?")[0].split("#")[0] }
     });
-    if (error) alert(error.message);
+    if (error) {
+        console.log("🔴 خطأ في signInWithOAuth:", error.message);
+        alert(error.message);
+    } else {
+        console.log("🟦 [3] تم إرسال طلب OAuth - راح يتم التحويل لجوجل الآن");
+    }
 };
 
 window.logout = async function () {
+    console.log("🟧 تم الضغط على زر تسجيل الخروج");
     if (window.jpAuth) await window.jpAuth.auth.signOut();
     location.href = location.href.split("?")[0].split("#")[0];
 };
 
 // ============================================================
-//  تشغيل عند تحميل الصفحة (يلتقط الـ redirect بعد OAuth)
+//  تشغيل عند تحميل الصفحة (يلتقط الـ redirect بعد OAuث)
 // ============================================================
 window.addEventListener("load", async () => {
-    if (!initSupabase()) return;
+    console.log("🟩 [4] الصفحة حملت بالكامل (window.load)");
+
+    if (!initSupabase()) {
+        console.log("🔴 فشل تهيئة Supabase عند التحميل");
+        return;
+    }
+    console.log("🟩 [5] تم تهيئة Supabase بنجاح، jpAuth جاهز:", !!window.jpAuth);
 
     // استخدم getSession لأنها تلتقط الـ token من الـ URL hash بعد OAuth redirect
     try {
+        console.log("🟩 [6] جاري التحقق من getSession()...");
         const { data: { session } } = await window.jpAuth.auth.getSession();
+        console.log("🟩 [7] نتيجة getSession:", session ? "فيه جلسة ✅" : "ما فيه جلسة ❌", session);
+
         if (session && session.user) {
+            console.log("🟩 [8] فيه مستخدم:", session.user.email);
+            console.log("🟩 [9] استدعاء showUserProfile...");
             showUserProfile(session.user);
+            console.log("🟩 [10] استدعاء loadProgress...");
             await loadProgress();
+            console.log("🟩 [11] انتهى تحميل التقدم");
+        } else {
+            console.log("🟨 ما فيه جلسة فعّالة - يبقى زر الدخول ظاهر");
         }
     } catch(e) {
-        console.log("session check error:", e);
+        console.log("🔴 خطأ في session check:", e);
     }
 
     // استمع لأي تغيير في حالة الدخول
     window.jpAuth.auth.onAuthStateChange(async (event, session) => {
+        console.log("🟪 [onAuthStateChange] الحدث:", event, "| المستخدم:", session?.user?.email || "لا يوجد");
+
         if (event === "SIGNED_IN" && session?.user) {
+            console.log("🟪 SIGNED_IN -> استدعاء showUserProfile + loadProgress");
             showUserProfile(session.user);
             await loadProgress();
         } else if (event === "SIGNED_OUT") {
+            console.log("🟪 SIGNED_OUT -> إعادة إظهار زر الدخول وإخفاء البروفايل");
             document.getElementById("loginBtn").style.display = "";
             document.getElementById("userProfile").style.display = "none";
         }
@@ -5446,25 +5476,45 @@ window.addEventListener("load", async () => {
 //  Show / hide profile widget
 // ============================================================
 function showUserProfile(user) {
+    console.log("👤 [showUserProfile] بدأت التنفيذ لـ:", user.email);
+
     const loginBtn = document.getElementById("loginBtn");
     const profile  = document.getElementById("userProfile");
     const avatar   = document.getElementById("userAvatar");
     const nameEl   = document.getElementById("userName");
 
-    if (loginBtn) loginBtn.style.display = "none";
-    if (!profile) return;
+    console.log("👤 العناصر الموجودة بالـ DOM:", {
+        loginBtn: !!loginBtn,
+        profile: !!profile,
+        avatar: !!avatar,
+        nameEl: !!nameEl
+    });
+
+    if (loginBtn) {
+        loginBtn.style.display = "none";
+        console.log("👤 تم إخفاء loginBtn، display الآن =", loginBtn.style.display);
+    } else {
+        console.log("🔴 loginBtn غير موجود بالـ DOM!");
+    }
+
+    if (!profile) {
+        console.log("🔴 userProfile غير موجود بالـ DOM! توقف هنا.");
+        return;
+    }
 
     profile.style.display = "flex";
+    console.log("👤 تم إظهار userProfile، display الآن =", profile.style.display);
 
     // صورة الحساب - جوجل بتحطها في avatar_url أو picture
     const pic = user.user_metadata?.avatar_url
              || user.user_metadata?.picture
              || "";
+    console.log("👤 رابط الصورة:", pic || "(لا يوجد)");
     if (pic && avatar) {
         avatar.src = pic;
         avatar.style.display = "block";
         // fallback لو الصورة ما حملت
-        avatar.onerror = () => { avatar.style.display = "none"; };
+        avatar.onerror = () => { console.log("🔴 فشل تحميل الصورة"); avatar.style.display = "none"; };
     }
 
     // الاسم
@@ -5472,7 +5522,10 @@ function showUserProfile(user) {
               || user.user_metadata?.name
               || user.email?.split("@")[0]
               || "مستخدم";
+    console.log("👤 الاسم المستخرج:", name);
     if (nameEl) nameEl.textContent = name;
+
+    console.log("👤 [showUserProfile] انتهت التنفيذ");
 }
 
 // ============================================================
