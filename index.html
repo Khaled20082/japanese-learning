@@ -4882,8 +4882,8 @@ else if(pageId === 'flashcardPage'){
             let maxCount = 100;
             if(level === 'N4') maxCount = 300;
             if(level === 'N3') maxCount = 370;
-            if(level === 'N2') maxCount = 430;
-            if(level === 'N1') maxCount = 800;
+            if(level === 'N2') maxCount = 4;
+            if(level === 'N1') maxCount = 4;
 
             document.getElementById('kanjiCountLabel').innerText = `المعروض حالياً: قائمة الـ ${maxCount} كانجي للمستوى ${level}`;
             renderKanji(level);
