@@ -5550,9 +5550,11 @@ window.saveProgress = async function () {
             updated_at: new Date().toISOString()
         };
 
-        await window.jpAuth
-            .from("user_progress")
-            .upsert(progress, { onConflict: "user_id" });
+       const { data, error } = await window.jpAuth
+    .from("user_progress")
+    .upsert(progress, { onConflict: "user_id" });
+
+console.log("SAVE RESULT:", data, error);
     } catch (e) {
         console.log("saveProgress error:", e);
     }
