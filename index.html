@@ -641,6 +641,29 @@
 
     #userName {
         max-width: 70px;
+   .review-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.review-buttons button{
+    min-width: 140px;
+}
+
+@media (max-width: 768px){
+
+    .review-buttons{
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .review-buttons button{
+        width: 90%;
+        max-width: 300px;
     }
 }
 </style>
