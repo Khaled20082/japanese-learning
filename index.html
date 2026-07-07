@@ -233,6 +233,36 @@
         .stage-box.locked { opacity: 0.4; cursor: not-allowed; background-color: #111; border-color: #222; }
         .stage-box .status-text { font-size: 12px; margin-top: 6px; color: #aaa; }
 
+        /* شبكة اختيار الأحرف لاختبار الكانا */
+        .kana-select-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+            gap: 8px;
+            margin: 10px 0 20px;
+            width: 100%;
+        }
+
+        .kana-toggle-btn {
+            background-color: #1e1e2a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            color: var(--text-color);
+            padding: 10px 4px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .kana-toggle-btn:hover { border-color: var(--btn-bg); }
+
+        .kana-toggle-btn.selected {
+            background-color: var(--btn-bg);
+            border-color: var(--btn-bg);
+            box-shadow: var(--btn-shadow);
+            color: #fff;
+        }
+
         /* منطقة التدريب الكانا */
         .practice-zone {
             background: linear-gradient(145deg, #16161f, #1e1e2a);
@@ -666,6 +696,83 @@
         max-width: 300px;
     }
 }
+        /* ============ صفحة الاستماع (قصص صوتية) ============ */
+        .story-select-menu { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; width:100%; margin-bottom:20px; }
+        .story-select-card {
+            background:#1e1e2a; border:2px solid rgba(255,77,166,.25); border-radius:14px;
+            padding:14px 18px; cursor:pointer; transition:.25s; text-align:right; min-width:200px;
+        }
+        .story-select-card:hover, .story-select-card.active { border-color:var(--btn-bg); box-shadow:var(--btn-shadow); }
+        .story-select-card .s-title { font-weight:bold; font-size:16px; color:#fff; }
+        .story-select-card .s-level { font-size:12px; color:var(--cyan-color); margin-top:4px; }
+
+        .story-reader-box {
+            display:none; width:100%; max-width:900px; margin:0 auto;
+            background: rgba(255, 255, 255, 0.05); border:2px solid #ff4da6; border-radius:25px;
+            padding:22px 26px; box-sizing:border-box;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
+        }
+        .story-reader-box.active { display:block; }
+
+        .story-controls {
+            display:flex; align-items:center; justify-content:center; gap:12px;
+            flex-wrap:wrap; margin-bottom:20px; padding-bottom:16px;
+            border-bottom:1px solid rgba(255,77,166,.2);
+        }
+        .story-ctrl-btn {
+            background:var(--btn-bg); color:#fff; border:none; border-radius:30px;
+            padding:10px 22px; font-size:15px; font-weight:bold; cursor:pointer;
+            box-shadow:var(--btn-shadow); transition:.2s;
+        }
+        .story-ctrl-btn:hover { transform:scale(1.05); }
+        .story-ctrl-btn.secondary { background:rgba(255,255,255,.05); box-shadow:none; border:2px solid rgba(255,77,166,.3); color:#fff; }
+        .story-speed-select {
+            background:rgba(255,255,255,.05); color:#fff; border:2px solid rgba(255,77,166,.3);
+            border-radius:10px; padding:8px 12px; font-size:14px; cursor:pointer;
+        }
+        .story-not-supported {
+            color:var(--accent-pink); text-align:center; font-size:14px; margin-top:-6px; margin-bottom:16px; display:none;
+        }
+
+        .story-sentence {
+            display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:center;
+            gap:6px 4px; margin-bottom:10px; padding:14px 10px 10px;
+            border-radius:12px; transition:background .3s;
+        }
+        .story-sentence.active-sentence { background:rgba(255,77,166,.1); }
+
+        .story-sentence-full {
+            width:100%; text-align:center; font-size:13px; color:#9d9db0;
+            margin-top:6px; padding-top:8px; border-top:1px dashed rgba(255,77,166,.15);
+            transition:color .3s;
+        }
+        .story-sentence-full.active-translation { color:var(--accent-pink); font-weight:bold; }
+
+        .story-word {
+            display:inline-flex; flex-direction:column; align-items:center;
+            cursor:pointer; padding:4px 7px; margin:0 1px; border-radius:8px;
+            transition:.15s; position:relative; min-width:34px;
+        }
+        .story-word:hover { background:rgba(88,191,188,.15); }
+
+        .story-word-jp {
+            font-size:23px; line-height:1.5; color:#f0f0f5; transition:color .2s, text-shadow .2s;
+        }
+        .story-word-ar {
+            font-size:11.5px; line-height:1.4; color:#8f8fa0; margin-top:3px;
+            white-space:nowrap;
+        }
+
+        .story-word.playing .story-word-jp {
+            color:#ff4da6; font-weight:bold; text-shadow:0 0 10px rgba(255,77,166,.7);
+        }
+        .story-word.playing .story-word-ar { color:var(--accent-pink); }
+
+        .story-progress-track {
+            width:100%; height:6px; background:rgba(255,255,255,.08); border-radius:3px; overflow:hidden; margin-bottom:20px;
+        }
+        .story-progress-bar { height:100%; width:0%; background:var(--btn-bg); box-shadow:var(--btn-shadow); transition:width .25s; }
 </style>
 </head>
 <body>
@@ -687,6 +794,9 @@
     <button class="nav-tab" onclick="switchMainPage('kanjiPage')">⛩️ الكانجي</button>
     <button class="nav-tab" onclick="switchMainPage('vocabularyPage')">
     📖 المفردات
+</button>
+    <button class="nav-tab" onclick="switchMainPage('listeningPage')">
+    🎧 الاستماع
 </button>
     <button class="nav-tab" onclick="alert('قريباً')">📌 القواعد</button>
 </div>
@@ -742,6 +852,7 @@ placeholder=" (البحث) اكتب الكانجي أو المعنى العرب�
         <div class="sub-menu">
             <button class="sub-btn active" id="tabHiraBtn" onclick="switchSubSection('hira')">حروف الهيراغانا 🌸</button>
             <button class="sub-btn" id="tabKataBtn" onclick="switchSubSection('kata')">حروف الكاتاكانا ⚡</button>
+            <button class="sub-btn" id="tabTestBtn" onclick="switchSubSection('test')">📝 اختبار</button>
         </div>
 
         <div class="sub-content active" id="hiraContentSection">
@@ -754,6 +865,28 @@ placeholder=" (البحث) اكتب الكانجي أو المعنى العرب�
             <h3>مجموعات الكاتاكانا الكاملة (46 حرفاً)</h3>
             <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">اجتز الصفوف بالترتيب لتفتح المجموعات التالية تلقائياً</p>
             <div class="stages-grid" id="kataStagesGrid"></div>
+        </div>
+
+        <div class="sub-content" id="testContentSection">
+            <h3>📝 اختبار مخصص</h3>
+            <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">حدد الأحرف التي تريد اختبار نفسك فيها من الهيراغانا و/أو الكاتاكانا، ثم اضغط "ابدأ الاختبار". ستظهر لك الأحرف المختارة بترتيب عشوائي.</p>
+
+            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:10px;">
+                <button class="sub-btn" onclick="selectAllTestChars('hira')">تحديد كل الهيراغانا</button>
+                <button class="sub-btn" onclick="selectAllTestChars('kata')">تحديد كل الكاتاكانا</button>
+                <button class="sub-btn" onclick="clearTestSelection()">🗑️ إلغاء التحديد</button>
+            </div>
+
+            <h4 style="color: var(--accent-pink); margin-top: 25px;">حروف الهيراغانا 🌸</h4>
+            <div class="kana-select-grid" id="testHiraGrid"></div>
+
+            <h4 style="color: var(--cyan-color); margin-top: 15px;">حروف الكاتاكانا ⚡</h4>
+            <div class="kana-select-grid" id="testKataGrid"></div>
+
+            <div style="margin-top: 20px;">
+                <div id="testSelectedCount" style="color: #aaa; margin-bottom: 12px;">المحدد: 0 حرف</div>
+                <button class="sub-btn active" style="padding: 12px 30px; font-size: 16px;" onclick="startKanaTest()">🚀 ابدأ الاختبار</button>
+            </div>
         </div>
 
         <div class="practice-zone" id="universalPracticeZone">
@@ -769,6 +902,22 @@ placeholder=" (البحث) اكتب الكانجي أو المعنى العرب�
             <div class="progress-track">
                 <div class="progress-bar" id="uProgressBar"></div>
             </div>
+        </div>
+
+        <div class="practice-zone" id="kanaTestZone" style="display:none;">
+            <div class="pz-header">
+                <div class="pz-title">🎯 اختبار عشوائي</div>
+                <div style="font-size: 16px; color: var(--cyan-color);" id="testCounter">السؤال: 1 / 10</div>
+            </div>
+            <div class="pz-char" id="testTargetChar">あ</div>
+            <div class="pz-input-wrapper">
+                <input type="text" class="pz-input" id="testInput" autocomplete="off" placeholder="اكتب النطق هنا بالروماجي..." oninput="checkTestInput()">
+            </div>
+            <div id="testResultMsg" style="display:none; font-size:22px; color: var(--btn-bg); margin-top:15px; font-weight:bold;"></div>
+            <div class="progress-track">
+                <div class="progress-bar" id="testProgressBar"></div>
+            </div>
+            <button class="sub-btn" style="margin-top:15px;" onclick="endKanaTest()">🔙 إنهاء والعودة للتحديد</button>
         </div>
 </div>
     <div class="page" id="kanjiPage">
@@ -841,6 +990,41 @@ placeholder=" (البحث) اكتب الكانجي أو المعنى العرب�
         <button class="sub-btn" onclick="openCategory('adjectives')">✨ الصفات</button>
 
         <button class="sub-btn" onclick="openCategory('daily')">📅 الحياة اليومية</button>
+
+    </div>
+
+</div>
+
+<div class="page" id="listeningPage">
+
+    <h2 style="text-align:center">🎧 الاستماع - قصص صوتية</h2>
+    <p style="color:#aaa; font-size:14px; text-align:center; margin-top:-8px; margin-bottom:20px;">
+        استمع للقصة، تابع الكلمة المضيئة أثناء القراءة، واضغط على أي كلمة لسماع نطقها منفردة
+    </p>
+
+    <div class="story-not-supported" id="storyNotSupportedMsg">
+        ⚠️ متصفحك لا يدعم خاصية النطق الصوتي (Speech Synthesis)، جرّب متصفح Chrome
+    </div>
+
+    <div class="story-select-menu" id="storySelectMenu"></div>
+
+    <div class="story-reader-box" id="storyReaderBox">
+
+        <div class="story-controls">
+            <button class="story-ctrl-btn" id="storyPlayBtn" onclick="toggleStoryPlayback()">▶️ تشغيل</button>
+            <button class="story-ctrl-btn secondary" onclick="stopStoryPlayback()">⏹️ إيقاف</button>
+            <select class="story-speed-select" id="storySpeedSelect" onchange="changeStorySpeed(this.value)">
+                <option value="0.7">🐢 بطيء</option>
+                <option value="0.85" selected>🚶 عادي</option>
+                <option value="1.1">🏃 سريع</option>
+            </select>
+        </div>
+
+        <div class="story-progress-track">
+            <div class="story-progress-bar" id="storyProgressBar"></div>
+        </div>
+
+        <div class="story-text" id="storyTextContainer"></div>
 
     </div>
 
@@ -4830,6 +5014,11 @@ else if(pageId === 'vocabularyPage'){
 
     renderVocabulary();
 }
+else if(pageId === 'listeningPage'){
+    document.querySelector('.main-nav .nav-tab:nth-child(5)').classList.add('active');
+
+    renderListeningStories();
+}
 else if(pageId === 'flashcardPage'){
 
     setTimeout(() => {
@@ -4838,21 +5027,31 @@ else if(pageId === 'flashcardPage'){
 
 } 
 }      function switchSubSection(type) {
-            activeType = type;
             document.getElementById('universalPracticeZone').style.display = 'none';
-            
+            document.getElementById('kanaTestZone').style.display = 'none';
+
+            document.getElementById('hiraContentSection').classList.remove('active');
+            document.getElementById('kataContentSection').classList.remove('active');
+            document.getElementById('testContentSection').classList.remove('active');
+            document.getElementById('tabHiraBtn').classList.remove('active');
+            document.getElementById('tabKataBtn').classList.remove('active');
+            document.getElementById('tabTestBtn').classList.remove('active');
+
             if(type === 'hira') {
+                activeType = type;
                 document.getElementById('hiraContentSection').classList.add('active');
-                document.getElementById('kataContentSection').classList.remove('active');
                 document.getElementById('tabHiraBtn').classList.add('active');
-                document.getElementById('tabKataBtn').classList.remove('active');
-            } else {
-                document.getElementById('hiraContentSection').classList.remove('active');
+                renderStages();
+            } else if(type === 'kata') {
+                activeType = type;
                 document.getElementById('kataContentSection').classList.add('active');
-                document.getElementById('tabHiraBtn').classList.remove('active');
                 document.getElementById('tabKataBtn').classList.add('active');
+                renderStages();
+            } else if(type === 'test') {
+                document.getElementById('testContentSection').classList.add('active');
+                document.getElementById('tabTestBtn').classList.add('active');
+                renderTestSelectors();
             }
-            renderStages();
         }
 
         function renderStages() {
@@ -5380,6 +5579,156 @@ function updateStats(){
                 updateUniversalUI();
             }
         }
+
+        // ============================================================
+        //  اختبار الكانا المخصص (اختيار الأحرف يدوياً + ترتيب عشوائي)
+        // ============================================================
+        let testSelectedChars = []; // {ch, ro, ar}
+        let testQueue = [];
+        let testIndex = 0;
+        let testCorrectCount = 0;
+
+        function renderTestSelectors() {
+            const hiraGrid = document.getElementById('testHiraGrid');
+            const kataGrid = document.getElementById('testKataGrid');
+            hiraGrid.innerHTML = "";
+            kataGrid.innerHTML = "";
+
+            hiraData.forEach(group => {
+                group.letters.forEach(letter => {
+                    hiraGrid.appendChild(makeTestToggleBtn(letter));
+                });
+            });
+
+            kataData.forEach(group => {
+                group.letters.forEach(letter => {
+                    kataGrid.appendChild(makeTestToggleBtn(letter));
+                });
+            });
+
+            updateTestSelectedCount();
+        }
+
+        function makeTestToggleBtn(letter) {
+            const btn = document.createElement('button');
+            btn.className = 'kana-toggle-btn';
+            btn.type = 'button';
+            btn.innerText = letter.ch;
+            const isSelected = testSelectedChars.some(c => c.ch === letter.ch);
+            if(isSelected) btn.classList.add('selected');
+            btn.onclick = () => toggleTestChar(letter, btn);
+            return btn;
+        }
+
+        function toggleTestChar(letter, btn) {
+            const idx = testSelectedChars.findIndex(c => c.ch === letter.ch);
+            if(idx >= 0) {
+                testSelectedChars.splice(idx, 1);
+                btn.classList.remove('selected');
+            } else {
+                testSelectedChars.push(letter);
+                btn.classList.add('selected');
+            }
+            updateTestSelectedCount();
+        }
+
+        function updateTestSelectedCount() {
+            const el = document.getElementById('testSelectedCount');
+            if(el) el.innerText = `المحدد: ${testSelectedChars.length} حرف`;
+        }
+
+        function selectAllTestChars(type) {
+            const src = (type === 'hira') ? hiraData : kataData;
+            src.forEach(group => {
+                group.letters.forEach(letter => {
+                    if(!testSelectedChars.some(c => c.ch === letter.ch)) {
+                        testSelectedChars.push(letter);
+                    }
+                });
+            });
+            renderTestSelectors();
+        }
+
+        function clearTestSelection() {
+            testSelectedChars = [];
+            renderTestSelectors();
+        }
+
+        function shuffleArray(arr) {
+            for(let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function startKanaTest() {
+            if(testSelectedChars.length === 0) {
+                alert("⚠️ اختر حرفاً واحداً على الأقل قبل بدء الاختبار!");
+                return;
+            }
+
+            testQueue = shuffleArray([...testSelectedChars]);
+            testIndex = 0;
+            testCorrectCount = 0;
+
+            document.getElementById('testContentSection').classList.remove('active');
+            document.getElementById('tabTestBtn').classList.remove('active');
+
+            const inputField = document.getElementById('testInput');
+            inputField.value = "";
+            inputField.style.display = "";
+            document.getElementById('testResultMsg').style.display = 'none';
+            document.getElementById('kanaTestZone').style.display = 'block';
+
+            updateTestUI();
+            setTimeout(() => { inputField.focus(); }, 100);
+        }
+
+        function updateTestUI() {
+            if(testIndex >= testQueue.length) {
+                finishKanaTest();
+                return;
+            }
+            const current = testQueue[testIndex];
+            document.getElementById('testTargetChar').innerText = current.ch;
+            document.getElementById('testCounter').innerText = `السؤال: ${testIndex + 1} / ${testQueue.length}`;
+            const percent = (testIndex / testQueue.length) * 100;
+            document.getElementById('testProgressBar').style.width = `${percent}%`;
+        }
+
+        function checkTestInput() {
+            const inputField = document.getElementById('testInput');
+            const userVal = inputField.value.trim().toLowerCase();
+            const current = testQueue[testIndex];
+            if(!current) return;
+
+            if(userVal === current.ro) {
+                testCorrectCount++;
+                testIndex++;
+                inputField.value = "";
+                updateTestUI();
+            }
+        }
+
+        function finishKanaTest() {
+            document.getElementById('testProgressBar').style.width = "100%";
+            document.getElementById('testTargetChar').innerText = "🎉";
+            document.getElementById('testCounter').innerText = "انتهى الاختبار!";
+            document.getElementById('testInput').style.display = 'none';
+
+            const resultEl = document.getElementById('testResultMsg');
+            resultEl.style.display = 'block';
+            resultEl.innerText = `النتيجة: ${testCorrectCount} صحيح من أصل ${testQueue.length} 🎯`;
+        }
+
+        function endKanaTest() {
+            document.getElementById('kanaTestZone').style.display = 'none';
+            document.getElementById('testInput').style.display = '';
+            document.getElementById('testInput').value = '';
+            document.getElementById('testResultMsg').style.display = 'none';
+            switchSubSection('test');
+        }
     </script>
 <script>
 function runLocalSearch() {
@@ -5427,6 +5776,471 @@ function runLocalSearch() {
         `;
         results.appendChild(div);
     });
+}
+
+// ============================================================
+//  🎧 قسم الاستماع - قصص صوتية مع تظليل الكلمات
+// ============================================================
+
+const listeningStories = [
+    {
+        id: 'akira_day',
+        title: '📖 يوم أكيرا الدراسي',
+        level: 'N5 - مبتدئ',
+        sentences: [
+            { ar: 'أنا طالب.', words: [
+                { jp: '私は', ar: 'أنا' },
+                { jp: '学生です。', ar: 'طالب / طالبة' }
+            ]},
+            { ar: 'أذهب إلى المدرسة كل يوم.', words: [
+                { jp: '毎日', ar: 'كل يوم' },
+                { jp: '学校に', ar: 'إلى المدرسة' },
+                { jp: '行きます。', ar: 'أذهب' }
+            ]},
+            { ar: 'آكل الفطور في الصباح.', words: [
+                { jp: '朝ごはんを', ar: 'الفطور' },
+                { jp: '食べます。', ar: 'آكل' }
+            ]},
+            { ar: 'بعد ذلك أركب القطار.', words: [
+                { jp: 'それから', ar: 'بعد ذلك' },
+                { jp: '電車に', ar: 'بالقطار' },
+                { jp: '乗ります。', ar: 'أركب' }
+            ]},
+            { ar: 'أدرس مع أصدقائي في المدرسة.', words: [
+                { jp: '学校で', ar: 'في المدرسة' },
+                { jp: '友達と', ar: 'مع الأصدقاء' },
+                { jp: '勉強します。', ar: 'أدرس' }
+            ]},
+            { ar: 'لدينا حصة رياضة قبل الغداء.', words: [
+                { jp: '昼ごはんの前に', ar: 'قبل الغداء' },
+                { jp: '体育の', ar: 'الرياضة' },
+                { jp: '授業が', ar: 'حصة' },
+                { jp: 'あります。', ar: 'توجد / لدينا' }
+            ]},
+            { ar: 'ألعب كرة القدم مع أصدقائي.', words: [
+                { jp: '友達と', ar: 'مع أصدقائي' },
+                { jp: 'サッカーを', ar: 'كرة القدم' },
+                { jp: 'します。', ar: 'ألعب' }
+            ]},
+            { ar: 'آكل الغداء في المقصف.', words: [
+                { jp: 'お昼ごはんは', ar: 'الغداء' },
+                { jp: '食堂で', ar: 'في المقصف' },
+                { jp: '食べます。', ar: 'آكل' }
+            ]},
+            { ar: 'بعد الغداء أقرأ كتابًا في المكتبة.', words: [
+                { jp: '昼ごはんの後、', ar: 'بعد الغداء' },
+                { jp: '図書館で', ar: 'في المكتبة' },
+                { jp: '本を', ar: 'كتابًا' },
+                { jp: '読みます。', ar: 'أقرأ' }
+            ]},
+            { ar: 'المكتبة هادئة جدًا.', words: [
+                { jp: '図書館は', ar: 'المكتبة' },
+                { jp: 'とても', ar: 'جدًا' },
+                { jp: '静かです。', ar: 'هادئة' }
+            ]},
+            { ar: 'أعود إلى المنزل بعد انتهاء الدوام.', words: [
+                { jp: '放課後、', ar: 'بعد الدوام' },
+                { jp: '家に', ar: 'إلى المنزل' },
+                { jp: '帰ります。', ar: 'أعود' }
+            ]},
+            { ar: 'أستحم قبل العشاء.', words: [
+                { jp: '晩ごはんの前に、', ar: 'قبل العشاء' },
+                { jp: 'お風呂に', ar: 'في الحمام' },
+                { jp: '入ります。', ar: 'أستحم / أدخل' }
+            ]},
+            { ar: 'آكل العشاء مع عائلتي.', words: [
+                { jp: '家族と', ar: 'مع العائلة' },
+                { jp: '晩ごはんを', ar: 'العشاء' },
+                { jp: '食べます。', ar: 'آكل' }
+            ]},
+            { ar: 'بعد ذلك أذاكر واجباتي.', words: [
+                { jp: 'それから', ar: 'بعد ذلك' },
+                { jp: '宿題を', ar: 'الواجب' },
+                { jp: 'します。', ar: 'أفعل / أذاكر' }
+            ]},
+            { ar: 'أشاهد التلفاز قليلاً قبل النوم.', words: [
+                { jp: '寝る前に、', ar: 'قبل النوم' },
+                { jp: '少し', ar: 'قليلاً' },
+                { jp: 'テレビを', ar: 'التلفاز' },
+                { jp: '見ます。', ar: 'أشاهد' }
+            ]},
+            { ar: 'أنام مبكرًا في الليل.', words: [
+                { jp: '夜、', ar: 'في الليل' },
+                { jp: '早く', ar: 'مبكرًا' },
+                { jp: '寝ます。', ar: 'أنام' }
+            ]}
+        ]
+    },
+    {
+        id: 'family_weekend',
+        title: '📖 عطلة نهاية الأسبوع مع العائلة',
+        level: 'N5 - مبتدئ',
+        sentences: [
+            { ar: 'اليوم يوم إجازة.', words: [
+                { jp: '今日は', ar: 'اليوم' },
+                { jp: '休みです。', ar: 'إجازة' }
+            ]},
+            { ar: 'أستيقظ متأخرًا في الصباح.', words: [
+                { jp: '朝、', ar: 'في الصباح' },
+                { jp: '遅く', ar: 'متأخرًا' },
+                { jp: '起きます。', ar: 'أستيقظ' }
+            ]},
+            { ar: 'أذهب مع أمي إلى السوق.', words: [
+                { jp: '母と', ar: 'مع أمي' },
+                { jp: '市場に', ar: 'إلى السوق' },
+                { jp: '行きます。', ar: 'أذهب' }
+            ]},
+            { ar: 'نشتري خضروات وفواكه.', words: [
+                { jp: '野菜と', ar: 'خضروات و' },
+                { jp: '果物を', ar: 'فواكه' },
+                { jp: '買います。', ar: 'نشتري' }
+            ]},
+            { ar: 'بعد ذلك نطبخ الغداء معًا.', words: [
+                { jp: 'それから', ar: 'بعد ذلك' },
+                { jp: '一緒に', ar: 'معًا' },
+                { jp: '昼ごはんを', ar: 'الغداء' },
+                { jp: '作ります。', ar: 'نطبخ / نصنع' }
+            ]},
+            { ar: 'الغداء لذيذ جدًا اليوم.', words: [
+                { jp: '今日の', ar: 'اليوم' },
+                { jp: '昼ごはんは', ar: 'الغداء' },
+                { jp: 'とても', ar: 'جدًا' },
+                { jp: '美味しいです。', ar: 'لذيذ' }
+            ]},
+            { ar: 'بعد الظهر نزور جدي وجدتي.', words: [
+                { jp: '午後、', ar: 'بعد الظهر' },
+                { jp: '祖父母の家に', ar: 'إلى بيت الجد والجدة' },
+                { jp: '行きます。', ar: 'نذهب' }
+            ]},
+            { ar: 'جدتي تُعِدّ لنا الشاي والحلويات.', words: [
+                { jp: '祖母は', ar: 'جدتي' },
+                { jp: 'お茶と', ar: 'الشاي و' },
+                { jp: 'お菓子を', ar: 'الحلويات' },
+                { jp: '作ります。', ar: 'تُعِدّ / تصنع' }
+            ]},
+            { ar: 'أبي يشاهد التلفاز.', words: [
+                { jp: '父は', ar: 'أبي' },
+                { jp: 'テレビを', ar: 'التلفاز' },
+                { jp: '見ます。', ar: 'يشاهد' }
+            ]},
+            { ar: 'أخي الصغير يلعب في الحديقة.', words: [
+                { jp: '弟は', ar: 'أخي الصغير' },
+                { jp: '公園で', ar: 'في الحديقة' },
+                { jp: '遊びます。', ar: 'يلعب' }
+            ]},
+            { ar: 'نلعب لعبة لوحية معًا في المساء.', words: [
+                { jp: '夜、', ar: 'في المساء' },
+                { jp: 'みんなで', ar: 'جميعًا' },
+                { jp: 'ボードゲームを', ar: 'لعبة لوحية' },
+                { jp: 'します。', ar: 'نلعب' }
+            ]},
+            { ar: 'في المساء نأكل جميعًا معًا.', words: [
+                { jp: '夜は', ar: 'في المساء' },
+                { jp: 'みんなで', ar: 'جميعًا' },
+                { jp: '食べます。', ar: 'نأكل' }
+            ]},
+            { ar: 'بعد العشاء ننظف المنزل قليلاً.', words: [
+                { jp: '晩ごはんの後、', ar: 'بعد العشاء' },
+                { jp: '少し', ar: 'قليلاً' },
+                { jp: '家を', ar: 'المنزل' },
+                { jp: '掃除します。', ar: 'ننظف' }
+            ]},
+            { ar: 'كان يومًا سعيدًا جدًا.', words: [
+                { jp: 'とても', ar: 'جدًا' },
+                { jp: '楽しい', ar: 'سعيد / ممتع' },
+                { jp: '一日でした。', ar: 'كان يومًا' }
+            ]},
+            { ar: 'أنام مبكرًا استعدادًا للأسبوع الجديد.', words: [
+                { jp: '新しい一週間のために、', ar: 'استعدادًا للأسبوع الجديد' },
+                { jp: '早く', ar: 'مبكرًا' },
+                { jp: '寝ます。', ar: 'أنام' }
+            ]}
+        ]
+    }
+];
+
+let currentStoryIndex = null;
+let storyPlaying = false;
+let storyCurrentSentence = 0;
+let storySpeechRate = 0.85;
+let storyManuallyStopped = false;
+let storyVoicesReady = [];
+
+// تحميل الأصوات (بعض المتصفحات تحملها بشكل غير متزامن)
+function loadStoryVoices() {
+    if (!('speechSynthesis' in window)) return;
+    storyVoicesReady = window.speechSynthesis.getVoices();
+}
+if ('speechSynthesis' in window) {
+    loadStoryVoices();
+    window.speechSynthesis.onvoiceschanged = loadStoryVoices;
+}
+
+function getJapaneseVoice() {
+    if (!storyVoicesReady || storyVoicesReady.length === 0) {
+        storyVoicesReady = window.speechSynthesis.getVoices();
+    }
+    return storyVoicesReady.find(v => v.lang && v.lang.toLowerCase().startsWith('ja')) || null;
+}
+
+// عرض بطاقات اختيار القصص
+function renderListeningStories() {
+    const supported = ('speechSynthesis' in window);
+    document.getElementById('storyNotSupportedMsg').style.display = supported ? 'none' : 'block';
+
+    const menu = document.getElementById('storySelectMenu');
+    menu.innerHTML = '';
+
+    listeningStories.forEach((story, idx) => {
+        const card = document.createElement('div');
+        card.className = 'story-select-card' + (currentStoryIndex === idx ? ' active' : '');
+        card.onclick = () => loadListeningStory(idx);
+        card.innerHTML = `
+            <div class="s-title">${story.title}</div>
+            <div class="s-level">${story.level}</div>
+        `;
+        menu.appendChild(card);
+    });
+
+    if (currentStoryIndex === null && listeningStories.length > 0) {
+        loadListeningStory(0);
+    }
+}
+
+// تحميل قصة معيّنة وبناء عناصرها
+function loadListeningStory(idx) {
+    stopStoryPlayback();
+    currentStoryIndex = idx;
+    storyCurrentSentence = 0;
+
+    document.querySelectorAll('.story-select-card').forEach((c, i) => {
+        c.classList.toggle('active', i === idx);
+    });
+
+    const story = listeningStories[idx];
+    const textBox = document.getElementById('storyTextContainer');
+
+    textBox.innerHTML = '';
+
+    story.sentences.forEach((sentence, sIdx) => {
+        const sentDiv = document.createElement('div');
+        sentDiv.className = 'story-sentence';
+        sentDiv.id = `story-sent-${sIdx}`;
+
+        sentence.words.forEach((word, wIdx) => {
+            const span = document.createElement('span');
+            span.className = 'story-word';
+            span.id = `story-word-${sIdx}-${wIdx}`;
+            span.onclick = (e) => { e.stopPropagation(); speakSingleStoryWord(sIdx, wIdx); };
+
+            const jpSpan = document.createElement('span');
+            jpSpan.className = 'story-word-jp';
+            jpSpan.textContent = word.jp;
+
+            const arSpan = document.createElement('span');
+            arSpan.className = 'story-word-ar';
+            arSpan.textContent = word.ar;
+
+            span.appendChild(jpSpan);
+            span.appendChild(arSpan);
+            sentDiv.appendChild(span);
+        });
+
+        const fullDiv = document.createElement('div');
+        fullDiv.className = 'story-sentence-full';
+        fullDiv.id = `story-trans-${sIdx}`;
+        fullDiv.textContent = `${sIdx + 1}. ${sentence.ar}`;
+        sentDiv.appendChild(fullDiv);
+
+        textBox.appendChild(sentDiv);
+    });
+
+    document.getElementById('storyReaderBox').classList.add('active');
+    updateStoryProgressBar();
+    resetStoryPlayButton();
+}
+
+function resetStoryPlayButton() {
+    document.getElementById('storyPlayBtn').textContent = '▶️ تشغيل';
+}
+
+function updateStoryProgressBar() {
+    const story = listeningStories[currentStoryIndex];
+    if (!story) return;
+    const total = story.sentences.length;
+    const pct = total > 0 ? Math.round((storyCurrentSentence / total) * 100) : 0;
+    document.getElementById('storyProgressBar').style.width = pct + '%';
+}
+
+function clearStoryHighlights() {
+    document.querySelectorAll('.story-word.playing').forEach(el => el.classList.remove('playing'));
+    document.querySelectorAll('.story-sentence.active-sentence').forEach(el => el.classList.remove('active-sentence'));
+    document.querySelectorAll('.story-sentence-full.active-translation').forEach(el => el.classList.remove('active-translation'));
+}
+
+// تشغيل / إيقاف مؤقت
+function toggleStoryPlayback() {
+    if (!('speechSynthesis' in window)) {
+        alert('متصفحك لا يدعم خاصية النطق الصوتي، جرّب متصفح Chrome');
+        return;
+    }
+    if (currentStoryIndex === null) return;
+
+    if (storyPlaying) {
+        // إيقاف مؤقت
+        window.speechSynthesis.pause();
+        storyPlaying = false;
+        document.getElementById('storyPlayBtn').textContent = '▶️ استمرار';
+    } else {
+        if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+            storyPlaying = true;
+            document.getElementById('storyPlayBtn').textContent = '⏸️ إيقاف مؤقت';
+        } else {
+            storyManuallyStopped = false;
+            speakStorySentence(storyCurrentSentence);
+        }
+    }
+}
+
+function stopStoryPlayback() {
+    storyManuallyStopped = true;
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    storyPlaying = false;
+    storyCurrentSentence = 0;
+    clearStoryHighlights();
+    updateStoryProgressBar();
+    resetStoryPlayButton();
+}
+
+function changeStorySpeed(val) {
+    storySpeedRate_set(val);
+}
+function storySpeedRate_set(val) {
+    storySpeechRate = parseFloat(val);
+}
+
+// نطق جملة كاملة مع تظليل الكلمات أثناء القراءة
+function speakStorySentence(sIdx) {
+    const story = listeningStories[currentStoryIndex];
+    if (!story || sIdx >= story.sentences.length) {
+        // انتهت القصة
+        storyPlaying = false;
+        storyCurrentSentence = 0;
+        clearStoryHighlights();
+        updateStoryProgressBar();
+        resetStoryPlayButton();
+        return;
+    }
+
+    window.speechSynthesis.cancel();
+    clearStoryHighlights();
+
+    const sentence = story.sentences[sIdx];
+    document.getElementById(`story-sent-${sIdx}`)?.classList.add('active-sentence');
+    document.getElementById(`story-trans-${sIdx}`)?.classList.add('active-translation');
+    document.getElementById(`story-sent-${sIdx}`)?.scrollIntoView({ behavior:'smooth', block:'center' });
+
+    // حساب مدى الأحرف لكل كلمة داخل نص الجملة الكامل
+    let fullText = '';
+    const ranges = [];
+    sentence.words.forEach((w, wIdx) => {
+        const start = fullText.length;
+        fullText += w.jp;
+        ranges.push({ start, end: fullText.length, wIdx });
+    });
+
+    const utterance = new SpeechSynthesisUtterance(fullText);
+    utterance.lang = 'ja-JP';
+    utterance.rate = storySpeechRate;
+    const voice = getJapaneseVoice();
+    if (voice) utterance.voice = voice;
+
+    let highlightTimer = null;
+    let lastHighlighted = -1;
+
+    // نظام احتياطي: تظليل الكلمات تدريجياً بالاعتماد على الوقت التقريبي
+    // في حال لم يدعم المتصفح حدث onboundary بشكل جيد للغة اليابانية
+    function startFallbackHighlighting() {
+        let wIdx = 0;
+        const perWordMs = Math.max(220, 480 / storySpeechRate);
+        highlightTimer = setInterval(() => {
+            if (wIdx >= sentence.words.length) {
+                clearInterval(highlightTimer);
+                return;
+            }
+            document.querySelectorAll(`#story-sent-${sIdx} .story-word`).forEach(el => el.classList.remove('playing'));
+            document.getElementById(`story-word-${sIdx}-${wIdx}`)?.classList.add('playing');
+            wIdx++;
+        }, perWordMs);
+    }
+
+    let boundaryFired = false;
+    utterance.onboundary = (event) => {
+        boundaryFired = true;
+        if (highlightTimer) { clearInterval(highlightTimer); highlightTimer = null; }
+        const idx = event.charIndex;
+        const range = ranges.find(r => idx >= r.start && idx < r.end) || ranges[ranges.length - 1];
+        if (range && range.wIdx !== lastHighlighted) {
+            document.querySelectorAll(`#story-sent-${sIdx} .story-word`).forEach(el => el.classList.remove('playing'));
+            document.getElementById(`story-word-${sIdx}-${range.wIdx}`)?.classList.add('playing');
+            lastHighlighted = range.wIdx;
+        }
+    };
+
+    utterance.onstart = () => {
+        storyPlaying = true;
+        document.getElementById('storyPlayBtn').textContent = '⏸️ إيقاف مؤقت';
+        // انتظر قليلاً، إذا ما اشتغل onboundary نفعّل النظام الاحتياطي
+        setTimeout(() => { if (!boundaryFired) startFallbackHighlighting(); }, 300);
+    };
+
+    utterance.onend = () => {
+        if (highlightTimer) clearInterval(highlightTimer);
+        if (storyManuallyStopped) return;
+        storyCurrentSentence = sIdx + 1;
+        updateStoryProgressBar();
+        speakStorySentence(storyCurrentSentence);
+    };
+
+    utterance.onerror = () => {
+        if (highlightTimer) clearInterval(highlightTimer);
+    };
+
+    window.speechSynthesis.speak(utterance);
+}
+
+// نطق كلمة واحدة عند الضغط عليها
+function speakSingleStoryWord(sIdx, wIdx) {
+    if (!('speechSynthesis' in window)) {
+        alert('متصفحك لا يدعم خاصية النطق الصوتي، جرّب متصفح Chrome');
+        return;
+    }
+
+    // أوقف القصة الجارية مؤقتاً
+    storyManuallyStopped = true;
+    window.speechSynthesis.cancel();
+    storyPlaying = false;
+    resetStoryPlayButton();
+
+    const story = listeningStories[currentStoryIndex];
+    const word = story.sentences[sIdx].words[wIdx];
+    const cleanText = word.jp.replace(/[。、！？]/g, '');
+
+    const wordEl = document.getElementById(`story-word-${sIdx}-${wIdx}`);
+    document.querySelectorAll('.story-word.playing').forEach(el => el.classList.remove('playing'));
+    wordEl?.classList.add('playing');
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'ja-JP';
+    utterance.rate = 0.8;
+    const voice = getJapaneseVoice();
+    if (voice) utterance.voice = voice;
+
+    utterance.onend = () => { wordEl?.classList.remove('playing'); };
+    utterance.onerror = () => { wordEl?.classList.remove('playing'); };
+
+    window.speechSynthesis.speak(utterance);
 }
 
 // ============================================================
