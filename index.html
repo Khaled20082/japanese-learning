@@ -233,6 +233,88 @@
         .stage-box.locked { opacity: 0.4; cursor: not-allowed; background-color: #111; border-color: #222; }
         .stage-box .status-text { font-size: 12px; margin-top: 6px; color: #aaa; }
 
+        /* أزرار اختيار وضع المفردات (فلاش كارد / اكمل الجملة) */
+        .vocab-mode-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 10px 0 25px;
+            width: 100%;
+        }
+        .vocab-mode-btn {
+            background: #16161f;
+            border: 2px solid rgba(255,77,166,.35);
+            color: white;
+            padding: 12px 22px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: .3s;
+        }
+        .vocab-mode-btn:hover { border-color: #ff4da6; }
+        .vocab-mode-btn.active { background: var(--btn-bg); box-shadow: var(--btn-shadow); }
+
+        /* بطاقة سؤال إكمال الجملة */
+        .sentence-quiz-card {
+            background-color: var(--card-bg);
+            border: 2px solid rgba(255, 77, 166, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .sentence-quiz-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--accent-pink);
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+        .sentence-jp {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 12px;
+            color: #fff;
+            line-height: 1.6;
+        }
+        .sentence-ar {
+            font-size: 15px;
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 22px;
+        }
+        .sentence-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 500px) { .sentence-options { grid-template-columns: 1fr; } }
+        .sentence-option-btn {
+            background-color: #1e1e2a;
+            border: 2px solid #333;
+            border-radius: 12px;
+            padding: 14px 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all .2s ease;
+        }
+        .sentence-option-btn:hover:not(.disabled) { border-color: var(--btn-bg); box-shadow: var(--btn-shadow); }
+        .sentence-option-btn.correct { border-color: #4caf50; background: rgba(76,175,80,.1); box-shadow: 0 0 12px rgba(76,175,80,.5); }
+        .sentence-option-btn.wrong { border-color: #e74c3c; background: rgba(231,76,60,.1); box-shadow: 0 0 12px rgba(231,76,60,.5); }
+        .sentence-option-btn.disabled { cursor: not-allowed; }
+        .sentence-option-meaning {
+            font-size: 12px;
+            color: var(--accent-pink);
+            margin-top: 6px;
+            display: none;
+        }
+        .sentence-option-btn.reveal .sentence-option-meaning { display: block; }
+
         /* شبكة اختيار الأحرف لاختبار الكانا */
         .kana-select-grid {
             display: grid;
@@ -954,6 +1036,13 @@ placeholder=" (البحث) اكتب الكانجي أو المعنى العرب�
 
     <h2 style="text-align:center">📖 المفردات اليابانية</h2>
 
+    <div class="vocab-mode-buttons">
+        <button class="vocab-mode-btn active" id="vocabModeFlashBtn" onclick="openVocabSection('flashcard')">🃏 الفلاش كارد</button>
+        <button class="vocab-mode-btn" id="vocabModeSentenceBtn" onclick="openVocabSection('sentence')">✍️ اكمل الجملة</button>
+    </div>
+
+    <div id="vocabFlashcardSection" style="width:100%; display:flex; flex-direction:column; align-items:center;">
+
       <div class="review-buttons">
 
         <button class="sub-btn" onclick="showDifficultWords()">
@@ -1003,6 +1092,37 @@ placeholder=" (البحث) اكتب الكانجي أو المعنى العرب�
         <button class="sub-btn" onclick="openCategory('adjectives')">✨ الصفات</button>
 
         <button class="sub-btn" onclick="openCategory('daily')">📅 الحياة اليومية</button>
+
+    </div>
+
+    </div>
+
+    <div id="vocabSentenceSection" style="width:100%; display:none; flex-direction:column; align-items:center;">
+
+        <p style="color:#aaa; font-size:14px; text-align:center; margin-top:-8px; margin-bottom:15px;">
+            كل تصنيف عبارة عن محاورة مستقلة، أكمل المحاورة عشان تفتح الي بعدها 🔓
+        </p>
+
+        <div class="stages-grid" id="sentenceStagesGrid"></div>
+
+        <div class="sentence-quiz-card" id="sentenceQuizCard" style="display:none;">
+            <div class="sentence-quiz-header">
+                <span id="sentenceCategoryLabel"></span>
+                <span id="sentenceQCounter"></span>
+            </div>
+            <div class="sentence-jp" id="sentenceJpText"></div>
+            <div class="sentence-ar" id="sentenceArText"></div>
+            <div class="sentence-options" id="sentenceOptionsGrid"></div>
+            <div style="text-align:center; margin-top:20px;">
+                <button class="sub-btn" id="sentenceNextBtn" style="display:none;" onclick="nextSentenceQuestion()">التالي ⬅️</button>
+            </div>
+        </div>
+
+        <div class="sentence-quiz-card" id="sentenceResultCard" style="display:none; text-align:center;">
+            <h3 id="sentenceResultTitle" style="color:var(--btn-bg);"></h3>
+            <p id="sentenceResultScore" style="font-size:18px; color:#e2e2e9;"></p>
+            <button class="sub-btn" onclick="backToSentenceStages()">📋 رجوع للمحاورات</button>
+        </div>
 
     </div>
 
@@ -4988,6 +5108,253 @@ let currentDeck = [];
 let currentWordIndex = 0;
 let cardFlipped = false;
 
+// ============================================================
+//  إكمال الجملة - بيانات التصنيفات والمحاورات
+// ============================================================
+const vocabCategoryMeta = [
+    {key:'school', label:'🏫 المدرسة'},
+    {key:'transport', label:'🚆 المواصلات'},
+    {key:'food', label:'🍜 الطعام'},
+    {key:'home', label:'🏠 المنزل'},
+    {key:'family', label:'👨‍👩‍👧‍👦 العائلة'},
+    {key:'work', label:'💼 العمل'},
+    {key:'shopping', label:'🛒 التسوق'},
+    {key:'time', label:'⏰ الوقت والتاريخ'},
+    {key:'weather', label:'☀️ الطقس'},
+    {key:'body', label:'🧍 الجسم'},
+    {key:'health', label:'🏥 الصحة'},
+    {key:'nature', label:'🌳 الطبيعة'},
+    {key:'animals', label:'🐶 الحيوانات'},
+    {key:'colors', label:'🎨 الألوان'},
+    {key:'numbers', label:'🔢 الأرقام'},
+    {key:'verbs', label:'🏃 الأفعال'},
+    {key:'adjectives', label:'✨ الصفات'},
+    {key:'daily', label:'📅 الحياة اليومية'}
+];
+
+let sentenceUnlocked = vocabCategoryMeta.map((c, i) => i === 0);
+let currentSentenceCatIdx = null;
+let currentSentenceQuestions = [];
+let currentSentenceQIdx = 0;
+let sentenceCorrectCount = 0;
+let sentenceAnswered = false;
+
+const sentenceTemplates = {
+    school: [
+        {jp:"わたしは まいにち ＿＿＿ へ いきます。", ar:"أنا أذهب كل يوم إلى ({m})."},
+        {jp:"＿＿＿ は とても たいせつです。", ar:"({m}) مهم جداً."}
+    ],
+    transport: [
+        {jp:"わたしは ＿＿＿ に のります。", ar:"أنا أركب ({m})."},
+        {jp:"＿＿＿ が おそいです。", ar:"({m}) بطيء."}
+    ],
+    food: [
+        {jp:"わたしは ＿＿＿ を たべます。", ar:"أنا آكل ({m})."},
+        {jp:"この ＿＿＿ は おいしいです。", ar:"هذا الـ({m}) لذيذ."}
+    ],
+    home: [
+        {jp:"＿＿＿ は うちに あります。", ar:"({m}) موجود في البيت."},
+        {jp:"わたしは ＿＿＿ を つかいます。", ar:"أنا أستخدم ({m})."}
+    ],
+    family: [
+        {jp:"わたしの ＿＿＿ は やさしいです。", ar:"(الـ{m}) عندي لطيف."},
+        {jp:"＿＿＿ と はなします。", ar:"أتحدث مع (الـ{m})."}
+    ],
+    work: [
+        {jp:"わたしは ＿＿＿ で はたらきます。", ar:"أنا أعمل في ({m})."},
+        {jp:"＿＿＿ は むずかしいです。", ar:"({m}) صعب."}
+    ],
+    shopping: [
+        {jp:"わたしは ＿＿＿ を かいます。", ar:"أنا أشتري ({m})."},
+        {jp:"＿＿＿ は たかいです。", ar:"({m}) غالي."}
+    ],
+    time: [
+        {jp:"＿＿＿ に あいましょう。", ar:"لنلتقِ في ({m})."},
+        {jp:"きょうは ＿＿＿ です。", ar:"اليوم هو ({m})."}
+    ],
+    weather: [
+        {jp:"きょうは ＿＿＿ です。", ar:"اليوم الجو ({m})."},
+        {jp:"＿＿＿ が すきです。", ar:"أحب ({m})."}
+    ],
+    body: [
+        {jp:"わたしの ＿＿＿ が いたいです。", ar:"(الـ{m}) عندي يؤلمني."},
+        {jp:"＿＿＿ を あらいます。", ar:"أغسل (الـ{m})."}
+    ],
+    health: [
+        {jp:"わたしは ＿＿＿ です。", ar:"أنا ({m})."},
+        {jp:"びょういんで ＿＿＿ を うけます。", ar:"أتلقى ({m}) في المستشفى."}
+    ],
+    nature: [
+        {jp:"＿＿＿ が きれいです。", ar:"(الـ{m}) جميل."},
+        {jp:"わたしは ＿＿＿ を みます。", ar:"أنا أرى (الـ{m})."}
+    ],
+    animals: [
+        {jp:"＿＿＿ が すきです。", ar:"أحب (الـ{m})."},
+        {jp:"あそこに ＿＿＿ が います。", ar:"هناك (الـ{m}) هناك."}
+    ],
+    colors: [
+        {jp:"これは ＿＿＿ いろです。", ar:"هذا لون ({m})."},
+        {jp:"わたしの すきな いろは ＿＿＿ です。", ar:"لوني المفضل هو ({m})."}
+    ],
+    numbers: [
+        {jp:"＿＿＿ こ あります。", ar:"يوجد عدد ({m})."},
+        {jp:"こたえは ＿＿＿ です。", ar:"الجواب هو ({m})."}
+    ],
+    verbs: [
+        {jp:"わたしは まいにち ＿＿＿。", ar:"أنا ({m}) كل يوم."},
+        {jp:"かれは いま ＿＿＿。", ar:"هو الآن ({m})."}
+    ],
+    adjectives: [
+        {jp:"この ものは ＿＿＿ です。", ar:"هذا الشيء ({m})."},
+        {jp:"あの ひとは ＿＿＿ です。", ar:"ذلك الشخص ({m})."}
+    ],
+    daily: [
+        {jp:"まいにち ＿＿＿ を します。", ar:"أفعل ({m}) كل يوم."},
+        {jp:"＿＿＿ は じゅうような しゅうかんです。", ar:"({m}) عادة مهمة."}
+    ]
+};
+
+function openVocabSection(section){
+    const flashSection = document.getElementById('vocabFlashcardSection');
+    const sentenceSection = document.getElementById('vocabSentenceSection');
+    const flashBtn = document.getElementById('vocabModeFlashBtn');
+    const sentenceBtn = document.getElementById('vocabModeSentenceBtn');
+
+    if(section === 'flashcard'){
+        flashSection.style.display = 'flex';
+        sentenceSection.style.display = 'none';
+        flashBtn.classList.add('active');
+        sentenceBtn.classList.remove('active');
+    } else {
+        flashSection.style.display = 'none';
+        sentenceSection.style.display = 'flex';
+        flashBtn.classList.remove('active');
+        sentenceBtn.classList.add('active');
+        document.getElementById('sentenceQuizCard').style.display = 'none';
+        document.getElementById('sentenceResultCard').style.display = 'none';
+        document.getElementById('sentenceStagesGrid').style.display = 'grid';
+        renderSentenceStages();
+    }
+}
+
+function renderSentenceStages(){
+    const grid = document.getElementById('sentenceStagesGrid');
+    if(!grid) return;
+    grid.innerHTML = "";
+
+    vocabCategoryMeta.forEach((cat, idx) => {
+        const isUnlocked = sentenceUnlocked[idx];
+        const box = document.createElement('div');
+        box.className = `stage-box ${isUnlocked ? 'unlocked' : 'locked'}`;
+        box.innerHTML = `
+            <div style="font-weight:bold; color:#fff;">${cat.label}</div>
+            <div class="status-text">${isUnlocked ? '🔓 مفتوح' : '🔒 مقفل'}</div>
+        `;
+        box.onclick = () => { if(isUnlocked) startSentenceStage(idx); else alert("🔒 يجب إنهاء المحاورة السابقة أولاً!"); };
+        grid.appendChild(box);
+    });
+}
+
+function startSentenceStage(idx){
+    currentSentenceCatIdx = idx;
+    const category = vocabCategoryMeta[idx].key;
+    const words = vocabularyWords.filter(w => w.category === category);
+    const pool = shuffleArray(words);
+    currentSentenceQuestions = pool.slice(0, Math.min(8, pool.length));
+    currentSentenceQIdx = 0;
+    sentenceCorrectCount = 0;
+
+    document.getElementById('sentenceStagesGrid').style.display = 'none';
+    document.getElementById('sentenceResultCard').style.display = 'none';
+    document.getElementById('sentenceQuizCard').style.display = 'block';
+
+    renderSentenceQuestion();
+}
+
+function renderSentenceQuestion(){
+    sentenceAnswered = false;
+    const idx = currentSentenceCatIdx;
+    const category = vocabCategoryMeta[idx].key;
+    const word = currentSentenceQuestions[currentSentenceQIdx];
+    const templates = sentenceTemplates[category] || [{jp:"＿＿＿", ar:"({m})"}];
+    const template = templates[Math.floor(Math.random() * templates.length)];
+
+    document.getElementById('sentenceCategoryLabel').innerText = vocabCategoryMeta[idx].label;
+    document.getElementById('sentenceQCounter').innerText = `سؤال ${currentSentenceQIdx + 1} / ${currentSentenceQuestions.length}`;
+    document.getElementById('sentenceJpText').innerText = template.jp;
+    document.getElementById('sentenceArText').innerText = template.ar.replace('{m}', word.a);
+
+    const sameCategoryWords = vocabularyWords.filter(w => w.category === category && w.j !== word.j);
+    const distractors = shuffleArray(sameCategoryWords).slice(0, 3);
+    const options = shuffleArray([word, ...distractors]);
+
+    const grid = document.getElementById('sentenceOptionsGrid');
+    grid.innerHTML = "";
+    options.forEach(opt => {
+        const btn = document.createElement('div');
+        btn.className = 'sentence-option-btn';
+        btn.innerHTML = `
+            <div class="opt-jp" style="font-size:20px;">${opt.j}</div>
+            <div style="font-size:13px; color:#aaa;">${opt.h}</div>
+            <div class="sentence-option-meaning">${opt.a}</div>
+        `;
+        btn.onclick = () => selectSentenceOption(btn, opt, word);
+        grid.appendChild(btn);
+    });
+
+    document.getElementById('sentenceNextBtn').style.display = 'none';
+}
+
+function selectSentenceOption(btn, opt, correctWord){
+    if(sentenceAnswered) return;
+    sentenceAnswered = true;
+
+    const isCorrect = opt.j === correctWord.j;
+    if(isCorrect) sentenceCorrectCount++;
+
+    const allBtns = document.querySelectorAll('#sentenceOptionsGrid .sentence-option-btn');
+    allBtns.forEach(b => {
+        b.classList.add('disabled', 'reveal');
+        const jpText = b.querySelector('.opt-jp').innerText;
+        if(jpText === correctWord.j) b.classList.add('correct');
+    });
+
+    if(!isCorrect) btn.classList.add('wrong');
+
+    document.getElementById('sentenceNextBtn').style.display = 'inline-block';
+}
+
+function nextSentenceQuestion(){
+    currentSentenceQIdx++;
+    if(currentSentenceQIdx >= currentSentenceQuestions.length){
+        finishSentenceStage();
+    } else {
+        renderSentenceQuestion();
+    }
+}
+
+function finishSentenceStage(){
+    const idx = currentSentenceCatIdx;
+    document.getElementById('sentenceQuizCard').style.display = 'none';
+    document.getElementById('sentenceResultCard').style.display = 'block';
+
+    const total = currentSentenceQuestions.length;
+    document.getElementById('sentenceResultTitle').innerText = '🎉 خلصت المحاورة!';
+    document.getElementById('sentenceResultScore').innerText = `النتيجة: ${sentenceCorrectCount} / ${total}`;
+
+    if(idx + 1 < sentenceUnlocked.length){
+        sentenceUnlocked[idx + 1] = true;
+    }
+
+    if(window.saveProgress) saveProgress();
+}
+
+function backToSentenceStages(){
+    document.getElementById('sentenceResultCard').style.display = 'none';
+    document.getElementById('sentenceStagesGrid').style.display = 'grid';
+    renderSentenceStages();
+}
+
 window.onload = function() {
     renderStages();
     renderKanji('N5');
@@ -6415,6 +6782,7 @@ window.saveProgress = async function () {
             user_id: user.id,
             hira_unlocked: JSON.stringify(hiraUnlocked),
             kata_unlocked: JSON.stringify(kataUnlocked),
+            sentence_unlocked: JSON.stringify(sentenceUnlocked),
             vocab_known: JSON.stringify(
                 vocabularyWords.filter(w => w.known).map(w => w.j)
             ),
@@ -6459,6 +6827,10 @@ window.loadProgress = async function () {
             const k = JSON.parse(data.kata_unlocked);
             if (Array.isArray(k)) k.forEach((v, i) => { kataUnlocked[i] = v; });
         }
+        if (data.sentence_unlocked) {
+            const s = JSON.parse(data.sentence_unlocked);
+            if (Array.isArray(s)) s.forEach((v, i) => { sentenceUnlocked[i] = v; });
+        }
         if (data.vocab_known) {
             const known = JSON.parse(data.vocab_known);
             known.forEach(j => {
@@ -6475,6 +6847,7 @@ window.loadProgress = async function () {
         }
 
         renderStages();
+        if (document.getElementById('sentenceStagesGrid')) renderSentenceStages();
         console.log("✅ تم تحميل التقدم من الحساب");
     } catch (e) {
         console.log("loadProgress error:", e);
