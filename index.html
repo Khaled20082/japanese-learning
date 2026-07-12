@@ -1148,7 +1148,6 @@
                 <div style="font-size: 16px; color: var(--cyan-color);" id="uCounter">الحرف: 1 / 5</div>
             </div>
             <div class="pz-char" id="uTargetChar">あ</div>
-            <div class="pz-hint" id="uTargetHint">النطق بالعربي: أَ</div>
             <div class="pz-input-wrapper">
                 <input type="text" class="pz-input" id="uInput" autocomplete="off" placeholder="اكتب النطق هنا بالروماجي..." oninput="checkUniversalInput()">
             </div>
@@ -1990,8 +1989,8 @@
             // [هنا يتم لصق بقية الـ 1100 كانجي لاحقاً]
         ];
 
-        let hiraUnlocked = [true, false, false, false, false, false, false, false, false, false];
-        let kataUnlocked = [true, false, false, false, false, false, false, false, false, false];
+        let hiraUnlocked = [true, false, false, false, false, false, false, false, false, false, false];
+        let kataUnlocked = [true, false, false, false, false, false, false, false, false, false, false];
 
         let activeType = 'hira';
         let currentGroupIdx = 0;
@@ -5394,7 +5393,7 @@ const vocabCategoryMeta = [
     {key:'daily', label:'📅 الحياة اليومية'}
 ];
 
-let sentenceUnlocked = vocabCategoryMeta.map((c, i) => i === 0);
+let sentenceUnlocked = vocabCategoryMeta.map((c, i) => i === 0).concat([false]);
 let currentSentenceCatIdx = null;
 let currentSentenceQuestions = [];
 let currentSentenceQIdx = 0;
@@ -5691,7 +5690,7 @@ grammarLevelsList.forEach(lv => { grammarStagesByLevel[lv] = chunkArray(grammarD
 let currentGrammarLevel = 'N5';
 let grammarUnlocked = {};
 grammarLevelsList.forEach(lv => {
-    grammarUnlocked[lv] = grammarStagesByLevel[lv].map((_, i) => i === 0);
+    grammarUnlocked[lv] = grammarStagesByLevel[lv].map((_, i) => i === 0).concat([false]);
 });
 
 let currentGrammarStageIdx = null;
@@ -5892,13 +5891,13 @@ function renderProgressPage(){
 
     // الهيراغانا
     const hiraCount = completedCount(hiraUnlocked);
-    const hiraTotal = hiraUnlocked.length;
+    const hiraTotal = hiraData.length;
     document.getElementById('progressHiraLabel').innerText = `${hiraCount} / ${hiraTotal}`;
     document.getElementById('progressHiraBar').style.width = `${(hiraCount / hiraTotal) * 100}%`;
 
     // الكاتاكانا
     const kataCount = completedCount(kataUnlocked);
-    const kataTotal = kataUnlocked.length;
+    const kataTotal = kataData.length;
     document.getElementById('progressKataLabel').innerText = `${kataCount} / ${kataTotal}`;
     document.getElementById('progressKataBar').style.width = `${(kataCount / kataTotal) * 100}%`;
 
@@ -5913,7 +5912,7 @@ function renderProgressPage(){
 
     // اكمل الجملة (مفردات)
     const sentenceCount = completedCount(sentenceUnlocked);
-    const sentenceTotal = sentenceUnlocked.length;
+    const sentenceTotal = vocabCategoryMeta.length;
     document.getElementById('progressSentenceLabel').innerText = `${sentenceCount} / ${sentenceTotal}`;
     document.getElementById('progressSentenceBar').style.width = `${(sentenceCount / sentenceTotal) * 100}%`;
 
@@ -5923,7 +5922,7 @@ function renderProgressPage(){
     const levelsHtml = grammarLevelsList.map(lv => {
         const arr = grammarUnlocked[lv];
         const unlockedCount = completedCount(arr);
-        const total = arr.length;
+        const total = grammarStagesByLevel[lv].length;
         grammarUnlockedTotal += unlockedCount;
         grammarStagesTotal += total;
         const pct = (unlockedCount / total) * 100;
@@ -5940,10 +5939,11 @@ function renderProgressPage(){
     document.getElementById('progressGrammarBar').style.width = `${(grammarUnlockedTotal / grammarStagesTotal) * 100}%`;
 
     // النسبة الكلية
+    // ملاحظة: ما ندخل "الكلمات المحفوظة" هنا لأنها مجرد تصنيف يدوي لكل كلمة
+    // من أصل 1080 كلمة، مو نظام مراحل قابل للإكمال زي الباقي
     const ratios = [
         hiraCount / hiraTotal,
         kataCount / kataTotal,
-        vocabKnown / vocabTotal,
         sentenceCount / sentenceTotal,
         grammarUnlockedTotal / grammarStagesTotal
     ];
@@ -6541,7 +6541,6 @@ function updateStats(){
 
             document.getElementById('uStageLabel').innerText = `${activeType === 'hira' ? 'هيراغانا' : 'كاتاكانا'} - ${currentGroup.name}`;
             document.getElementById('uTargetChar').innerText = currentLetter.ch;
-            document.getElementById('uTargetHint').innerText = `النطق بالعربي: ${currentLetter.ar}`;
             document.getElementById('uCounter').innerText = `الحرف: ${currentLetterIdx + 1} / ${currentGroup.letters.length}`;
 
             const percent = (currentLetterIdx / currentGroup.letters.length) * 100;
@@ -6563,11 +6562,11 @@ function updateStats(){
                     document.getElementById('uProgressBar').style.width = "100%";
                     
                     if(activeType === 'hira') {
-                        if(currentGroupIdx + 1 < hiraData.length) {
+                        if(currentGroupIdx + 1 < hiraUnlocked.length) {
                             hiraUnlocked[currentGroupIdx + 1] = true;
                         }
                     } else {
-                        if(currentGroupIdx + 1 < kataData.length) {
+                        if(currentGroupIdx + 1 < kataUnlocked.length) {
                             kataUnlocked[currentGroupIdx + 1] = true;
                         }
                     }
